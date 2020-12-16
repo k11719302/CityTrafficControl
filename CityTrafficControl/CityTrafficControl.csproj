@@ -55,11 +55,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Master\StreetMap\BusStation.cs" />
+    <Compile Include="Master\StreetMap\PublicTransportStation.cs" />
+    <Compile Include="Master\StreetMap\TramStation.cs" />
     <Compile Include="SS2\DataStructures\BaseRoute.cs" />
     <Compile Include="SS2\DataStructures\BaseRouteUpdate.cs" />
     <Compile Include="SS2\DataStructures\ParticipantPosition.cs" />
     <Compile Include="SS2\DataStructures\ParticipantSchedule.cs" />
     <Compile Include="SS2\DataStructures\SpecialRoute.cs" />
+    <Compile Include="SS2\DataStructures\TrackTypes.cs" />
     <Compile Include="SS2\ParticipantInfoManager.cs" />
     <Compile Include="SS2\Participants\Adult.cs" />
     <Compile Include="SS2\Participants\Bus.cs" />
@@ -77,6 +81,8 @@
     <Compile Include="SS2\Participants\Van.cs" />
     <Compile Include="SS2\Participants\Vehicle.cs" />
     <Compile Include="SS2\RouteManager.cs" />
+    <Compile Include="SS2\Simulation\SimulationEventArgs.cs" />
+    <Compile Include="SS2\Simulation\SimulationManager.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

@@ -6,5 +6,10 @@ using System.Threading.Tasks;
 
 namespace CityTrafficControl.SS2.Participants {
 	abstract class GoodsTransport : Vehicle {
+		public bool hasGoodsLoaded;
+
+
+		protected abstract void loadGoods();
+		protected abstract void unloadGoods();
 	}
 }

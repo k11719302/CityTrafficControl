@@ -6,5 +6,8 @@ using System.Threading.Tasks;
 
 namespace CityTrafficControl.SS2.Participants {
 	class Child : Pedestrian {
+		public void learn() {
+			throw new NotImplementedException();
+		}
 	}
 }
