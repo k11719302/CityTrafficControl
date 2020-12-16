@@ -55,6 +55,28 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="SS2\DataStructures\BaseRoute.cs" />
+    <Compile Include="SS2\DataStructures\BaseRouteUpdate.cs" />
+    <Compile Include="SS2\DataStructures\ParticipantPosition.cs" />
+    <Compile Include="SS2\DataStructures\ParticipantSchedule.cs" />
+    <Compile Include="SS2\DataStructures\SpecialRoute.cs" />
+    <Compile Include="SS2\ParticipantInfoManager.cs" />
+    <Compile Include="SS2\Participants\Adult.cs" />
+    <Compile Include="SS2\Participants\Bus.cs" />
+    <Compile Include="SS2\Participants\Car.cs" />
+    <Compile Include="SS2\Participants\Child.cs" />
+    <Compile Include="SS2\Participants\EmergencyCar.cs" />
+    <Compile Include="SS2\Participants\GoodsTransport.cs" />
+    <Compile Include="SS2\Participants\MaintenanceCar.cs" />
+    <Compile Include="SS2\Participants\Participant.cs" />
+    <Compile Include="SS2\Participants\Pedestrian.cs" />
+    <Compile Include="SS2\Participants\PrivateTransport.cs" />
+    <Compile Include="SS2\Participants\PublicTransport.cs" />
+    <Compile Include="SS2\Participants\Tram.cs" />
+    <Compile Include="SS2\Participants\Truck.cs" />
+    <Compile Include="SS2\Participants\Van.cs" />
+    <Compile Include="SS2\Participants\Vehicle.cs" />
+    <Compile Include="SS2\RouteManager.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -69,6 +91,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Master\DataLinker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -94,6 +117,14 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="SS1\" />
+    <Folder Include="SS3\" />
+    <Folder Include="SS4\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="SS2\TODO.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
