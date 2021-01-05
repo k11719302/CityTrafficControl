@@ -1,0 +1,4 @@
+﻿Import SS1 into here
+	- Copy-Paste
+	- Adapt changes (e.g. namespaces)
+

@@ -66,15 +66,16 @@
       <Name>CityTrafficControl</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Master\" />
-    <Folder Include="SS1\" />
-    <Folder Include="SS2\" />
-    <Folder Include="SS3\" />
-    <Folder Include="SS4\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Master\TODO.txt" />
+    <Content Include="SS1\TODO.txt" />
+    <Content Include="SS2\TODO.txt" />
+    <Content Include="SS3\TODO.txt" />
+    <Content Include="SS4\TODO.txt" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

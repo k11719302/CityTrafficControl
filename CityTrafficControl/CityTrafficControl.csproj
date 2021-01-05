@@ -124,13 +124,21 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="SS1\" />
-    <Folder Include="SS3\" />
-    <Folder Include="SS4\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="SS2\TODO.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="SS1\TODO.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Master\TODO.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="SS3\TODO.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="SS4\TODO.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
