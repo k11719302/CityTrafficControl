@@ -1,4 +1,5 @@
-﻿using CityTrafficControl.SS2.DataStructures;
+﻿using CityTrafficControl.Master;
+using CityTrafficControl.SS2.DataStructures;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,11 @@ namespace CityTrafficControl.SS2 {
 		private static List<BaseRouteUpdate> pendingBaseRouteUpdate;
 
 
+		// Static constructor
+		static RouteManager() {
+			DataLinker.SS2.updateBaseRoutes += DataLinker_updateBaseRoutes;
+		}
+
 		public static void updateBaseRoutes(List<BaseRouteUpdate> baseRoutesUpdates) {
 			// TODO: disable auto-update-request-Timer during update
 
@@ -21,14 +27,14 @@ namespace CityTrafficControl.SS2 {
 			updates.AddRange(baseRoutesUpdates);
 			pendingBaseRouteUpdate.Clear();
 
-			foreach (BaseRouteUpdate update in pendingBaseRouteUpdate) {
+			foreach (BaseRouteUpdate update in updates) {
 				switch (update.updateType) {
 					case BaseRouteUpdate.Type.Add:
 						baseRoutes.Add(update.routeID, update.newBaseRoute);
 						break;
 					case BaseRouteUpdate.Type.Delete:
 						if (routeInUse(update.newBaseRoute)) {
-							pendingBaseRouteUpdate.Add(update);		// handle BaseRouteUpdate later
+							pendingBaseRouteUpdate.Add(update);     // handle BaseRouteUpdate later
 						}
 						else {
 							baseRoutes.Remove(update.routeID);
@@ -59,8 +65,7 @@ namespace CityTrafficControl.SS2 {
 
 		// TODO: Needs to be called if the lastUpdateTime exceeds a given threshold (use Timer/Task in Background)
 		private static void requestBaseRoutes() {
-			List<BaseRouteUpdate> updates = DataLinker.SS2.requestBaseRoutes();		// TODO: DataLinker will be implemented with M3.2
-			updateBaseRoutes(updates);
+			DataLinker.SS2.requestBaseRoutes();
 		}
 
 		private static bool routeInUse(BaseRoute baseRoute) {
@@ -71,5 +76,12 @@ namespace CityTrafficControl.SS2 {
 		private static void applyChangedRouteProperties(BaseRoute route, List<BaseRouteUpdate.ChangedProperty> changedProperties) {
 			throw new NotImplementedException();
 		}
+
+
+		#region DataLinker Receive Methods
+		private static void DataLinker_updateBaseRoutes(object sender, List<BaseRouteUpdate> e) {
+			updateBaseRoutes(e);
+		}
+		#endregion
 	}
 }
