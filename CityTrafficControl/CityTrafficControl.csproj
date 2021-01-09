@@ -67,7 +67,6 @@
     <Compile Include="SS1\RoadCommand.cs" />
     <Compile Include="SS1\RoadSegment.cs" />
     <Compile Include="SS1\Sensor.cs" />
-    <Compile Include="SS1\Test.cs" />
     <Compile Include="SS1\TrafficControl.cs" />
     <Compile Include="SS1\TrafficDetection.cs" />
     <Compile Include="SS1\TrafficLight.cs" />
