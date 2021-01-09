@@ -7,16 +7,16 @@ namespace TrafficControlAndDetection
     class TrafficLight
     {
         private int id;
-        public int Id { get => id; }
+        public int Id { get { return id; } }
 
         private Position position;
-        public Position Position { get => position; }
+        public Position Position { get { return position; } }
 
         private LightStates state;
-        public LightStates State { get => state; set => state = value; }
+        public LightStates State { get { return state; } set { state = value; } }
 
         private int crossroadId;
-        public int CrossroadId { get => crossroadId; }
+        public int CrossroadId { get { return crossroadId; } }
 
         public TrafficLight()
         {

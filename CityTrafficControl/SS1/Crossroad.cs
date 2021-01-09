@@ -7,7 +7,7 @@ namespace TrafficControlAndDetection
     class Crossroad
     {
         private int id;
-        public int Id { get => id; }
+        public int Id { get { return id; } }
 
         private List<TrafficLight> lights; //only find, add, remove should be possible to carry out outside of the class
 

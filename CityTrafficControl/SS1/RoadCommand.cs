@@ -8,16 +8,16 @@ namespace TrafficControlAndDetection
     class RoadCommand
     {
         private int roadId;
-        public int RoadId { get => roadId; }
+        public int RoadId { get { return roadId; } }
 
         private RoadStates state;
-        public RoadStates State { get => state; }
+        public RoadStates State { get { return state; } }
 
         private bool changeState = true;   //boolean to show, whether the state should be changed or not
-        public bool ChangeState { get => changeState; }
+        public bool ChangeState { get { return changeState; } }
 
         private int speedLimit = -1;
-        public int SpeedLimit { get => speedLimit; }
+        public int SpeedLimit { get { return speedLimit; } }
 
         //if only the state should be changed
         public RoadCommand (int id, RoadStates state) 

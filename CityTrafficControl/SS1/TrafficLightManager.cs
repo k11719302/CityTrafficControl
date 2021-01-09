@@ -10,7 +10,7 @@ namespace TrafficControlAndDetection
         private static List<CrossroadPlan> crossRoadPlans=null;
 
         private static System.Timers.Timer timer; //the timer, which is needed for the traffic light cycles
-        public static System.Timers.Timer Timer { get => timer; }
+        public static System.Timers.Timer Timer { get { return timer; } }
 
         private static TrafficLightManager instance = null; ////using Singleton, because SS1 only needs one traffic light manager
 

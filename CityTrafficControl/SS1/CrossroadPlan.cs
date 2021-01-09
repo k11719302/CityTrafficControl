@@ -7,10 +7,10 @@ namespace TrafficControlAndDetection
     class CrossroadPlan
     {
         private int crossroadId;
-        public int CrossroadId { get => crossroadId; }
+        public int CrossroadId { get { return crossroadId; } }
 
         private List<TrafficLightPlan> plans;   //contains all the traffic light cycles of the lights at this crossroad
-        public List<TrafficLightPlan> Plans { get => plans; }
+        public List<TrafficLightPlan> Plans { get { return plans; } }
 
         public CrossroadPlan (int crossroadId, List<TrafficLightPlan> plans)
         { 

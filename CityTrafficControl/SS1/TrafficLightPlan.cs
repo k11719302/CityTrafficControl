@@ -7,14 +7,14 @@ namespace TrafficControlAndDetection
     class TrafficLightPlan
     {
         private int lightId;
-        public int LightId { get => lightId; }
+        public int LightId { get { return lightId; } }
 
         //SS3 probably sends 2 arrays to the DataLinker: LightStates[] lightStates and double[] duration
         //but the DataLinker translates the information for the TrafficLightPlan to:
         private double redDuration; //seconds
-        public double RedDuration { get => redDuration; set => redDuration = value; }
+        public double RedDuration { get { return redDuration; } set { redDuration = value; } }
         private double greenDuration;   //seconds
-        public double GreenDuration { get => greenDuration; set => greenDuration = value; }
+        public double GreenDuration { get { return greenDuration; } set { greenDuration = value; } }
 
         private DateTime timeStamp; //shows the time of the last update --> for calculating the time between two updates
 

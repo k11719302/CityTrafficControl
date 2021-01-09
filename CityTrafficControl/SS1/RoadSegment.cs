@@ -7,28 +7,28 @@ namespace TrafficControlAndDetection
     class RoadSegment
     {
         private RoadTypes type;
-        public RoadTypes Type { get=>type; }
+        public RoadTypes Type { get { return type; } }
 
         private int id;
-        public int Id { get => id; }
+        public int Id { get { return id; } }
 
         private Position start;
-        public Position Start { get => start; }
+        public Position Start { get { return start; } }
 
         private Position end;
-        public Position End { get => end; }
+        public Position End { get { return end; } }
 
         private RoadStates state;
-        public RoadStates State { get => state; set => state = value; }
+        public RoadStates State { get { return state; } set { state = value; } }
 
         private int numOfLanes;
-        public int NumOfLanes { get => numOfLanes; }
+        public int NumOfLanes { get { return numOfLanes; } }
 
         private int speedLimit;
-        public int SpeedLImit { get => speedLimit; set => speedLimit = value; }
+        public int SpeedLImit { get { return speedLimit; } set { speedLimit = value; } }
 
         private int crossroadId;
-        public int CrossroadId { get => crossroadId; }
+        public int CrossroadId { get { return crossroadId; } }
 
         public RoadSegment()
         {

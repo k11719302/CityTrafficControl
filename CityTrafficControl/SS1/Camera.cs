@@ -7,16 +7,16 @@ namespace TrafficControlAndDetection
     class Camera : Sensor
     {
         private int id;
-        public int Id { get => id; }
+        public int Id { get { return id; } }
 
         private Position position;
-        public Position Position { get => position; }
+        public Position Position { get { return position; } }
 
         private States state;
-        public States State { get => state; set => state = value; }
+        public States State { get { return state; } set { state = value; } }
 
         private Object currentImage = null;
-        public Object CurrentImage { get=> currentImage; } // type will be adapted in Milestone 3.2
+        public Object CurrentImage { get { return currentImage; } } // type will be adapted in Milestone 3.2
 
         public Camera(int id, Position position) {
             this.id = id;
