@@ -7,6 +7,17 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition/>
+            <RowDefinition Height="160"/>
+        </Grid.RowDefinitions>
+        <TextBox x:Name="Output_Tbx" Margin="10" Grid.Row="2" TextWrapping="Wrap" Grid.ColumnSpan="2"/>
+        <Button x:Name="Load_Btn" Content="Load" Margin="5" Click="Load_Btn_Click"/>
+
     </Grid>
 </Window>

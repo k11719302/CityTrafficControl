@@ -1,5 +1,4 @@
 ﻿using CityTrafficControl.SS2.DataStructures;
-using CityTrafficControl.SS2.Simulation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,9 +16,9 @@ namespace CityTrafficControl.SS2.Participants {
 
 
 		public Participant() {
-			SimulationManager.SimulateTick += SimulationManager_SimulateTick;
+			//SimulationManager.SimulateTick += SimulationManager_SimulateTick;
 		}
 
-		protected abstract void SimulationManager_SimulateTick(object sender, SimulationEventArgs e);
+		//protected abstract void SimulationManager_SimulateTick(object sender, SimulationEventArgs e);
 	}
 }

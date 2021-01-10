@@ -21,5 +21,19 @@ namespace CityTrafficControl {
 		public MainWindow() {
 			InitializeComponent();
 		}
+
+		private void PrintOutput(string str) {
+			Output_Tbx.Text = DateTime.Now.ToString("hh:mm:ss") + ": " + str + "\n" + Output_Tbx.Text;
+		}
+		private void PrintError(string str) {
+			PrintOutput("ERROR: " + str);
+		}
+
+		private void Load_Btn_Click(object sender, RoutedEventArgs e) {
+			switch(Master.Loader.Load()) {
+				case Master.Loader.LoadingError.NoError: PrintOutput("Loading complete!"); break;
+				case Master.Loader.LoadingError.AlreadyLoaded: PrintOutput("ERROR: Already loaded!"); break;
+			}
+		}
 	}
 }
