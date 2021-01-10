@@ -23,12 +23,12 @@ namespace CityTrafficControl.SS3
             roads = CalcPath();
         }
 
-        public int Id { get => id; }
-        public double Time { get => time; }
-        public double Length { get => length; }
-        public Road Start { get => start; }
-        public Road End { get => end; }
-        public List<Road> Roads { get => roads; }
+        public int Id { get { return id; } }
+        public double Time { get { return time; } }
+        public double Length { get { return length; } }
+        public Road Start { get { return start; } }
+        public Road End { get { return end; } }
+        public List<Road> Roads { get { return roads; } }
 
         public abstract List<Road> CalcPath();
 

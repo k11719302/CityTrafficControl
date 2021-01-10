@@ -16,7 +16,7 @@ namespace CityTrafficControl.SS3
             this.trafficlightPlans = trafficlightPlans;
         }
 
-        public int Id { get => id; }
-        public List<TrafficlightPlan> TrafficlightPlans { get => trafficlightPlans; }
+        public int Id { get { return id; } }
+        public List<TrafficlightPlan> TrafficlightPlans { get { return trafficlightPlans; } }
     }
 }

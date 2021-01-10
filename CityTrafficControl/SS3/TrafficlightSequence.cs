@@ -15,8 +15,8 @@ namespace CityTrafficControl.SS3
             this.status = status;
         }
 
-        public double[] Durations { get => durations; }
-        public TrafficlightStatus[] Status { get => status; }
+        public double[] Durations { get { return durations; } }
+        public TrafficlightStatus[] Status { get { return status; } }
     }
 
     enum TrafficlightStatus

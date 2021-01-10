@@ -19,9 +19,9 @@ namespace CityTrafficControl.SS3
             this.status = status;
         }
 
-        public int Id { get => id; }
-        public int Speedlimit { get => speedlimit; }
-        public RoadStatus Status { get => status; }
+        public int Id { get { return id; } }
+        public int Speedlimit { get { return speedlimit; } }
+        public RoadStatus Status { get { return status; } }
        
 
     }

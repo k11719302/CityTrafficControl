@@ -16,7 +16,7 @@ namespace CityTrafficControl.SS3
             this.sequence = sequence;
         }
 
-        public int TrafficlightId { get => trafficlightId; }
-        public TrafficlightSequence Sequenz { get => sequence; }
+        public int TrafficlightId { get { return trafficlightId; } }
+        public TrafficlightSequence Sequenz { get { return sequence; } }
     }
 }

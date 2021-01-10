@@ -25,13 +25,13 @@ namespace CityTrafficControl.SS3
             this.conected = conected;
         }
 
-        public int Id { get => id; }
-        public int Speedlimit { get => GetSpeedlimit(); }
-        public double Length { get => length; }
-        public double Time { get => time; }
-        public RoadStatus Status { get => GetStatus(); }
-        public RoadRestrictionTypes Restriction { get => restriction; }
-        public List<Road> Conected { get => conected; }
+        public int Id { get { return id; } }
+        public int Speedlimit { get { return GetSpeedlimit(); } }
+        public double Length { get { return length; } }
+        public double Time { get { return time; } }
+        public RoadStatus Status { get { return GetStatus(); } }
+        public RoadRestrictionTypes Restriction { get { return restriction; } }
+        public List<Road> Conected { get { return conected; } }
 
         //Updates data, when requested
         public RoadStatus GetStatus() 

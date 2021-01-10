@@ -17,9 +17,9 @@ namespace CityTrafficControl.SS3
             status = receiveCurrRoadStatus();
         }
 
-        public int RoadId { get => roadId; }
-        public int Speedlimit { get => speedlimit; }
-        public RoadStatus Status { get => status; }
+        public int RoadId { get { return roadId; } }
+        public int Speedlimit { get { return speedlimit; } }
+        public RoadStatus Status { get { return status; } }
 
         //receive current data from datalinker
         public int receiveCurrSpeedLimit()
