@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CityTrafficControl.Master;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,28 +13,49 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace CityTrafficControl {
 	/// <summary>
 	/// Interaktionslogik für MainWindow.xaml
 	/// </summary>
 	public partial class MainWindow : Window {
+		private Dispatcher dispatcher;
+
+
 		public MainWindow() {
 			InitializeComponent();
+			dispatcher = Application.Current.Dispatcher;
 		}
 
-		private void PrintOutput(string str) {
-			Output_Tbx.Text = DateTime.Now.ToString("hh:mm:ss") + ": " + str + "\n" + Output_Tbx.Text;
+		private delegate void Invoker();
+
+
+		public void PrintOutput(string str) {
+			Dispatcher.BeginInvoke(DispatcherPriority.Normal, (Invoker)delegate {
+				Output_Tbx.Text = DateTime.Now.ToString("hh:mm:ss") + ": " + str + "\n" + Output_Tbx.Text;
+			});
 		}
-		private void PrintError(string str) {
+		public void PrintError(string str) {
 			PrintOutput("ERROR: " + str);
 		}
 
-		private void Load_Btn_Click(object sender, RoutedEventArgs e) {
-			switch(Master.Loader.Load()) {
+		private void Init_Btn_Click(object sender, RoutedEventArgs e) {
+			/*switch(Master.Loader.Load()) {
 				case Master.Loader.LoadingError.NoError: PrintOutput("Loading complete!"); break;
 				case Master.Loader.LoadingError.AlreadyLoaded: PrintOutput("ERROR: Already loaded!"); break;
-			}
+			}*/
+			SimulationManager.Init(this);
+		}
+
+		private void Start_Btn_Click(object sender, RoutedEventArgs e) {
+			//SimulationManager.Start();
+			Task.Factory.StartNew(() => { SimulationManager.Start(); });
+		}
+
+		private void Stop_Btn_Click(object sender, RoutedEventArgs e) {
+			//SimulationManager.Stop();
+			Task.Factory.StartNew(() => { SimulationManager.Stop(); });
 		}
 	}
 }
