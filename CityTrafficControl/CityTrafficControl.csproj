@@ -55,7 +55,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Master\Loader.cs" />
     <Compile Include="Master\SimulationManager.cs" />
     <Compile Include="Master\StreetMap\BusStation.cs" />
     <Compile Include="Master\StreetMap\PublicTransportStation.cs" />
