@@ -9,7 +9,7 @@ namespace CityTrafficControl.Master {
 		private static MainWindow mainWindow;
 
 		private static bool isInitialized;
-		private static bool firstTick;
+		private static bool isFirstTick;
 
 		private static SimulationState state;
 
@@ -20,19 +20,35 @@ namespace CityTrafficControl.Master {
 
 		static SimulationManager() {
 			isInitialized = false;
-			firstTick = true;
+			isFirstTick = true;
 
 			state = SimulationState.Stopped;
 		}
 
 
+		/// <summary>
+		/// Gets the current simulation state.
+		/// </summary>
 		public static SimulationState State { get { return state; } }
 
+		/// <summary>
+		/// Gets the time of the last tick.
+		/// </summary>
 		public static DateTime LastTickTime { get { return lastTickTime; } }
+		/// <summary>
+		/// Gets the time of the current tick.
+		/// </summary>
 		public static DateTime CurTickTime { get { return curTickTime; } }
+		/// <summary>
+		/// Gets the time span of the current tick.
+		/// </summary>
 		public static TimeSpan TickDuration { get { return tickDuration; } }
 
 
+		/// <summary>
+		/// Initializes the SimulationManager.
+		/// </summary>
+		/// <param name="win">The reference to the MainWindow</param>
 		public static void Init(MainWindow win) {
 			if (isInitialized) {
 				PrintError("SimulationManager(Master) already initialized!");
@@ -49,14 +65,25 @@ namespace CityTrafficControl.Master {
 			SS4.SimulationManager.Init();
 		}
 
+		/// <summary>
+		/// Prints a string to the output in the MainWindow.
+		/// </summary>
+		/// <param name="str">The string to print</param>
 		public static void PrintOutput(string str) {
 			mainWindow.PrintOutput(str);
 		}
 
+		/// <summary>
+		/// Prints an error string to the output in the MainWindow.
+		/// </summary>
+		/// <param name="str">The error string to print</param>
 		public static void PrintError(string str) {
 			mainWindow.PrintError(str);
 		}
 
+		/// <summary>
+		/// Starts the simulation cycle.
+		/// </summary>
 		public static void Start() {
 			if (state == SimulationState.Stopped) {
 				PrintOutput("Simulation starting...");
@@ -68,6 +95,9 @@ namespace CityTrafficControl.Master {
 			}
 		}
 
+		/// <summary>
+		/// Stops the simulation cycle.
+		/// </summary>
 		public static void Stop() {
 			if (state == SimulationState.Running) {
 				PrintOutput("Simulation stopping...");
@@ -78,6 +108,9 @@ namespace CityTrafficControl.Master {
 			}
 		}
 
+		/// <summary>
+		/// Advances a single tick in the simulation.
+		/// </summary>
 		public static void SimulateSingleTick() {
 			if (state == SimulationState.Stopped) {
 				SimulateTick();
@@ -109,8 +142,8 @@ namespace CityTrafficControl.Master {
 		}
 
 		private static void UpdateTimestamps() {
-			if (firstTick) {
-				firstTick = false;
+			if (isFirstTick) {
+				isFirstTick = false;
 				lastTickTime = DateTime.Now;
 				curTickTime = lastTickTime;
 				tickDuration = TimeSpan.Zero;
