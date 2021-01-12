@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Timers;
 
-namespace TrafficControlAndDetection
+namespace CityTrafficControl.SS1
 {
     class TrafficLightManager
     {

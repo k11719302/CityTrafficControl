@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace TrafficControlAndDetection
+namespace CityTrafficControl.SS1
 {
     //SS1 receives commands for the roads from the DataLinker
     class RoadCommand

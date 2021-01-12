@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace TrafficControlAndDetection
+namespace CityTrafficControl.SS1
 {
     class TrafficDetection
     {
