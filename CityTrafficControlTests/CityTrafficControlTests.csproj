@@ -57,7 +57,10 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="SS1\CrossroadTest.cs" />
+    <Compile Include="SS1\CrossroadTests.cs" />
+    <Compile Include="SS1\TrafficControlTests.cs" />
+    <Compile Include="SS1\TrafficLightManagerTests.cs" />
+    <Compile Include="SS1\TrafficLightPlanTests.cs" />
     <Compile Include="UnitTestTemplate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -15,7 +15,7 @@ namespace CityTrafficControl.SS1
         public CrossroadPlan (int crossroadId, List<TrafficLightPlan> plans)
         { 
             this.crossroadId = crossroadId;
-            this. plans = plans;
+            this.plans = plans;
         }
 
         //public CrossroadPlan(int crossroadId)
