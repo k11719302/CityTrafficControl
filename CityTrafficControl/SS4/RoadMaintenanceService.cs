@@ -42,7 +42,7 @@ namespace CityTrafficControl.SS4 {
 
         }
 
-        public void CreateScheduledTask(RoadMaintenanceTask roadMaintenanceTask, Team team, Equipment equipment) {
+        public void CreateScheduledTask(RoadMaintenanceTask roadMaintenanceTask, Team team, Equipment equipment, DateTime from, DateTime to) {
             // TODO Add params, check task for Type, null...
             roadMaintenanceTask.AssignEquipment(equipment);
             roadMaintenanceTask.AssignTeam(team);
