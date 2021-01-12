@@ -5,7 +5,7 @@ using System.Text;
 namespace CityTrafficControl.SS1
 {
     //SS1 receives commands for the roads from the DataLinker
-    class RoadCommand
+    public class RoadCommand
     {
         private int roadId;
         public int RoadId { get { return roadId; } }

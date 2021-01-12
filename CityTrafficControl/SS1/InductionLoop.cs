@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CityTrafficControl.SS1
 {
-    class InductionLoop : Sensor
+    public class InductionLoop : Sensor
     {
         private int id;
         public int Id { get { return id; } } //should not be changed

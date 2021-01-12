@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CityTrafficControl.SS1
 {
-    class RoadSegment
+    public class RoadSegment
     {
         private RoadTypes type;
         public RoadTypes Type { get { return type; } }

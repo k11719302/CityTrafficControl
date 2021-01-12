@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CityTrafficControl.SS1
 {
-    class TrafficControl
+    public class TrafficControl
     {
         private static TrafficControl instance = null; //using Singleton, because SS1 only needs one traffic controler
 

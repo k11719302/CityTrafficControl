@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CityTrafficControl.SS1
 {
-    class CrossroadPlan
+    public class CrossroadPlan
     {
         private int crossroadId;
         public int CrossroadId { get { return crossroadId; } }

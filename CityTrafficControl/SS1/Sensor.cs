@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CityTrafficControl.SS1
 {
-    interface Sensor
+    public interface Sensor
     {
         int Id { get; }
         Position Position { get; }

@@ -5,7 +5,7 @@ using System.Timers;
 
 namespace CityTrafficControl.SS1
 {
-    class TrafficLightManager
+    public class TrafficLightManager
     {
         private static List<CrossroadPlan> crossRoadPlans=null;
 

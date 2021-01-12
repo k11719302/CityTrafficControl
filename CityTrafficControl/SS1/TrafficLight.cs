@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CityTrafficControl.SS1
 {
-    class TrafficLight
+    public class TrafficLight
     {
         private int id;
         public int Id { get { return id; } }

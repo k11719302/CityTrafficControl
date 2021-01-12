@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CityTrafficControl.SS1
 {
-    interface Incident
+    public interface Incident
     {
     }
 }

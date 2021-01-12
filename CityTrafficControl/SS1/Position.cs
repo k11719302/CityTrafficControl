@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CityTrafficControl.SS1
 {
-    class Position
+    public class Position
     {
         private int x;
         public int X { get { return x; } set { x = value; } }

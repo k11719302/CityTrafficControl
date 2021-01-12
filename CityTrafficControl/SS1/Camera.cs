@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CityTrafficControl.SS1
 {
-    class Camera : Sensor
+    public class Camera : Sensor
     {
         private int id;
         public int Id { get { return id; } }
