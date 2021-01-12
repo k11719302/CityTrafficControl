@@ -6,14 +6,15 @@ using System.Threading.Tasks;
 
 namespace CityTrafficControl.SS4 {
 	static class SimulationManager {
-		// TODO: define static fields that may be useful for this subsystem
+		private RoadMaintenanceService rms;
 
 		public static void Init() {
-			// TODO: initialize this subsystem
+			rms = new RoadMaintenanceService();
 		}
 
 		public static void SimulateTick() {
-			// TODO: do everything that should be done every tick
+			rms.SendSchedules();
+			rms.ReceiveData();
 		}
 	}
 }
