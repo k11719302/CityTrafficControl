@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using CityTrafficControl.Master.StreetMap;
 
 namespace CityTrafficControl.SS1
 {
@@ -12,11 +13,11 @@ namespace CityTrafficControl.SS1
         private int id;
         public int Id { get { return id; } }
 
-        private Position start;
-        public Position Start { get { return start; } }
+        private Coordinate start;
+        public Coordinate Start { get { return start; } }
 
-        private Position end;
-        public Position End { get { return end; } }
+        private Coordinate end;
+        public Coordinate End { get { return end; } }
 
         private RoadStates state;
         public RoadStates State { get { return state; } set { state = value; } }
@@ -42,7 +43,7 @@ namespace CityTrafficControl.SS1
             crossroadId = -1;
         }
 
-        public RoadSegment (RoadTypes type, int id, Position start, Position end, RoadStates state, int numOfLanes, int speedLimit, int crossroadId)
+        public RoadSegment (RoadTypes type, int id, Coordinate start, Coordinate end, RoadStates state, int numOfLanes, int speedLimit, int crossroadId)
         {
             this.type = type;
             this.id = id;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using CityTrafficControl.Master.StreetMap;
 
 namespace CityTrafficControl.SS1
 {
@@ -9,8 +10,8 @@ namespace CityTrafficControl.SS1
         private int id;
         public int Id { get { return id; } }
 
-        private Position position;
-        public Position Position { get { return position; } }
+        private Coordinate position;
+        public Coordinate Position { get { return position; } }
 
         private LightStates state;
         public LightStates State { get { return state; } set { state = value; } }
@@ -26,7 +27,7 @@ namespace CityTrafficControl.SS1
             crossroadId = -1; //shows, that a valid id is missing
         }
 
-        public TrafficLight (int id, Position pos, LightStates state, int crossRoadId)
+        public TrafficLight (int id, Coordinate pos, LightStates state, int crossRoadId)
         {
             this.id = id;
             position = pos;

@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using CityTrafficControl.SS3;
+
 
 namespace CityTrafficControl.SS1
 {
-    public class TrafficControl
+    class TrafficControl
     {
         private static TrafficControl instance = null; //using Singleton, because SS1 only needs one traffic controler
 
@@ -32,6 +34,24 @@ namespace CityTrafficControl.SS1
                 return instance;
             }
 
+        }
+
+        //gets called by TrafficDetection
+        //forwards information to the DataLinker
+        public static void IncidentDetected (Incident incident)
+        {
+            //TODO call DataLinker, forward info about incident to SS4 and SS3
+        }
+
+        //gets called by the DataLinker if SS3 needs road information
+        public static Roadinformation SendRoadInformation(int id)
+        {
+            RoadSegment road = roads.Find(x => x.Id==id);
+            if (road != null)
+            {
+                //TODO return new Roadinformation(road.Id, road.SpeedLImit, road.State);
+            }
+            return null;
         }
 
         //the DataLinker calls this method to forward a new cross road plan

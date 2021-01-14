@@ -73,7 +73,6 @@
     <Compile Include="SS1\CrossroadPlan.cs" />
     <Compile Include="SS1\Incident.cs" />
     <Compile Include="SS1\InductionLoop.cs" />
-    <Compile Include="SS1\Position.cs" />
     <Compile Include="SS1\RoadCommand.cs" />
     <Compile Include="SS1\RoadSegment.cs" />
     <Compile Include="SS1\Sensor.cs" />

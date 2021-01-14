@@ -9,11 +9,14 @@ namespace CityTrafficControl.SS1 {
 		// TODO: define static fields that may be useful for this subsystem
 
 		public static void Init() {
-			// TODO: initialize this subsystem
+			TrafficControl control = TrafficControl.GetInstance;
+			TrafficLightManager lightManager = TrafficLightManager.GetInstance;
+			TrafficDetection detector = TrafficDetection.GetInstance;
 		}
 
 		public static void SimulateTick() {
 			// TODO: do everything that should be done every tick
+
 		}
 	}
 }

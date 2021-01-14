@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using CityTrafficControl.Master.StreetMap;
 
 namespace CityTrafficControl.SS1
 {
@@ -9,8 +10,8 @@ namespace CityTrafficControl.SS1
         private int id;
         public int Id { get { return id; } }
 
-        private Position position;
-        public Position Position { get { return position; } }
+        private Coordinate position;
+        public Coordinate Position { get { return position; } }
 
         private States state;
         public States State { get { return state; } set { state = value; } }
@@ -18,7 +19,7 @@ namespace CityTrafficControl.SS1
         private Object currentImage = null;
         public Object CurrentImage { get { return currentImage; } } // type will be adapted in Milestone 3.2
 
-        public Camera(int id, Position position) {
+        public Camera(int id, Coordinate position) {
             this.id = id;
             this.position = position;
             State = States.INACTIVE;
