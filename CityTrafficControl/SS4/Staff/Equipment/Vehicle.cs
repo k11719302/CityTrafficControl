@@ -1,6 +1,6 @@
 using System;
 
-namespace CityTrafficControl.SS4.Staff.EquipmentManagement {
+namespace CityTrafficControl.SS4.Staff.Equipment {
     class Vehicle : Equipment {
         private Double FuelStatus;
 

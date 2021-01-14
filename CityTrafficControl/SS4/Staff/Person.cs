@@ -1,6 +1,6 @@
 using System;
 
-namespace CityTrafficControl.SS4.StaffManagement {
+namespace CityTrafficControl.SS4.Staff {
     class Person {
         private readonly int PersonID;
         private readonly string Name;
