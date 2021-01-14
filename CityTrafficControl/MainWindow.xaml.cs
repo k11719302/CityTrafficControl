@@ -1,4 +1,5 @@
 ﻿using CityTrafficControl.Master;
+using CityTrafficControl.Master.StreetMap;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,7 +46,9 @@ namespace CityTrafficControl {
 				case Master.Loader.LoadingError.NoError: PrintOutput("Loading complete!"); break;
 				case Master.Loader.LoadingError.AlreadyLoaded: PrintOutput("ERROR: Already loaded!"); break;
 			}*/
-			SimulationManager.Init(this);
+			ReportManager.Init(this);
+			StreetMapManager.Init();
+			SimulationManager.Init();
 		}
 
 		private void Start_Btn_Click(object sender, RoutedEventArgs e) {

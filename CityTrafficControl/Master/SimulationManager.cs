@@ -6,8 +6,6 @@ using System.Threading.Tasks;
 
 namespace CityTrafficControl.Master {
 	static class SimulationManager {
-		private static MainWindow mainWindow;
-
 		private static bool isInitialized;
 		private static bool isFirstTick;
 
@@ -48,16 +46,14 @@ namespace CityTrafficControl.Master {
 		/// <summary>
 		/// Initializes the SimulationManager.
 		/// </summary>
-		/// <param name="win">The reference to the MainWindow</param>
-		public static void Init(MainWindow win) {
+		public static void Init() {
 			if (isInitialized) {
-				PrintError("SimulationManager(Master) already initialized!");
+				ReportManager.PrintError("SimulationManager(Master) already initialized!");
 				return;
 			}
 
 			isInitialized = true;
-			mainWindow = win;
-			PrintOutput("SimulationManager(Master) initialized.");
+			ReportManager.PrintOutput("SimulationManager(Master) initialized.");
 
 			SS1.SimulationManager.Init();
 			SS2.SimulationManager.Init();
@@ -66,32 +62,16 @@ namespace CityTrafficControl.Master {
 		}
 
 		/// <summary>
-		/// Prints a string to the output in the MainWindow.
-		/// </summary>
-		/// <param name="str">The string to print</param>
-		public static void PrintOutput(string str) {
-			mainWindow.PrintOutput(str);
-		}
-
-		/// <summary>
-		/// Prints an error string to the output in the MainWindow.
-		/// </summary>
-		/// <param name="str">The error string to print</param>
-		public static void PrintError(string str) {
-			mainWindow.PrintError(str);
-		}
-
-		/// <summary>
 		/// Starts the simulation cycle.
 		/// </summary>
 		public static void Start() {
 			if (state == SimulationState.Stopped) {
-				PrintOutput("Simulation starting...");
+				ReportManager.PrintOutput("Simulation starting...");
 				state = SimulationState.Starting;
 				SimulationCycle();
 			}
 			else {
-				PrintError("Simulation already running!");
+				ReportManager.PrintError("Simulation already running!");
 			}
 		}
 
@@ -100,11 +80,11 @@ namespace CityTrafficControl.Master {
 		/// </summary>
 		public static void Stop() {
 			if (state == SimulationState.Running) {
-				PrintOutput("Simulation stopping...");
+				ReportManager.PrintOutput("Simulation stopping...");
 				state = SimulationState.Stopping;
 			}
 			else {
-				PrintError("Simulation not running!");
+				ReportManager.PrintError("Simulation not running!");
 			}
 		}
 
@@ -116,20 +96,20 @@ namespace CityTrafficControl.Master {
 				SimulateTick();
 			}
 			else {
-				PrintError("Cannot simulate single tick, as simulation is not stopped!");
+				ReportManager.PrintError("Cannot simulate single tick, as simulation is not stopped!");
 			}
 		}
 
 
 		private static void SimulationCycle() {
 			state = SimulationState.Running;
-			PrintOutput("Simulation started.");
+			ReportManager.PrintOutput("Simulation started.");
 			while (state == SimulationState.Running) {
 				// simulate ticks
 			}
 
 			state = SimulationState.Stopped;
-			PrintOutput("Simulation stopped.");
+			ReportManager.PrintOutput("Simulation stopped.");
 		}
 
 		private static void SimulateTick() {

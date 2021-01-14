@@ -55,13 +55,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Master\ReportManager.cs" />
     <Compile Include="Master\SimulationManager.cs" />
     <Compile Include="Master\StreetMap\BusStation.cs" />
     <Compile Include="Master\StreetMap\Coordinate.cs" />
     <Compile Include="Master\StreetMap\PublicTransportStation.cs" />
     <Compile Include="Master\StreetMap\StreetConnector.cs" />
     <Compile Include="Master\StreetMap\StreetEndpoint.cs" />
+    <Compile Include="Master\StreetMap\StreetHub.cs" />
     <Compile Include="Master\StreetMap\StreetMapException.cs" />
+    <Compile Include="Master\StreetMap\StreetMapManager.cs" />
     <Compile Include="Master\StreetMap\StreetSegment.cs" />
     <Compile Include="Master\StreetMap\StreetType.cs" />
     <Compile Include="Master\StreetMap\TramStation.cs" />
