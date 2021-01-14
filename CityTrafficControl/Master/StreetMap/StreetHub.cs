@@ -6,12 +6,27 @@ using System.Threading.Tasks;
 
 namespace CityTrafficControl.Master.StreetMap {
 	public class StreetHub : StreetType {
+		private static int nextID;
+
+		private int id;
 		private List<StreetEndpoint> connections;
 
 
+		static StreetHub() {
+			nextID = 0;
+		}
+
+
 		public StreetHub() {
+			id = NextID;
 			connections = new List<StreetEndpoint>();
 		}
+
+
+		private static int NextID { get { return nextID++; } }
+
+
+		public override int ID { get { return id; } }
 
 
 		public bool Connect(StreetConnector connector) {

@@ -32,7 +32,7 @@ namespace CityTrafficControl.Master.StreetMap {
 		public StreetConnector Connector { get { return connector; } }
 
 		/// <summary>
-		/// Gets whether this StreetEndpoint is connected to another one.
+		/// Gets whether this StreetEndpoint is connected to a StreetConnector.
 		/// </summary>
 		public bool IsConnected { get { return connector != null; } }
 

@@ -9,6 +9,7 @@ namespace CityTrafficControl.Master.StreetMap {
 	/// The base class for street elements that are connected to StreetConnectors with the use of StreetEndpoints.
 	/// </summary>
 	public abstract class StreetType {
+		public abstract int ID { get; }
 		// TODO: Define abstract methods
 	}
 }
