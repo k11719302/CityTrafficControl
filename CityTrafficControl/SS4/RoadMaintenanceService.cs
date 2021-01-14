@@ -9,6 +9,7 @@ namespace CityTrafficControl.SS4 {
     class RoadMaintenanceService {
         private Staff.Staff Staff;
         private Dictionary<int, Schedule> Schedules;
+        private static int IDCounter = 0;
 
         public RoadMaintenanceService() {
             this.Staff = new Staff.Staff();
@@ -24,13 +25,12 @@ namespace CityTrafficControl.SS4 {
         }
 
         public List<RoadMaintenanceTask> GetCurrentOperations() {
-			//if (!Schedules.Any()) {
-			if (Schedules.Count == 0) {		// TODO(CHECK): Check same logic is commented Code above
+			if (Schedules.Count == 0) {	
 				return null;
-           }
+            }
             List<RoadMaintenanceTask> currentOps = new List<RoadMaintenanceTask>();
             DateTime currentTime = DateTime.Now; 
-            foreach (Schedule s in Schedules.Values) {      // TODO(CHECK)
+            foreach (Schedule s in Schedules.Values) {    
 				if (OperationIsRunning(s, currentTime)) {
 					currentOps.Add(s.GetRoadMaintenanceTask());
                 }
@@ -47,10 +47,8 @@ namespace CityTrafficControl.SS4 {
 
         }
 
-        public void CreateScheduledTask(RoadMaintenanceTask roadMaintenanceTask, Team team, Equipment equipment, DateTime from, DateTime to) {
-            // TODO Add params, check task for Type, null...
-            roadMaintenanceTask.AssignEquipment(equipment);
-            roadMaintenanceTask.AssignTeam(team);
+        public void CreateScheduledTaskFromData(RoadMaintenanceTask roadMaintenanceTask) {
+            // Take data from SS1 and convert it into a schedule
             // Schedules.Add();
         }
 
@@ -62,10 +60,12 @@ namespace CityTrafficControl.SS4 {
 
             if (equipment != null) {
                 task.AssignEquipment(equipment);
+                equipment.SetOnMission(true);
             }
 
             if (team != null) {
                 task.AssignTeam(team);
+                team.SetOnMission(true);
             }
         }
     }
