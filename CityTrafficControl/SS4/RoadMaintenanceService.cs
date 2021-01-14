@@ -1,13 +1,17 @@
+using CityTrafficControl.SS4.Staff;
+using CityTrafficControl.SS4.Staff.Equipment;
+using CityTrafficControl.SS4.Tasks;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CityTrafficControl.SS4 {
     class RoadMaintenanceService {
-        private Staff Staff;
+        private Staff.Staff Staff;
         private Dictionary<int, Schedule> Schedules;
 
         public RoadMaintenanceService() {
-            this.Staff = new Staff();
+            this.Staff = new Staff.Staff();
             this.Schedules = new Dictionary<int, Schedule>();
         }
 
@@ -20,20 +24,21 @@ namespace CityTrafficControl.SS4 {
         }
 
         public List<RoadMaintenanceTask> GetCurrentOperations() {
-           if (!Schedules.Any()) {
-                return null;
+			//if (!Schedules.Any()) {
+			if (Schedules.Count == 0) {		// TODO(CHECK): Check same logic is commented Code above
+				return null;
            }
             List<RoadMaintenanceTask> currentOps = new List<RoadMaintenanceTask>();
             DateTime currentTime = DateTime.Now; 
-            foreach (Schedule s in Schedules) {
-                if (OperationIsRunning(s, currentTime)) {
-                    currentOps.Add(s.GetRoadMaintenanceTask())
+            foreach (Schedule s in Schedules.Values) {      // TODO(CHECK)
+				if (OperationIsRunning(s, currentTime)) {
+					currentOps.Add(s.GetRoadMaintenanceTask());
                 }
             }
             return currentOps;
         }
 
-        private boolean OperationIsRunning(Schedule schedule, DateTime now) {
+        private bool OperationIsRunning(Schedule schedule, DateTime now) {
             if (schedule.GetFrom() <= now && now <= schedule.GetTo()) {
                 return true;
             } else {

@@ -1,3 +1,4 @@
+using CityTrafficControl.SS4.Staff.Equipment;
 using System;
 using System.Collections.Generic;
 
@@ -31,7 +32,7 @@ namespace CityTrafficControl.SS4.Staff {
             return (readyWorkers/team.GetWorkers().Count) >= 0.5;
         }
 
-        public bool IsFunctional(Equipment equipment) { // Durability must be higher than 25% and Fuel must be higher than 50% to be functional
+        public bool IsFunctional(Equipment.Equipment equipment) { // Durability must be higher than 25% and Fuel must be higher than 50% to be functional
             if (equipment.GetType() == typeof(Vehicle)) {
                 Vehicle vehicle = (Vehicle) equipment;
                 return vehicle.GetDurability() > 25.0 && vehicle.GetFuelStatus() > 50.0;  

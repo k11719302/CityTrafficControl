@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CityTrafficControl.SS4 {
 	static class SimulationManager {
-		private RoadMaintenanceService rms;
+		private static RoadMaintenanceService rms;
 
 		public static void Init() {
 			rms = new RoadMaintenanceService();

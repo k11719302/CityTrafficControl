@@ -1,3 +1,5 @@
+using CityTrafficControl.SS4.Staff;
+using CityTrafficControl.SS4.Staff.Equipment;
 using System;
 using System.Collections.Generic;
 
