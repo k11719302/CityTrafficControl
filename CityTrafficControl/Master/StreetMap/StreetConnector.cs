@@ -9,8 +9,16 @@ namespace CityTrafficControl.Master.StreetMap {
 	/// A point on the street map where two StreetTypes are connected with the use of StreetEndpoints.
 	/// </summary>
 	public class StreetConnector {
+		private static int nextID;
+
+		private int id;
 		private Coordinate coordinate;
 		private StreetEndpoint ep1, ep2;
+
+
+		static StreetConnector() {
+			nextID = 0;
+		}
 
 
 		/// <summary>
@@ -18,10 +26,15 @@ namespace CityTrafficControl.Master.StreetMap {
 		/// </summary>
 		/// <param name="coordinate">The position where this StreetConnector should be located</param>
 		public StreetConnector(Coordinate coordinate) {
+			id = NextID;
 			this.coordinate = coordinate;
 		}
 
 
+		private static int NextID { get { return nextID++; } }
+
+
+		public int ID { get { return id; } }
 		/// <summary>
 		/// Gets the coordinate.
 		/// </summary>
