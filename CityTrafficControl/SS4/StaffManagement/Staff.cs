@@ -2,7 +2,8 @@ using CityTrafficControl.SS4.Staff.Equipment;
 using System;
 using System.Collections.Generic;
 
-namespace CityTrafficControl.SS4.Staff {
+namespace CityTrafficControl.SS4.namespace CityTrafficControl.SS4.StaffManagement {
+ {
     class Staff {
         private Dictionary<int, Team> Teams;
         private Dictionary<int, Tool> Tools;

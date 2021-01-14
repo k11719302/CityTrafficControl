@@ -1,6 +1,6 @@
 using System;
 
-namespace CityTrafficControl.SS4.Staff.Equipment {
+namespace CityTrafficControl.SS4.Staff.EquipmentManagement {
     abstract class Equipment {
         private readonly int EquipmentID;
         private readonly string EquipmentType;

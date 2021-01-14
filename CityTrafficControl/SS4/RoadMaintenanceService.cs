@@ -9,10 +9,12 @@ namespace CityTrafficControl.SS4 {
     class RoadMaintenanceService {
         private Staff.Staff Staff;
         private Dictionary<int, Schedule> Schedules;
+        private static int IDCounter;
 
         public RoadMaintenanceService() {
             this.Staff = new Staff.Staff();
             this.Schedules = new Dictionary<int, Schedule>();
+            this.IDCounter = 0;
         }
 
         public void SendSchedules() {
@@ -23,16 +25,15 @@ namespace CityTrafficControl.SS4 {
             throw new NotImplementedException();
         }
 
-        public List<RoadMaintenanceTask> GetCurrentOperations() {
-			//if (!Schedules.Any()) {
-			if (Schedules.Count == 0) {		// TODO(CHECK): Check same logic is commented Code above
+        public List<Schedule> GetCurrentOperations() {
+			if (Schedules.Count == 0) {		
 				return null;
-           }
-            List<RoadMaintenanceTask> currentOps = new List<RoadMaintenanceTask>();
+            }
+            List<Schedule> currentOps = new List<RoadMaintenanceTask>();
             DateTime currentTime = DateTime.Now; 
-            foreach (Schedule s in Schedules.Values) {      // TODO(CHECK)
+            foreach (Schedule s in Schedules.Values) { 
 				if (OperationIsRunning(s, currentTime)) {
-					currentOps.Add(s.GetRoadMaintenanceTask());
+					currentOps.Add(s);
                 }
             }
             return currentOps;
@@ -47,7 +48,7 @@ namespace CityTrafficControl.SS4 {
 
         }
 
-        public void CreateScheduledTask(RoadMaintenanceTask roadMaintenanceTask, Team team, Equipment equipment, DateTime from, DateTime to) {
+        public void CreateScheduledTask(RoadMaintenanceTask roadMaintenanceTask) {
             // TODO Add params, check task for Type, null...
             roadMaintenanceTask.AssignEquipment(equipment);
             roadMaintenanceTask.AssignTeam(team);
@@ -62,10 +63,12 @@ namespace CityTrafficControl.SS4 {
 
             if (equipment != null) {
                 task.AssignEquipment(equipment);
+                equipment.SetOnMission(true);
             }
 
             if (team != null) {
                 task.AssignTeam(team);
+                team.SetOnMission(true);
             }
         }
     }
