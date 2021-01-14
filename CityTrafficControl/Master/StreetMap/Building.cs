@@ -5,23 +5,23 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace CityTrafficControl.Master.StreetMap {
-	public abstract class PublicTransportStation {
+	public class Building {
 		private static int nextID;
 
 		private int id;
 		private StreetConnector connector;
 
 
-		static PublicTransportStation() {
+		static Building() {
 			nextID = 0;
 		}
 
-
-		protected PublicTransportStation(StreetConnector connector) {
+		
+		public Building(StreetConnector connector) {
 			id = NextID;
 
 			if (!Connect(connector)) {
-				throw new StreetMapException("Could not connect this PublicTransportStation to the StreetConnector");
+				throw new StreetMapException("Could not connect this Building to the StreetConnector");
 			}
 		}
 
@@ -32,7 +32,7 @@ namespace CityTrafficControl.Master.StreetMap {
 		public int ID { get { return id; } }
 
 		/// <summary>
-		/// Gets whether this PublicTransportStation is connected to a StreetConnector.
+		/// Gets whether this Building is connected to a StreetConnector.
 		/// </summary>
 		public bool IsConnected { get { return connector != null; } }
 

@@ -15,6 +15,9 @@ namespace CityTrafficControl.Master.StreetMap {
 		private Coordinate coordinate;
 		private StreetEndpoint ep1, ep2;
 
+		private Building building;
+		private PublicTransportStation station;
+
 
 		static StreetConnector() {
 			nextID = 0;
@@ -28,6 +31,8 @@ namespace CityTrafficControl.Master.StreetMap {
 		public StreetConnector(Coordinate coordinate) {
 			id = NextID;
 			this.coordinate = coordinate;
+			building = null;
+			station = null;
 		}
 
 
@@ -60,6 +65,37 @@ namespace CityTrafficControl.Master.StreetMap {
 			return ConnectResult.Connected;
 		}
 		/// <summary>
+		/// Connects the given Building to this StreetConnector.
+		/// </summary>
+		/// <param name="building">The Building that should be connected</param>
+		/// <returns>The result of the connection try</returns>
+		public ConnectResult Connect(Building building) {
+			if (this.building == building) return ConnectResult.AlreadyConnected;
+
+			if (this.building == null) {
+				this.building = building;
+			}
+			else return ConnectResult.NoFreeSlot;
+
+			return ConnectResult.Connected;
+		}
+		/// <summary>
+		/// Connects the given PublicTransportStation to this StreetConnector.
+		/// </summary>
+		/// <param name="station">The PublicTransportStation that should be connected</param>
+		/// <returns>The result of the connection try</returns>
+		public ConnectResult Connect(PublicTransportStation station) {
+			if (this.station == station) return ConnectResult.AlreadyConnected;
+
+			if (this.station == null) {
+				this.station = station;
+			}
+			else return ConnectResult.NoFreeSlot;
+
+			return ConnectResult.Connected;
+		}
+
+		/// <summary>
 		/// Disconnects the given StreetEndpoint from this StreetConnector.
 		/// </summary>
 		/// <param name="ep">The StreetEndpoint that should be disconnected</param>
@@ -70,6 +106,32 @@ namespace CityTrafficControl.Master.StreetMap {
 			}
 			else if (ep2 == ep) {
 				ep2 = null;
+			}
+			else return DisconnectResult.NotConnected;
+
+			return DisconnectResult.Disconnected;
+		}
+		/// <summary>
+		/// Disconnects the given Building from this StreetConnector.
+		/// </summary>
+		/// <param name="building">The Building that should be disconnected</param>
+		/// <returns>The result of the disconnection try</returns>
+		public DisconnectResult Disconnect(Building building) {
+			if (this.building == building) {
+				this.building = null;
+			}
+			else return DisconnectResult.NotConnected;
+
+			return DisconnectResult.Disconnected;
+		}
+		/// <summary>
+		/// Disconnects the given PublicTransportStation from this StreetConnector.
+		/// </summary>
+		/// <param name="station">The PublicTransportStation that should be disconnected</param>
+		/// <returns>The result of the disconnection try</returns>
+		public DisconnectResult Disconnect(PublicTransportStation station) {
+			if (this.station == station) {
+				this.station = null;
 			}
 			else return DisconnectResult.NotConnected;
 

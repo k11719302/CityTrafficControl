@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace CityTrafficControl.Master.StreetMap {
-	class TramStation : PublicTransportStation {
+	public class TramStation : PublicTransportStation {
+		public TramStation(StreetConnector connector) : base(connector) {
+		}
 	}
 }

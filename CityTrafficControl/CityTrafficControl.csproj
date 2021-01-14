@@ -57,6 +57,7 @@
     </ApplicationDefinition>
     <Compile Include="Master\ReportManager.cs" />
     <Compile Include="Master\SimulationManager.cs" />
+    <Compile Include="Master\StreetMap\Building.cs" />
     <Compile Include="Master\StreetMap\BusStation.cs" />
     <Compile Include="Master\StreetMap\Coordinate.cs" />
     <Compile Include="Master\StreetMap\PublicTransportStation.cs" />
