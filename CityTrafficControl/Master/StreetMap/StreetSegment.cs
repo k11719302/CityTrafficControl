@@ -10,6 +10,8 @@ namespace CityTrafficControl.Master.StreetMap {
 	/// </summary>
 	public class StreetSegment : StreetType {
 		private const double DEFAULT_SPEED_LIMIT = 50;
+		private const int DEFAULT_LANES_COUNT = 1;
+		private const double USABLE_SPACE = 0.8;
 
 		private static int nextID;
 
@@ -18,6 +20,8 @@ namespace CityTrafficControl.Master.StreetMap {
 		private double length;
 		private double speedLimit;
 		private TimeSpan minDriveTime;
+		private int lanes;
+		private double space1, space2;
 
 
 		static StreetSegment() {
@@ -42,6 +46,8 @@ namespace CityTrafficControl.Master.StreetMap {
 			length = CalcLength();
 			speedLimit = DEFAULT_SPEED_LIMIT;
 			UpdateMinDriveTime();
+			lanes = DEFAULT_LANES_COUNT;
+
 		}
 
 
@@ -61,6 +67,25 @@ namespace CityTrafficControl.Master.StreetMap {
 		/// Gets the minimal time to drive through the whole segment.
 		/// </summary>
 		public TimeSpan MinDriveTime { get { return minDriveTime; } }
+		public int Lanes { get { return lanes; } }
+		public double Space1 { get { return space1; } }
+		public double Space2 { get { return space2; } }
+
+
+		public void ClaimSpace(int direction, double space) {
+			switch (direction) {
+				case 1: space1 -= space; return;
+				case 2: space2 -= space; return;
+				default: throw new ArgumentOutOfRangeException("direction");
+			}
+		}
+		public void FreeSpace(int direction, double space) {
+			switch (direction) {
+				case 1: space1 += space; return;
+				case 2: space2 += space; return;
+				default: throw new ArgumentOutOfRangeException("direction");
+			}
+		}
 
 
 		private double CalcLength() {
@@ -69,6 +94,9 @@ namespace CityTrafficControl.Master.StreetMap {
 
 		private void UpdateMinDriveTime() {
 			minDriveTime = TimeSpan.FromSeconds(length / speedLimit);
+		}
+		private void UpdateSpace() {
+			space1 = space2 = length * lanes * USABLE_SPACE;
 		}
 	}
 }

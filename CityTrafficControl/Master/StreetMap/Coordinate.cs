@@ -9,8 +9,8 @@ namespace CityTrafficControl.Master.StreetMap {
 	/// A position in the world.
 	/// </summary>
 	public class Coordinate {
-		private double x;
-		private double y;
+		protected double x;
+		protected double y;
 
 
 		/// <summary>
