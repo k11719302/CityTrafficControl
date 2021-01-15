@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace CityTrafficControl.SS4.Staff {
+namespace CityTrafficControl.SS4.StaffManagement {
     class Team {
         private Dictionary<int, Person> Workers;
         private readonly int TeamID;

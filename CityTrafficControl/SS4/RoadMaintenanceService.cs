@@ -1,5 +1,5 @@
-using CityTrafficControl.SS4.Staff;
-using CityTrafficControl.SS4.Staff.Equipment;
+using CityTrafficControl.SS4.StaffManagement;
+using CityTrafficControl.SS4.StaffManagement.EquipmentManagement;
 using CityTrafficControl.SS4.Tasks;
 using System;
 using System.Collections.Generic;
@@ -7,12 +7,12 @@ using System.Linq;
 
 namespace CityTrafficControl.SS4 {
     class RoadMaintenanceService {
-        private Staff.Staff Staff;
+        private Staff Staff;
         private Dictionary<int, Schedule> Schedules;
         private static int IDCounter = 0;
 
         public RoadMaintenanceService() {
-            this.Staff = new Staff.Staff();
+            this.Staff = new Staff();
             this.Schedules = new Dictionary<int, Schedule>();
         }
 
