@@ -80,6 +80,13 @@ namespace CityTrafficControl.Master.StreetMap {
 		}
 
 		public static class Data {
+			public static int StreetConnectorsCount { get { return connectors.Count; } }
+			public static int StreetHubsCount { get { return hubs.Count; } }
+			public static int StreetSegmentsCount { get { return segments.Count; } }
+			public static int BuildingsCount { get { return buildings.Count; } }
+			public static int PublicTransportStationsCount { get { return stations.Count; } }
+
+
 			public static StreetConnector StreetConnectors(int id) {
 				StreetConnector connector;
 				if (connectors.TryGetValue(id, out connector)) {
