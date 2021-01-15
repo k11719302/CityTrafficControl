@@ -9,49 +9,62 @@ using System.Threading.Tasks;
 
 namespace CityTrafficControl.SS2 {
 	static class RouteManager {
+		private static readonly TimeSpan MAX_UPDATE_TIMEOUT = TimeSpan.FromSeconds(60);
+
 		private static DateTime lastUpdateTime;
-		private static Dictionary<int, BaseRoute> baseRoutes;
-		private static Dictionary<int, SpecialRoute> specialRoutes;
-		private static List<BaseRouteUpdate> pendingBaseRouteUpdate;
+		private static SortedDictionary<int, BaseRouteInfo> baseRoutes;
+		//private static Dictionary<int, SpecialRoute> specialRoutes;
+		private static List<BaseRouteUpdate> pendingBaseRouteUpdates;
 
 
 		// Static constructor
 		static RouteManager() {
-			DataLinker.SS2.updateBaseRoutes += DataLinker_updateBaseRoutes;
+			lastUpdateTime = DateTime.MinValue;
+			baseRoutes = new SortedDictionary<int, BaseRouteInfo>();
+			pendingBaseRouteUpdates = new List<BaseRouteUpdate>();
+
+			DataLinker.SS2.updateBaseRoutes += DataLinker_UpdateBaseRoutes;
 		}
 
-		public static void updateBaseRoutes(List<BaseRouteUpdate> baseRoutesUpdates) {
-			// TODO: disable auto-update-request-Timer during update
+
+		public static void CheckUpdateTimeout() {
+			if ((Master.SimulationManager.CurTickTime.Subtract(lastUpdateTime).CompareTo(MAX_UPDATE_TIMEOUT)) > 0) {
+				RequestBaseRoutes();
+			}
+		}
+
+		public static void UpdateBaseRoutes(List<BaseRouteUpdate> baseRoutesUpdates) {
+			lastUpdateTime = Master.SimulationManager.CurTickTime;
 
 			// collect all updates into one list
-			List<BaseRouteUpdate> updates = new List<BaseRouteUpdate>(pendingBaseRouteUpdate);
+			List<BaseRouteUpdate> updates = new List<BaseRouteUpdate>(pendingBaseRouteUpdates);
 			updates.AddRange(baseRoutesUpdates);
-			pendingBaseRouteUpdate.Clear();
+			pendingBaseRouteUpdates.Clear();
 
+			BaseRouteInfo cur;
 			foreach (BaseRouteUpdate update in updates) {
 				switch (update.updateType) {
 					case BaseRouteUpdate.UpdateType.New:
-						baseRoutes.Add(update.routeID, update.newBaseRoute);
+						baseRoutes.Add(update.routeID, new BaseRouteInfo(new BaseRouteClone(update.newBaseRoute)));
 						break;
 					case BaseRouteUpdate.UpdateType.Delete:
-						if (routeInUse(update.newBaseRoute)) {
-							pendingBaseRouteUpdate.Add(update);     // handle BaseRouteUpdate later
+						if (RouteInUse(update.routeID)) {                       // handle BaseRouteUpdate later
+							baseRoutes.TryGetValue(update.routeID, out cur);    // but prehandle it
+							cur.BaseRoute.IsUsable = false;
+							pendingBaseRouteUpdates.Add(update);
 						}
 						else {
 							baseRoutes.Remove(update.routeID);
 						}
 						break;
 					case BaseRouteUpdate.UpdateType.Change:
-						if (routeInUse(update.newBaseRoute)) {
-							pendingBaseRouteUpdate.Add(update);     // handle BaseRouteUpdate later
+						if (!baseRoutes.TryGetValue(update.routeID, out cur)) {
+							throw new KeyNotFoundException("Route ID not found");
 						}
 						else {
-							BaseRoute route;
-							if (!baseRoutes.TryGetValue(update.routeID, out route)) {
-								throw new KeyNotFoundException("Route ID not found");
-							}
-							else {
-								applyChangedRouteProperties(route, update.changedProperties);
+							if (!ApplyChangedRouteProperties(cur, update.changedProperties, RouteInUse(update.routeID))) {  // test if all changes were applied
+								cur.BaseRoute.IsUsable = false;
+								pendingBaseRouteUpdates.Add(update);
 							}
 						}
 						break;
@@ -59,29 +72,41 @@ namespace CityTrafficControl.SS2 {
 						throw new ArgumentException("BaseRouteUpdate-Type invalid");
 				}
 			}
-
-			lastUpdateTime = DateTime.Now;
-			// TODO: enable auto-update-request-Timer after update
 		}
 
-		// TODO: Needs to be called if the lastUpdateTime exceeds a given threshold (use Timer/Task in Background)
-		private static void requestBaseRoutes() {
+
+		private static void RequestBaseRoutes() {
 			DataLinker.SS2.requestBaseRoutes();
 		}
 
-		private static bool routeInUse(BaseRoute baseRoute) {
-			// TODO: check if BaseRoute is in use
-			throw new NotImplementedException();
+		private static bool RouteInUse(int routeID) {
+			BaseRouteInfo info;
+			if (baseRoutes.TryGetValue(routeID, out info)) {
+				return info.Users > 0;
+			}
+
+			return false;
 		}
 
-		private static void applyChangedRouteProperties(BaseRoute route, List<ChangedProperty> changedProperties) {
-			throw new NotImplementedException();
+		private static bool ApplyChangedRouteProperties(BaseRouteInfo info, List<ChangedProperty> changedProperties, bool routeInUse) {
+			bool appliedAllChanges = true;
+
+			foreach (ChangedProperty change in changedProperties) {
+				switch (change.change) {
+					case ChangedProperty.Change.Nothing: break;
+					case ChangedProperty.Change.IsUsable: info.BaseRoute.IsUsable = true; break;
+					case ChangedProperty.Change.IsNotUsable: info.BaseRoute.IsUsable = false; break;
+					default: throw new NotSupportedException("Unknown property change");
+				}
+			}
+
+			return appliedAllChanges;
 		}
 
 
 		#region DataLinker Receive Methods
-		private static void DataLinker_updateBaseRoutes(object sender, List<BaseRouteUpdate> e) {
-			updateBaseRoutes(e);
+		private static void DataLinker_UpdateBaseRoutes(object sender, List<BaseRouteUpdate> e) {
+			UpdateBaseRoutes(e);
 		}
 		#endregion
 	}

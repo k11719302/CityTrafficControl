@@ -33,6 +33,7 @@ namespace CityTrafficControl.Master.DataStructures {
 			isUsabel = CalcRoute();
 			length = CalcLength();
 		}
+		protected BaseRoute() { }
 
 
 		private static int NextID { get { return nextID++; } }
@@ -44,8 +45,17 @@ namespace CityTrafficControl.Master.DataStructures {
 		public StreetConnector End { get { return end; } }
 		public List<StreetConnector> Waypoints { get { return waypoints; } }
 
-		public bool IsUsable { get { return isUsabel; } }
+		public bool IsUsable { get { return isUsabel; } set { isUsabel = value; } }
 
+
+		protected void CloneFrom(BaseRoute baseRoute) {
+			id = baseRoute.id;
+			start = baseRoute.start;
+			end = baseRoute.end;
+			waypoints = new List<StreetConnector>(baseRoute.waypoints);
+			isUsabel = baseRoute.isUsabel;
+			length = baseRoute.length;
+		}
 
 		protected abstract bool CalcRoute();
 
