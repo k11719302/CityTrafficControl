@@ -9,11 +9,15 @@ namespace CityTrafficControl.Master.StreetMap {
 	/// Represents a single street between two StreetConnectors.
 	/// </summary>
 	public class StreetSegment : StreetType {
+		private const double DEFAULT_SPEED_LIMIT = 50;
+
 		private static int nextID;
 
 		private int id;
 		private StreetEndpoint ep1, ep2;
 		private double length;
+		private double speedLimit;
+		private TimeSpan minDriveTime;
 
 
 		static StreetSegment() {
@@ -36,6 +40,8 @@ namespace CityTrafficControl.Master.StreetMap {
 			}
 
 			length = CalcLength();
+			speedLimit = DEFAULT_SPEED_LIMIT;
+			UpdateMinDriveTime();
 		}
 
 
@@ -44,13 +50,25 @@ namespace CityTrafficControl.Master.StreetMap {
 
 		public override int ID { get { return id; } }
 		/// <summary>
-		/// Gets the length.
+		/// Gets the length in units.
 		/// </summary>
 		public double Length { get { return length; } }
+		/// <summary>
+		/// Gets the speed limit in units/s.
+		/// </summary>
+		public double SpeedLimit { get { return speedLimit; } set { speedLimit = value >= 0 ? value : 0; UpdateMinDriveTime(); } }
+		/// <summary>
+		/// Gets the minimal time to drive through the whole segment.
+		/// </summary>
+		public TimeSpan MinDriveTime { get { return minDriveTime; } }
 
 
 		private double CalcLength() {
 			return Coordinate.GetDistance(ep1.Connector.Coordinate, ep2.Connector.Coordinate);
+		}
+
+		private void UpdateMinDriveTime() {
+			minDriveTime = TimeSpan.FromSeconds(length / speedLimit);
 		}
 	}
 }
