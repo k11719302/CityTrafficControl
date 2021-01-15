@@ -7,11 +7,14 @@ using System.Threading.Tasks;
 namespace CityTrafficControl.SS1 {
 	static class SimulationManager {
 		// TODO: define static fields that may be useful for this subsystem
+		private static TrafficControl control;
+		private static TrafficLightManager lightManager;
+		private static TrafficDetection detector;
 
 		public static void Init() {
-			TrafficControl control = TrafficControl.GetInstance;
-			TrafficLightManager lightManager = TrafficLightManager.GetInstance;
-			TrafficDetection detector = TrafficDetection.GetInstance;
+			control = TrafficControl.GetInstance;
+			lightManager = TrafficLightManager.GetInstance;
+			detector = TrafficDetection.GetInstance;
 		}
 
 		public static void SimulateTick() {
