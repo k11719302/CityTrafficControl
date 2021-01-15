@@ -110,12 +110,14 @@
     <Compile Include="SS2\RouteManager.cs" />
     <Compile Include="SS2\SimulationManager.cs" />
     <Compile Include="SS3\ControlSystem.cs" />
+    <Compile Include="SS3\FastestBaseRoute.cs" />
     <Compile Include="SS3\Intersection.cs" />
     <Compile Include="SS3\Path.cs" />
     <Compile Include="SS3\PQ.cs" />
     <Compile Include="SS3\Road.cs" />
     <Compile Include="SS3\Roadinformation.cs" />
     <Compile Include="SS3\RoadInstruction.cs" />
+    <Compile Include="SS3\ShortestBaseRoute.cs" />
     <Compile Include="SS3\SimulationManager.cs" />
     <Compile Include="SS3\TrafficlightPlan.cs" />
     <Compile Include="SS3\TrafficlightSequence.cs" />

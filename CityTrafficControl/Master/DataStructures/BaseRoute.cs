@@ -6,15 +6,15 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace CityTrafficControl.Master.DataStructures {
-	class BaseRoute : IIDSupport {
+	abstract class BaseRoute : IIDSupport {
 		private static int nextID;
 
 		private int id;
-		private StreetConnector start;
-		private StreetConnector end;
-		private List<StreetConnector> waypoints;
+		protected StreetConnector start;
+		protected StreetConnector end;
+		protected List<StreetConnector> waypoints;
 
-		private bool isUsabel;
+		protected bool isUsabel;
 		private double length;
 
 
@@ -47,9 +47,7 @@ namespace CityTrafficControl.Master.DataStructures {
 		public bool IsUsable { get { return isUsabel; } }
 
 
-		private bool CalcRoute() {
-			throw new NotImplementedException();
-		}
+		protected abstract bool CalcRoute();
 
 		private double CalcLength() {
 			double length = 0;
