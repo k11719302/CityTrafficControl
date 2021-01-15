@@ -9,12 +9,12 @@ namespace CityTrafficControl.SS4 {
         private DateTime To;
         private Double Progress;
 
-        public Schedule(int scheduleID, RoadMaintenanceTask roadMaintenanceTask, DateTime from, DateTime to, Double progress) {
+        public Schedule(int scheduleID, RoadMaintenanceTask roadMaintenanceTask, DateTime from, DateTime to) {
             this.ScheduleID = scheduleID;
             this.RoadMaintenanceTask = roadMaintenanceTask;
             this.From = from;
             this.To = to;
-            this.Progress = progress;
+            this.Progress = 0.0;
         }
         
         public int GetScheduleID() {
@@ -46,7 +46,12 @@ namespace CityTrafficControl.SS4 {
         }
 
         public void SetProgress(Double progress) {
-            this.Progress = progress;
+            if (0 <= progress && progress <= 100) {
+                this.Progress = progress;
+            } else {
+                throw new ArgumentException("Progress cannot be smaller than 0.0% or higher than 100.0%");
+            }
+            
         }
     }
 }

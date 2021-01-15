@@ -24,15 +24,40 @@ namespace CityTrafficControl.SS4 {
             throw new NotImplementedException();
         }
 
-        public List<RoadMaintenanceTask> GetCurrentOperations() {
-			if (Schedules.Count == 0) {	
-				return null;
+        public void CreateAccidentTask(string taskName, string taskDescription, int priority, int numberOfVehicles, bool roadDamage, DateTime from, DateTime to) {
+            RoadMaintenanceTask task = new Accident(taskName, taskDescription, priority, numberOfVehicles, roadDamage);
+            ScheduleTask(task, from, to);
+        }
+
+        public void CreateNaturalDisasterTask(string taskName, string taskDescription, int priority, string disasterType, bool roadDamage, int blockages,  DateTime from, DateTime to) {
+            RoadMaintenanceTask task = new NaturalDisaster(taskName, taskDescription, priority, disasterType, roadDamage, blockages);
+            ScheduleTask(task, from, to);
+        }
+
+        public void CreateInspectionTask(string taskName, string taskDescription, int priority, DateTime from, DateTime to) {
+            RoadMaintenanceTask task = new Inspection(taskName, taskDescription, priority);
+            ScheduleTask(task, from, to);
+        }
+
+        public void CreateMaintenanceTask(string taskName, string taskDescription, int priority, bool roadDamage, DateTime from, DateTime to) {
+            RoadMaintenanceTask task = new Maintenance(taskName, taskDescription, priority, roadDamage);
+            ScheduleTask(task, from, to);
+        }
+
+        private void ScheduleTask(RoadMaintenanceTask task, DateTime from, DateTime to) {
+            Schedule schedule = new Schedule(IDCounter++, task, from, to);
+            Schedules.Add(schedule.GetScheduleID(), schedule);
+        }
+
+        public List<Schedule> GetCurrentOperations() {
+            if (Schedules.Count == 0) {
+                return null;
             }
-            List<RoadMaintenanceTask> currentOps = new List<RoadMaintenanceTask>();
-            DateTime currentTime = DateTime.Now; 
-            foreach (Schedule s in Schedules.Values) {    
-				if (OperationIsRunning(s, currentTime)) {
-					currentOps.Add(s.GetRoadMaintenanceTask());
+            List<Schedule> currentOps = new List<Schedule>();
+            DateTime currentTime = DateTime.Now;
+            foreach (Schedule s in Schedules.Values) {
+                if (OperationIsRunning(s, currentTime)) {
+                    currentOps.Add(s);
                 }
             }
             return currentOps;
@@ -44,28 +69,33 @@ namespace CityTrafficControl.SS4 {
             } else {
                 return false;
             }
-
         }
 
-        public void CreateScheduledTaskFromData(RoadMaintenanceTask roadMaintenanceTask) {
-            // Take data from SS1 and convert it into a schedule
-            // Schedules.Add();
+        public List<Schedule> GetAllSchedules() {
+            return Schedules.Values.ToList<Schedule>();
         }
 
-        public void OrderReinforcements(int scheduledID, Equipment equipment, Team team) {
+        public void OrderTeamReinforcement(int scheduledID, Team team) {
             RoadMaintenanceTask task = Schedules[scheduledID].GetRoadMaintenanceTask();
             if (task == null) {
                 throw new ArgumentException("Task cannot be null");
             }
 
-            if (equipment != null) {
-                task.AssignEquipment(equipment);
-                equipment.SetOnMission(true);
-            }
-
-            if (team != null) {
+            if (team != null && Staff.IsReady(team)) {
                 task.AssignTeam(team);
                 team.SetOnMission(true);
+            }
+        }
+
+        public void OrderEquipmentReinforcement(int scheduledID, Equipment equipment) {
+            RoadMaintenanceTask task = Schedules[scheduledID].GetRoadMaintenanceTask();
+            if (task == null) {
+                throw new ArgumentException("Task cannot be null");
+            }
+
+            if (equipment != null && Staff.IsReady(equipment)) {
+                task.AssignEquipment(equipment);
+                equipment.SetOnMission(true);
             }
         }
     }
