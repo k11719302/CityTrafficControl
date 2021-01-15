@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CityTrafficControl.SS2.DataStructures;
+using CityTrafficControl.Master.DataStructures;
 
 namespace CityTrafficControl.Master {
 	static class DataLinker {

@@ -1,4 +1,5 @@
 ﻿using CityTrafficControl.Master;
+using CityTrafficControl.Master.DataStructures;
 using CityTrafficControl.SS2.DataStructures;
 using System;
 using System.Collections.Generic;
@@ -29,10 +30,10 @@ namespace CityTrafficControl.SS2 {
 
 			foreach (BaseRouteUpdate update in updates) {
 				switch (update.updateType) {
-					case BaseRouteUpdate.Type.Add:
+					case BaseRouteUpdate.UpdateType.New:
 						baseRoutes.Add(update.routeID, update.newBaseRoute);
 						break;
-					case BaseRouteUpdate.Type.Delete:
+					case BaseRouteUpdate.UpdateType.Delete:
 						if (routeInUse(update.newBaseRoute)) {
 							pendingBaseRouteUpdate.Add(update);     // handle BaseRouteUpdate later
 						}
@@ -40,7 +41,7 @@ namespace CityTrafficControl.SS2 {
 							baseRoutes.Remove(update.routeID);
 						}
 						break;
-					case BaseRouteUpdate.Type.Change:
+					case BaseRouteUpdate.UpdateType.Change:
 						if (routeInUse(update.newBaseRoute)) {
 							pendingBaseRouteUpdate.Add(update);     // handle BaseRouteUpdate later
 						}
@@ -73,7 +74,7 @@ namespace CityTrafficControl.SS2 {
 			throw new NotImplementedException();
 		}
 
-		private static void applyChangedRouteProperties(BaseRoute route, List<BaseRouteUpdate.ChangedProperty> changedProperties) {
+		private static void applyChangedRouteProperties(BaseRoute route, List<ChangedProperty> changedProperties) {
 			throw new NotImplementedException();
 		}
 

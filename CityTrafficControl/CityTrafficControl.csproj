@@ -55,6 +55,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Master\DataStructures\BaseRoute.cs" />
+    <Compile Include="Master\DataStructures\BaseRouteUpdate.cs" />
+    <Compile Include="Master\DataStructures\ChangedProperty.cs" />
+    <Compile Include="Master\DataStructures\IIDSupport.cs" />
     <Compile Include="Master\ReportManager.cs" />
     <Compile Include="Master\SimulationManager.cs" />
     <Compile Include="Master\StreetMap\Building.cs" />
@@ -83,8 +87,6 @@
     <Compile Include="SS1\TrafficLight.cs" />
     <Compile Include="SS1\TrafficLightManager.cs" />
     <Compile Include="SS1\TrafficLightPlan.cs" />
-    <Compile Include="SS2\DataStructures\BaseRoute.cs" />
-    <Compile Include="SS2\DataStructures\BaseRouteUpdate.cs" />
     <Compile Include="SS2\DataStructures\ParticipantPosition.cs" />
     <Compile Include="SS2\DataStructures\ParticipantSchedule.cs" />
     <Compile Include="SS2\DataStructures\SpecialRoute.cs" />

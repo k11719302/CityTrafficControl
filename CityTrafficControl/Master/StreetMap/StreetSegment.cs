@@ -50,11 +50,7 @@ namespace CityTrafficControl.Master.StreetMap {
 
 
 		private double CalcLength() {
-			Coordinate c1 = ep1.Connector.Coordinate, c2 = ep2.Connector.Coordinate;
-			double diffX = c1.X - c2.X;
-			double diffY = c1.Y - c2.Y;
-
-			return Math.Sqrt(diffX * diffX + diffY * diffY);
+			return Coordinate.GetDistance(ep1.Connector.Coordinate, ep2.Connector.Coordinate);
 		}
 	}
 }

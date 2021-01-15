@@ -32,5 +32,19 @@ namespace CityTrafficControl.Master.StreetMap {
 		/// Gets the vertical position.
 		/// </summary>
 		public double Y { get { return y; } }
+
+
+		/// <summary>
+		/// Calculates the distance between two Coordinates.
+		/// </summary>
+		/// <param name="c1">The first Coordinate</param>
+		/// <param name="c2">The second Coordinate</param>
+		/// <returns>The distance between two Coordinates</returns>
+		public static double GetDistance(Coordinate c1, Coordinate c2) {
+			double diffX = c1.X - c2.X;
+			double diffY = c1.Y - c2.Y;
+
+			return Math.Sqrt(diffX * diffX + diffY * diffY);
+		}
 	}
 }
