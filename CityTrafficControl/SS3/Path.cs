@@ -35,9 +35,12 @@ namespace CityTrafficControl.SS3
         public double CalcTime()
         {
             double t = 0;
-            foreach (Road r in roads)
+            if (roads != null)
             {
-                t = t + r.Time;
+                foreach (Road r in roads)
+                {
+                    t = t + r.Time;
+                }
             }
             return t;
         }
@@ -45,9 +48,12 @@ namespace CityTrafficControl.SS3
         public double CalcLength()
         {
             double l = 0;
-            foreach (Road r in roads)
+            if (roads != null)
             {
-                l = l + r.Length;
+                foreach (Road r in roads)
+                {
+                    l = l + r.Length;
+                }
             }
             return l;
         }
@@ -59,7 +65,62 @@ namespace CityTrafficControl.SS3
         public ShortestPath(int id, Road start, Road end) : base(id, start, end) { }
         public override List<Road> CalcPath()
         {
-            throw new NotImplementedException();
+            List<Road> path = new List<Road>();
+            Road[] r = new Road[Road.NRoads];
+            double[] v = new double[Road.NRoads];
+            SortedList<double, Road> pq = new SortedList<double, Road>(new PQ<double>());
+            for (int i = 0; i < Road.NRoads; i++)
+            {
+                if (Start == Road.Roads[i])
+                {
+                    v[i] = 0;
+                }
+                else
+                {
+                    v[i] = int.MaxValue;
+                }
+                r[i] = Road.Roads[i];
+                pq.Add(v[i], Road.Roads[i]);
+            }
+            while (pq.Count != 0)
+            {
+                double curK = pq.Keys[0];
+                Road curE = pq.Values[0];
+                pq.RemoveAt(0);
+                foreach (Road x in curE.Conected)
+                {
+                    if (pq.ContainsValue(x) == true)
+                    {
+                        if ((double)(curK + curE.Length) < (double)(v[Array.IndexOf(r, x)]))
+                        {
+                            int i = Array.IndexOf(r, x);
+                            v[i] = curK + curE.Time;
+                            pq.RemoveAt(pq.IndexOfValue(x));
+                            pq.Add(v[i], x);
+                        }
+                    }
+                }
+            }
+
+            int j = Array.IndexOf(r, End);
+            path.Add(End);
+            while (r[j] != Start)
+            {
+                double min = double.MaxValue;
+                Road minRoad = r[j];
+                foreach (Road x in r[j].Conected)
+                {
+                    if (v[Array.IndexOf(r, x)] < min)
+                    {
+                        min = v[Array.IndexOf(r, x)];
+                        minRoad = x;
+                    }
+                }
+                path.Add(minRoad);
+                j = Array.IndexOf(r, minRoad);
+            }
+            path.Reverse();
+            return path;
         }
     }
 
@@ -68,7 +129,63 @@ namespace CityTrafficControl.SS3
         public FastestPath(int id, Road start, Road end) : base(id, start, end) { }
         public override List<Road> CalcPath()
         {
-            throw new NotImplementedException();
+            List<Road> path = new List<Road>();
+            Road[] r = new Road[Road.NRoads];
+            double[] v = new double[Road.NRoads];
+            SortedList<double, Road> pq = new SortedList<double, Road>(new PQ<double>());
+            for (int i = 0; i < Road.NRoads; i++)
+            {
+                if (Start == Road.Roads[i])
+                {
+                    v[i] = 0;
+                }
+                else
+                {
+                    v[i] = int.MaxValue;
+                }
+                r[i] = Road.Roads[i];
+                pq.Add(v[i], Road.Roads[i]);
+            }
+            while (pq.Count != 0)
+            {
+                double curK = pq.Keys[0];
+                Road curE = pq.Values[0];
+                pq.RemoveAt(0);
+                foreach (Road x in curE.Conected)
+                {
+                    if (pq.ContainsValue(x) == true)
+                    {
+                        if ((double)(curK + curE.Time) < (double)(v[Array.IndexOf(r, x)]))
+                        {
+                            int i = Array.IndexOf(r, x);
+                            v[i] = curK + curE.Time;
+                            pq.RemoveAt(pq.IndexOfValue(x));
+                            pq.Add(v[i], x);
+                        }
+                    }
+                }
+            }
+
+            int j = Array.IndexOf(r, End);
+            path.Add(End);
+            while (r[j] != Start)
+            {
+                double min = double.MaxValue;
+                Road minRoad = r[j];
+                foreach (Road x in r[j].Conected)
+                {
+                    if (v[Array.IndexOf(r, x)] < min)
+                    {
+                        min = v[Array.IndexOf(r, x)];
+                        minRoad = x;
+                    }
+                }
+                path.Add(minRoad);
+                j = Array.IndexOf(r, minRoad);
+            }
+            path.Reverse();
+            return path;
         }
+
     }
 }
