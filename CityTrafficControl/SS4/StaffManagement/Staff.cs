@@ -19,11 +19,11 @@ namespace CityTrafficControl.SS4.StaffManagement {
         }
 
         public bool IsReady(Team team) {
-            return TeamReadyCheck(team) && team.IsOnMission();
+            return TeamReadyCheck(team) && !team.IsOnMission();
         }
 
         public bool IsReady(Equipment equipment) {
-            return IsFunctional(equipment) && equipment.IsOnMission();
+            return IsFunctional(equipment) && !equipment.IsOnMission();
         }
 
         private bool TeamReadyCheck(Team team) { // At least 50% of the team's workers must be operational to be ready
