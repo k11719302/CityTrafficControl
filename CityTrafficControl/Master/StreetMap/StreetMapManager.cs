@@ -36,6 +36,21 @@ namespace CityTrafficControl.Master.StreetMap {
 			ReportManager.PrintOutput("StreetMapManager initialized.");
 		}
 
+		public static List<StreetConnector> CreateNaturalDisaster(Coordinate center, double radius, double strength) {
+			List<StreetConnector> affected = new List<StreetConnector>();
+			double distance;
+
+			foreach (StreetConnector connector in connectors.Values) {
+				distance = Coordinate.GetDistance(center, connector.Coordinate);
+				if (distance > radius) continue;
+				connector.Health -= (radius - distance) * strength;
+				affected.Add(connector);
+			}
+
+			return affected;
+		}
+
+
 		private static void InitStaticMap() {
 			throw new NotImplementedException();
 		}
