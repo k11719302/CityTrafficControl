@@ -10,31 +10,13 @@ namespace CityTrafficControl.SS1
         private int roadId;
         public int RoadId { get { return roadId; } }
 
-        private RoadStates state;
-        public RoadStates State { get { return state; } }
+        private bool state;
+        public bool State { get { return state; } }
 
-        private bool changeState = true;   //boolean to show, whether the state should be changed or not
-        public bool ChangeState { get { return changeState; } }
+        private double speedLimit;
+        public double SpeedLimit { get { return speedLimit; } }
 
-        private int speedLimit = -1;
-        public int SpeedLimit { get { return speedLimit; } }
-
-        //if only the state should be changed
-        public RoadCommand (int id, RoadStates state) 
-        {
-            this.roadId = id;
-            this.state = state;
-        }
-
-        //if only the speedLimit should be changed --> set changeState to false and choose speedLimit 
-        public RoadCommand (int id, bool changeState, int speedLimit)
-        {
-            this.roadId = id;
-            this.changeState = changeState;
-            this.speedLimit = speedLimit;
-        }
-
-        public RoadCommand (int id, RoadStates state, int speedLimit)
+        public RoadCommand (int id, bool state, double speedLimit)
         {
             this.roadId = id;
             this.state = state;

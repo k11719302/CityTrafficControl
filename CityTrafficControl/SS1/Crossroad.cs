@@ -11,13 +11,10 @@ namespace CityTrafficControl.SS1
 
         private List<TrafficLight> lights; //only find, add, remove should be possible to carry out outside of the class
 
-        private List<RoadSegment> roadSegments; //only find, add, remove should be possible to carry out outside of the class
-
         public Crossroad (int id)
         {
             this.id = id;
             lights = new List<TrafficLight>();
-            roadSegments = new List<RoadSegment>();
         }
 
         public TrafficLight findLight (int id)
@@ -40,26 +37,6 @@ namespace CityTrafficControl.SS1
             return lights.Remove(light);
         }
 
-        public RoadSegment findRoadSegment (int id)
-        {
-            return roadSegments.Find(x => x.Id == id);
-        }
-
-        public bool addRoadSegment (RoadSegment road)
-        {
-            if(road.CrossroadId == this.id)
-            {
-                roadSegments.Add(road);
-                return true;
-            }
-            return false;
-        }
-
-        public bool removeRoadSegment (RoadSegment road)
-        {
-            return roadSegments.Remove(road);
-        }
-
         public void PrintCrossroad()
         {
             Console.WriteLine("crossroad " + id + ": ");
@@ -72,14 +49,6 @@ namespace CityTrafficControl.SS1
                     l.PrintLight();
                 }
                 
-            }
-            Console.WriteLine("roads: ");
-            foreach (RoadSegment r in roadSegments)
-            {
-                if (r != null)
-                {
-                    r.PrintRoad();
-                }
             }
         }
 
