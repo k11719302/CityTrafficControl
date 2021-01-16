@@ -87,6 +87,20 @@ namespace CityTrafficControl.Master.StreetMap {
 			}
 		}
 
+		public override List<StreetConnector> FindNeighbours(StreetEndpoint ep) {
+			List<StreetConnector> neighbours = new List<StreetConnector>();
+
+			if (ep1 == ep) {
+				neighbours.Add(ep2.Connector);
+			}
+			else if (ep2 == ep) {
+				neighbours.Add(ep1.Connector);
+			}
+			else throw new ArgumentException("The given StreetEndpoint isn't connected to this StreetSegment");
+
+			return neighbours;
+		}
+
 
 		private double CalcLength() {
 			return Coordinate.GetDistance(ep1.Connector.Coordinate, ep2.Connector.Coordinate);

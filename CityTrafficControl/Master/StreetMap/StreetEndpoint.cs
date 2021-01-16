@@ -69,5 +69,9 @@ namespace CityTrafficControl.Master.StreetMap {
 
 			return false;
 		}
+
+		public List<StreetConnector> FindNeighbours() {
+			return self.FindNeighbours(this);
+		}
 	}
 }

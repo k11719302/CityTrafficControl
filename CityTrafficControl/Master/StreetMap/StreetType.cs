@@ -11,6 +11,8 @@ namespace CityTrafficControl.Master.StreetMap {
 	/// </summary>
 	public abstract class StreetType : IIDSupport {
 		public abstract int ID { get; }
-		// TODO: Define abstract methods
+
+
+		public abstract List<StreetConnector> FindNeighbours(StreetEndpoint ep);
 	}
 }

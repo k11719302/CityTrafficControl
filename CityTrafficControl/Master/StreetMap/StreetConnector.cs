@@ -138,6 +138,15 @@ namespace CityTrafficControl.Master.StreetMap {
 			return DisconnectResult.Disconnected;
 		}
 
+		public List<StreetConnector> FindNeighbours() {
+			List<StreetConnector> neighbours = new List<StreetConnector>();
+
+			neighbours.AddRange(ep1.FindNeighbours());
+			neighbours.AddRange(ep2.FindNeighbours());
+
+			return neighbours;
+		}
+
 
 		/// <summary>
 		/// The result of a connection try.

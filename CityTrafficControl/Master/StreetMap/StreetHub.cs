@@ -57,6 +57,27 @@ namespace CityTrafficControl.Master.StreetMap {
 			return true;
 		}
 
+		public override List<StreetConnector> FindNeighbours(StreetEndpoint ep) {
+			List<StreetConnector> neighbours = new List<StreetConnector>();
+			bool isConnected = false;
+
+			foreach (StreetEndpoint endpoint in connections) {
+				if (endpoint == ep) {
+					isConnected = true;
+				}
+				else {
+					neighbours.Add(endpoint.Connector);
+				}
+			}
+
+			if(!isConnected) {
+				throw new ArgumentException("The given StreetEndpoint isn't connected to this StreetHub");
+			}
+
+			return neighbours;
+		}
+
+
 		private StreetEndpoint FindEndpoint(StreetConnector connector) {
 			foreach (StreetEndpoint ep in connections) {
 				if (ep.Connector == connector) return ep;
