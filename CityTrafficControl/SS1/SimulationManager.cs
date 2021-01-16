@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace CityTrafficControl.SS1 {
 	static class SimulationManager {
-		// TODO: define static fields that may be useful for this subsystem
 		private static TrafficControl control;
 		private static TrafficLightManager lightManager;
 		private static TrafficDetection detector;
@@ -18,8 +17,7 @@ namespace CityTrafficControl.SS1 {
 		}
 
 		public static void SimulateTick() {
-			// TODO: do everything that should be done every tick
-
+			TrafficLightManager.UpdateTrafficLights();
 		}
 	}
 }

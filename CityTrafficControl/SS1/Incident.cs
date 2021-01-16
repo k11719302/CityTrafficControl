@@ -5,19 +5,19 @@ using CityTrafficControl.Master.StreetMap;
 
 namespace CityTrafficControl.SS1
 {
-    public class Incident
+    class Incident
     {
         private IncidentType type; //natural disaster or accident
         public IncidentType Type { get { return type; } }
 
-        private StreetConnector connector; //involved street connector
-        public StreetConnector Connector { get { return connector; } }
+        private List<StreetConnector> connectors; //involved street connectors
+        public List<StreetConnector> Connectors { get { return connectors; } }
 
         private string descprition;
         public string Description { get { return descprition; } }
 
-        private int priority; //number between 1 and 5
-        public int Priority { get { return priority; } }
+        private double priority;
+        public double Priority { get { return priority; } }
 
         //nr of involved cars in case of an accident
         //or nr of objects blocking the road in case of a nat. disaster
@@ -27,10 +27,10 @@ namespace CityTrafficControl.SS1
         private bool roadDamage;
         public bool RoadDamage { get { return roadDamage; } }
 
-        public Incident(IncidentType type, StreetConnector connector, string descr, int priority, int nrOfObjects, bool damage)
+        public Incident(IncidentType type, List<StreetConnector> connectors, string descr, double priority, int nrOfObjects, bool damage)
         {
             this.type = type;
-            this.connector = connector;
+            this.connectors = connectors;
             descprition = descr;
             this.priority = priority;
             involvedObjects = nrOfObjects;

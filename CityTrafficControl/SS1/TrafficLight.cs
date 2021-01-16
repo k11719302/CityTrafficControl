@@ -5,7 +5,7 @@ using CityTrafficControl.Master.StreetMap;
 
 namespace CityTrafficControl.SS1
 {
-    public class TrafficLight
+    class TrafficLight
     {
         private int id;
         public int Id { get { return id; } }
@@ -27,17 +27,12 @@ namespace CityTrafficControl.SS1
             crossroadId = -1; //shows, that a valid id is missing
         }
 
-        public TrafficLight (int id, Coordinate pos, LightStates state, int crossRoadId)
+        public TrafficLight(int id, Coordinate pos, LightStates state, int crossRoadId)
         {
             this.id = id;
             position = pos;
             this.state = state;
             this.crossroadId = crossRoadId;
-        }
-
-        public void PrintLight()
-        {
-            Console.WriteLine("light " + id + ": " + state);
         }
     }
 

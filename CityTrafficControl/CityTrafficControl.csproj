@@ -74,8 +74,6 @@
     <Compile Include="Master\StreetMap\StreetSegment.cs" />
     <Compile Include="Master\StreetMap\StreetType.cs" />
     <Compile Include="Master\StreetMap\TramStation.cs" />
-    <Compile Include="SS1\Crossroad.cs" />
-    <Compile Include="SS1\CrossroadPlan.cs" />
     <Compile Include="SS1\Incident.cs" />
     <Compile Include="SS1\RoadCommand.cs" />
     <Compile Include="SS1\SimulationManager.cs" />

@@ -11,17 +11,14 @@ namespace CityTrafficControl.SS1
     {
         private static TrafficControl instance = null; //using Singleton, because SS1 only needs one traffic controler
 
-        //TrafficControl is the core of SS1 and should contain a list of all lights, all road segments and all crossroads
+        //TrafficControl is the core of SS1 and should contain a list of all lights, all road segments
         private static List<TrafficLight> lights = null;
 
         private static List<StreetSegment> roads = null;
 
-        private static List<Crossroad> crossRoads = null;
-
         private TrafficControl() {
             lights = new List<TrafficLight>();
             roads = new List<StreetSegment>();
-            crossRoads = new List<Crossroad>();
         }
 
         public static TrafficControl GetInstance //creates the first instance or always returns the singleton instance
@@ -37,24 +34,40 @@ namespace CityTrafficControl.SS1
 
         }
 
-        //gets called by TrafficDetection
-        //forwards information to the DataLinker
+        //gets called by the TrafficDetection and receives a new incident
+        //adapts the priority of all the involved StreetConnectors
+        //calls the SendIncident method
         public static void IncidentDetected (Incident incident)
         {
-            //TODO call DataLinker, forward info about incident to SS4 and SS3
+            double priority = CalculateIncidentPriority(incident.Type, incident.InvolvedObjects, incident.RoadDamage);
+            foreach (StreetConnector street in incident.Connectors)
+            {
+                street.Priority = priority;
+            }
+            SendIncident(incident);
         }
 
-        //the DataLinker calls this method to forward a new cross road plan
-        //it returns true if the cross road Id is valid and the plan has been forwarded to the traffic light manager
-        public static bool ReceiveCrossRoadPlan (CrossroadPlan plan)
+        /// <summary>
+        /// This method receives a new incident from the TrafficDetection and forwards it to the other subsystems.
+        /// </summary>
+        /// <param name="incident"></param>
+        /// <returns></returns>
+        public static Incident SendIncident(Incident incident)
         {
-            Crossroad cr = FindCrossRoad(plan.CrossroadId);
-            if (cr != null) //if this cross road exists
-            {
-                TrafficLightManager.AddCrossRoadPlan(plan);
-                return true;
-            }
-            return false;
+            throw new NotImplementedException();
+        }
+
+        //calculates the priority, which later informs SS4 about the importance of the incident
+        private static double CalculateIncidentPriority(IncidentType type, int involvedObjects, bool roadDamage)
+        {
+            throw new NotImplementedException();
+        }
+
+        //the DataLinker calls this method to forward a list of new TrafficLightPlans
+        //it returns true if the plan has been forwarded to the traffic light manager
+        public static void ReceiveTrafficLightPlans (List<TrafficLightPlan> plans)
+        {
+            TrafficLightManager.AddTrafficLightPlans(plans);
         }
 
         //the DataLinker calls this method to forward a new road command from SS3
@@ -144,57 +157,6 @@ namespace CityTrafficControl.SS1
         public static StreetSegment FindRoadSegment(int id)
         {
             return roads.Find(x => x.ID == id);
-        }
-
-        public static void AddCrossRoad(Crossroad crossRoad)
-        {
-            crossRoads.Add(crossRoad);
-        }
-
-        public static bool RemoveCrossRoad(Crossroad crossRoad)
-        {
-            return crossRoads.Remove(crossRoad);
-        }
-
-        public static Crossroad FindCrossRoad(int id)
-        {
-            return crossRoads.Find(x => x.Id == id);
-        }
-
-        public static void PrintLights()
-        {
-            Console.WriteLine("lights: ");
-            foreach (TrafficLight l in lights)
-            {
-
-                if (l != null)
-                {
-                    l.PrintLight();
-                }
-
-            }
-        }
-        public static void PrintRoads()
-        {
-            Console.WriteLine("roads: ");
-            foreach (StreetSegment r in roads)
-            {
-                if (r != null)
-                {
-                    //r.PrintRoad();
-                }
-            }
-        }
-        public static void PrintCrossroads()
-        {
-            Console.WriteLine("crossroads: ");
-            foreach (Crossroad cr in crossRoads)
-            {
-                if (cr != null)
-                {
-                    cr.PrintCrossroad();
-                }
-            }
         }
     }
 }
