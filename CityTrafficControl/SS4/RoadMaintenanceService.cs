@@ -3,6 +3,7 @@ using CityTrafficControl.SS4.StaffManagement.EquipmentManagement;
 using CityTrafficControl.SS4.Tasks;
 using System;
 using System.Collections.Generic;
+using CityTrafficControl.Master.StreetMap;
 using System.Linq;
 
 namespace CityTrafficControl.SS4 {
@@ -24,23 +25,23 @@ namespace CityTrafficControl.SS4 {
             throw new NotImplementedException();
         }
 
-        public void CreateAccidentTask(string taskName, string taskDescription, int priority, int numberOfVehicles, bool roadDamage, DateTime from, DateTime to) {
-            RoadMaintenanceTask task = new Accident(taskName, taskDescription, priority, numberOfVehicles, roadDamage);
+        public void CreateAccidentTask(string taskName, string taskDescription, List<StreetConnector> streetConnectors, int priority, int numberOfVehicles, bool roadDamage, DateTime from, DateTime to) {
+            RoadMaintenanceTask task = new Accident(taskName, taskDescription, streetConnectors, priority, numberOfVehicles, roadDamage);
             ScheduleTask(task, from, to);
         }
 
-        public void CreateNaturalDisasterTask(string taskName, string taskDescription, int priority, string disasterType, bool roadDamage, int blockages,  DateTime from, DateTime to) {
-            RoadMaintenanceTask task = new NaturalDisaster(taskName, taskDescription, priority, disasterType, roadDamage, blockages);
+        public void CreateNaturalDisasterTask(string taskName, string taskDescription, List<StreetConnector> streetConnectors, int priority, string disasterType, bool roadDamage, int blockages,  DateTime from, DateTime to) {
+            RoadMaintenanceTask task = new NaturalDisaster(taskName, taskDescription, streetConnectors, priority, disasterType, roadDamage, blockages);
             ScheduleTask(task, from, to);
         }
 
-        public void CreateInspectionTask(string taskName, string taskDescription, int priority, DateTime from, DateTime to) {
-            RoadMaintenanceTask task = new Inspection(taskName, taskDescription, priority);
+        public void CreateInspectionTask(string taskName, string taskDescription, List<StreetConnector> streetConnectors, int priority, DateTime from, DateTime to) {
+            RoadMaintenanceTask task = new Inspection(taskName, taskDescription, streetConnectors, priority);
             ScheduleTask(task, from, to);
         }
 
-        public void CreateMaintenanceTask(string taskName, string taskDescription, int priority, bool roadDamage, DateTime from, DateTime to) {
-            RoadMaintenanceTask task = new Maintenance(taskName, taskDescription, priority, roadDamage);
+        public void CreateMaintenanceTask(string taskName, string taskDescription, List<StreetConnector> streetConnectors, int priority, bool roadDamage, DateTime from, DateTime to) {
+            RoadMaintenanceTask task = new Maintenance(taskName, taskDescription, streetConnectors, priority, roadDamage);
             ScheduleTask(task, from, to);
         }
 

@@ -1,7 +1,7 @@
 using CityTrafficControl.SS4.StaffManagement;
 using CityTrafficControl.SS4.StaffManagement.EquipmentManagement;
-using System;
 using System.Collections.Generic;
+using CityTrafficControl.Master.StreetMap;
 
 namespace CityTrafficControl.SS4.Tasks {
     abstract class RoadMaintenanceTask {
@@ -9,13 +9,15 @@ namespace CityTrafficControl.SS4.Tasks {
         private List<Equipment> AssignedEquipment;
         private string TaskName;
         private string TaskDecription;
+        private List<StreetConnector> StreetConnectors;
         private int Priority; // Ranges from 1 to 5
 
-        protected RoadMaintenanceTask(string taskName, string taskDecription, int priority) {
+        protected RoadMaintenanceTask(string taskName, string taskDecription, List<StreetConnector> streetConnectors, int priority) {
             this.AssignedTeams = new List<Team>();
             this.AssignedEquipment = new List<Equipment>();
             this.TaskName = taskName;
             this.TaskDecription = taskDecription;
+            this.StreetConnectors = streetConnectors;
             if (1 <= priority && priority <= 5) {
                 this.Priority = priority;
             } else {
