@@ -22,6 +22,7 @@ namespace CityTrafficControl.Master.StreetMap {
 		private PublicTransportStation station;
 
 		private double health;
+		private double priority;
 
 
 		static StreetConnector() {
@@ -39,6 +40,7 @@ namespace CityTrafficControl.Master.StreetMap {
 			building = null;
 			station = null;
 			health = MAX_HEALTH;
+			priority = 0;
 		}
 
 
@@ -52,6 +54,7 @@ namespace CityTrafficControl.Master.StreetMap {
 		public Coordinate Coordinate { get { return coordinate; } }
 
 		public double Health { get { return health; } set { health = value > MAX_HEALTH ? MAX_HEALTH : value < 0 ? 0 : value; } }
+		public double Priority { get { return priority; } set { priority = value < 0 ? 0 : value; } }
 
 
 		/// <summary>
