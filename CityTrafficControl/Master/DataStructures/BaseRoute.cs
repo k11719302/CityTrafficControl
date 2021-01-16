@@ -45,6 +45,7 @@ namespace CityTrafficControl.Master.DataStructures {
 		public StreetConnector End { get { return end; } }
 		public List<StreetConnector> Waypoints { get { return waypoints; } }
 
+		public double Length { get { return length; } }
 		public bool IsUsable { get { return isUsabel; } set { isUsabel = value; } }
 
 
