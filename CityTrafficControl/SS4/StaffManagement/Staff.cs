@@ -19,30 +19,11 @@ namespace CityTrafficControl.SS4.StaffManagement {
         }
 
         public bool IsReady(Team team) {
-            return TeamReadyCheck(team) && !team.IsOnMission();
+            return team.HasEnoughManpower() && !team.IsOnMission();
         }
 
         public bool IsReady(Equipment equipment) {
-            return IsFunctional(equipment) && !equipment.IsOnMission();
-        }
-
-        private bool TeamReadyCheck(Team team) { // At least 50% of the team's workers must be operational to be ready
-            int readyWorkers = 0;
-            foreach (var worker in team.GetWorkers()) {
-                if (worker.Value.IsOperational()) {
-                    readyWorkers++;
-                }
-            }
-            return (readyWorkers/team.GetWorkers().Count) >= 0.5;
-        }
-
-        public bool IsFunctional(Equipment equipment) { // Durability must be higher than 25% and Fuel must be higher than 50% to be functional
-            if (equipment.GetType() == typeof(Vehicle)) {
-                Vehicle vehicle = (Vehicle) equipment;
-                return vehicle.GetDurability() > 25.0 && vehicle.GetFuelStatus() > 50.0;  
-            } else {
-                return equipment.GetDurability() > 25.0;
-            }
+            return equipment.IsFunctional() && !equipment.IsOnMission();
         }
 
         public void OrderTool(Tool tool) {

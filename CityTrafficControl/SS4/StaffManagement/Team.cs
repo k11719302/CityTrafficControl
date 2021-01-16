@@ -35,6 +35,16 @@ namespace CityTrafficControl.SS4.StaffManagement {
             }
         }
 
+        public bool HasEnoughManpower() { // At least 50% of the team's workers must be operational to be ready
+            int readyWorkers = 0;
+            foreach (var worker in Workers) {
+                if (worker.Value.IsOperational()) {
+                    readyWorkers++;
+                }
+            }
+            return (readyWorkers / Workers.Count) >= 0.5 && readyWorkers >= 1;
+        }
+
         public Dictionary<int, Person> GetWorkers() {
             return Workers;
         }

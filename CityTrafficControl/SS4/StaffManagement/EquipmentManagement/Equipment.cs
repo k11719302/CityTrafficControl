@@ -35,6 +35,10 @@ namespace CityTrafficControl.SS4.StaffManagement.EquipmentManagement {
             }
         }
 
+        public virtual bool IsFunctional() { // Durability must be higher than 25% and Fuel must be higher than 50% to be functional 
+            return Durability > 25.0;
+        }
+
         public int GetEquipmentID() {
             return EquipmentID;
         }

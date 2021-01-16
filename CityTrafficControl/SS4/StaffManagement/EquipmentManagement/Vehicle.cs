@@ -8,6 +8,10 @@ namespace CityTrafficControl.SS4.StaffManagement.EquipmentManagement {
             this.FuelStatus = 100.0;
         }
 
+        public override bool IsFunctional() { 
+            return Durability > 25.0 && FuelStatus > 50;
+        }
+
         public override bool SendToMaintenance() {
             if (!InMaintenance) {
                 InMaintenance = true;
