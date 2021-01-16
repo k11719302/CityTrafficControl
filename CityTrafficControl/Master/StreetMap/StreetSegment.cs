@@ -23,6 +23,8 @@ namespace CityTrafficControl.Master.StreetMap {
 		private int lanes;
 		private double space1, space2;
 
+		private bool isUsable;
+
 
 		static StreetSegment() {
 			nextID = 0;
@@ -70,6 +72,8 @@ namespace CityTrafficControl.Master.StreetMap {
 		public int Lanes { get { return lanes; } }
 		public double Space1 { get { return space1; } }
 		public double Space2 { get { return space2; } }
+
+		public bool IsUsable { get { return isUsable; } set { isUsable = value; } }
 
 
 		public void ClaimSpace(int direction, double space) {

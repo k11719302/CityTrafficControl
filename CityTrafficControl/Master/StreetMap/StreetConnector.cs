@@ -9,6 +9,9 @@ namespace CityTrafficControl.Master.StreetMap {
 	/// A point on the street map where two StreetTypes are connected with the use of StreetEndpoints.
 	/// </summary>
 	public class StreetConnector {
+		public const double MAX_HEALTH = 100;
+
+
 		private static int nextID;
 
 		private int id;
@@ -17,6 +20,8 @@ namespace CityTrafficControl.Master.StreetMap {
 
 		private Building building;
 		private PublicTransportStation station;
+
+		private double health;
 
 
 		static StreetConnector() {
@@ -33,6 +38,7 @@ namespace CityTrafficControl.Master.StreetMap {
 			this.coordinate = coordinate;
 			building = null;
 			station = null;
+			health = MAX_HEALTH;
 		}
 
 
@@ -44,6 +50,8 @@ namespace CityTrafficControl.Master.StreetMap {
 		/// Gets the coordinate.
 		/// </summary>
 		public Coordinate Coordinate { get { return coordinate; } }
+
+		public double Health { get { return health; } set { health = value > MAX_HEALTH ? MAX_HEALTH : value < 0 ? 0 : value; } }
 
 
 		/// <summary>
