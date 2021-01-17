@@ -1,6 +1,7 @@
-﻿IMPLEMENT:
-	BaseRoute
-	SpecialRoute
+﻿RouteManager
+	updateRoutes
+	generateSpecialRoute
 
-Meeting Commmit demonstration
-	asd
+ParticipantInfoManager
+	
+

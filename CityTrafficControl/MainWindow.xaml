@@ -15,7 +15,7 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
-            <RowDefinition/>
+            <RowDefinition Height="40"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <TextBox x:Name="Output_Tbx" Margin="10" Grid.Row="2" TextWrapping="Wrap" Grid.ColumnSpan="4"/>

@@ -1,4 +1,5 @@
-﻿using CityTrafficControl.Master.DataStructures;
+﻿using CityTrafficControl.Master;
+using CityTrafficControl.Master.DataStructures;
 using CityTrafficControl.Master.StreetMap;
 using CityTrafficControl.SS2.DataStructures;
 using System;
@@ -8,7 +9,10 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace CityTrafficControl.SS2.Participants {
-	abstract class Participant {
+	abstract class Participant : IIDSupport {
+		private static int nextID;
+
+		private int id;
 		protected Building currentBuilding;
 		protected StreetConnector currentConnector;
 		protected ParticipantPosition position;
@@ -27,7 +31,13 @@ namespace CityTrafficControl.SS2.Participants {
 		protected bool claimedSpace;
 
 
+		static Participant() {
+			nextID = 0;
+		}
+
+
 		protected Participant(StreetConnector position, double maxSpeed, double accidentRisk, double size) {
+			id = NextID;
 			currentConnector = position;
 			this.position = ParticipantPosition.FromCoordinate(position.Coordinate);
 			this.maxSpeed = maxSpeed;
@@ -46,12 +56,32 @@ namespace CityTrafficControl.SS2.Participants {
 		protected Participant(Building position, double maxSpeed, double accidentRisk, double size) : this(position.Connector, maxSpeed, accidentRisk, size) {
 			currentBuilding = position;
 		}
-		// TODO: Delete constructor
+		// TODO: Delete empty constructor
 		protected Participant() {
-			throw new Exception("Temporary constructor called");
+			id = NextID;
+			currentConnector = StreetMapManager.Data.StreetConnectors(0);
+			this.position = ParticipantPosition.FromCoordinate(currentConnector.Coordinate);
+			this.maxSpeed = 10;
+			this.accidentRisk = 0;
+			this.size = 1;
+
+			baseRoute = null;
+			specialRoute = null;
+			currentRoutingState = RoutingState.Idle;
+			lastConnector = null;
+			nextConnector = null;
+			goalConnector = null;
+			timeBonus = TimeSpan.Zero;
+			claimedSpace = false;
+			ReportManager.PrintError("Invalid Participant contructor called!");
+			//throw new Exception("Temporary constructor called");
 		}
 
 
+		private static int NextID { get { return nextID++; } }
+
+
+		public int ID { get { return id; } }
 		public Building CurrentBuilding { get { return currentBuilding; } }
 		public StreetConnector CurrentConnector { get { return currentConnector; } }
 		public ParticipantPosition Position { get { return position; } }

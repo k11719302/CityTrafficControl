@@ -12,7 +12,7 @@ namespace CityTrafficControl.SS2 {
 
 		public static void Init() {
 			participants = new List<Participant>();
-			GenerateParticipants(100);
+			GenerateParticipants(4);
 		}
 
 		public static void SimulateTick() {
@@ -21,7 +21,13 @@ namespace CityTrafficControl.SS2 {
 
 
 		private static void GenerateParticipants(int count) {
-			throw new NotImplementedException();
-		}
+			Participant p;
+
+			for (int i = 0; i < count; i++) {
+				p = new Adult();
+				participants.Add(p);
+				if (Master.SimulationManager.DEBUG_MODE) Master.ReportManager.PrintOutput("DEBUG: Created Participant with ID (" + p.ID + ").");
+			}
 	}
+}
 }

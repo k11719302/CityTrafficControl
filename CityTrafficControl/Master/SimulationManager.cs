@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace CityTrafficControl.Master {
 	static class SimulationManager {
+		public const bool DEBUG_MODE = true;
+
 		private static bool isInitialized;
 		private static bool isFirstTick;
-
+		
 		private static SimulationState state;
 
 		private static DateTime lastTickTime;
