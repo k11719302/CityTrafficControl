@@ -19,6 +19,8 @@ namespace CityTrafficControl.SS1
         private TrafficControl() {
             lights = new List<TrafficLight>();
             roads = new List<StreetSegment>();
+            Master.DataLinker.SS1.ReceiveRoadCommand += DataLinker_SS1_ReceiveRoadCommand;
+            Master.DataLinker.SS1.ReceiveTrafficLightPlans += DataLinker_SS1_ReceiveTrafficLightPlans;
         }
 
         public static TrafficControl GetInstance //creates the first instance or always returns the singleton instance
@@ -39,11 +41,24 @@ namespace CityTrafficControl.SS1
         //calls the SendIncident method
         public static void IncidentDetected (Incident incident)
         {
-            double priority = CalculateIncidentPriority(incident.Type, incident.InvolvedObjects, incident.RoadDamage);
-            foreach (StreetConnector street in incident.Connectors)
-            {
-                street.Priority = priority;
-            }
+            foreach (StreetConnector con in incident.Connectors) {
+				if(con.Health >= 80)
+                {
+					con.Priority = 1;
+				} else if(con.Health >= 60)
+                {
+					con.Priority = 2;
+				} else if (con.Health >= 40)
+                {
+                    con.Priority = 3;
+                } else if (con.Health >= 20)
+                {
+                    con.Priority = 4;
+                } else
+                {
+                    con.Priority = 5;
+                }
+			}
             SendIncident(incident);
         }
 
@@ -52,20 +67,16 @@ namespace CityTrafficControl.SS1
         /// </summary>
         /// <param name="incident"></param>
         /// <returns></returns>
-        public static Incident SendIncident(Incident incident)
+        public static void SendIncident(Incident incident)
         {
-            throw new NotImplementedException();
+            Master.DataLinker.SS1.SendIncident(incident);
         }
 
-        //calculates the priority, which later informs SS4 about the importance of the incident
-        private static double CalculateIncidentPriority(IncidentType type, int involvedObjects, bool roadDamage)
-        {
-
-            throw new NotImplementedException();
-        }
-
-        //the DataLinker calls this method to forward a list of new TrafficLightPlans
-        //it returns true if the plan has been forwarded to the traffic light manager
+        /// <summary>
+        /// This method gets called by the DataLinker and receives a list of new TrafficLightPlans.
+        /// It then forwards the plans to the TrafficLightManager.
+        /// </summary>
+        /// <param name="plans"></param>
         public static void ReceiveTrafficLightPlans (List<TrafficLightPlan> plans)
         {
             TrafficLightManager.AddTrafficLightPlans(plans);
@@ -73,11 +84,17 @@ namespace CityTrafficControl.SS1
 
         //the DataLinker calls this method to forward a new road command from SS3
         //it returns true if the command is valid
-        public static bool ReceiveRoadCommand(RoadCommand command)
+
+        /// <summary>
+        /// This method gets called by the DataLinker and receives a new RoadCommand from SS3.
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
+        public static bool ReceiveRoadCommand(RoadInstruction command)
         {
             if (command != null)
             {
-                StreetSegment road = roads.Find(x => x.ID == command.RoadId); //check, if there is a road with this id
+                StreetSegment road = roads.Find(x => x.ID == command.Id); //check, if there is a road with this id
                 if(road!=null) //road should be valid
                 {
                     ExecuteRoadCommand(command);
@@ -89,20 +106,20 @@ namespace CityTrafficControl.SS1
 
         //this method executes the road command, i.e. adapts states and speed limits
         //it returns true, if the execution has been successful
-        private static bool ExecuteRoadCommand(RoadCommand command)
+        private static bool ExecuteRoadCommand(RoadInstruction command)
         {
-            bool state = roads.Find(x => x.ID == command.RoadId).IsUsable; //store current state of the road
+            bool state = roads.Find(x => x.ID == command.Id).IsUsable; //store current state of the road
             bool success = false;
 
-            if (command.State)    //state should be changed
+            if (command.Usable)    //state should be changed
             {
-                success = AdaptRoadState(command.RoadId, command.State);
+                success = AdaptRoadState(command.Id, command.Usable);
                 if (!success) { return success; } //return, if adapting road state was not successfull
             }
-            if (command.SpeedLimit > 0)
+            if (command.Speedlimit > 0)
             {
-                success = AdaptSpeedLimit(command.RoadId, command.SpeedLimit);
-                if (command.State && !success) { AdaptRoadState(command.RoadId, state); } //if state has been adapted successfully, but speed limit not --> undo changes
+                success = AdaptSpeedLimit(command.Id, command.Speedlimit);
+                if (command.Usable && !success) { AdaptRoadState(command.Id, state); } //if state has been adapted successfully, but speed limit not --> undo changes
             }
             return success;
         }
@@ -158,6 +175,15 @@ namespace CityTrafficControl.SS1
         public static StreetSegment FindRoadSegment(int id)
         {
             return roads.Find(x => x.ID == id);
+        }
+
+        private void DataLinker_SS1_ReceiveTrafficLightPlans(object sender, List<TrafficLightPlan> e)
+        {
+            ReceiveTrafficLightPlans(e);
+        }
+        private void DataLinker_SS1_ReceiveRoadCommand(object sender, RoadInstruction e)
+        {
+            ReceiveRoadCommand(e);
         }
     }
 }

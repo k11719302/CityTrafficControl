@@ -7,6 +7,7 @@ using CityTrafficControl.SS2.DataStructures;
 using CityTrafficControl.Master.DataStructures;
 using CityTrafficControl.SS1;
 using CityTrafficControl.SS4;
+using CityTrafficControl.SS3;
 using CityTrafficControl.Master.StreetMap;
 
 namespace CityTrafficControl.Master {
@@ -42,10 +43,32 @@ namespace CityTrafficControl.Master {
 			internal static void CallDetectNaturalDisaster(List<StreetConnector> e) {
 				DetectNaturalDisaster?.Invoke(null, e);
 			}
+
+			public static event EventHandler<List<StreetConnector>> DetectAccident;
+			internal static void CallDetectAccident(List<StreetConnector> e)
+            {
+				DetectAccident?.Invoke(null, e);
+            }
+
+			public static event EventHandler<List<TrafficLightPlan>> ReceiveTrafficLightPlans;
+			internal static void CallReceiveTrafficLightPlans(List<TrafficLightPlan> e)
+            {
+				ReceiveTrafficLightPlans?.Invoke(null, e);
+            }
+
+			public static event EventHandler<RoadInstruction> ReceiveRoadCommand;
+			internal static void CallReceiveRoadCommand (RoadInstruction e)
+            {
+				ReceiveRoadCommand?.Invoke(null, e);
+            }
 			#endregion
 
 			#region Request/Send
-
+			public static void SendIncident(Incident e)
+			{
+				//SS3.CallReceiveIncident(e);
+				//SS4.CallReceiveIncident(e);
+			}
 			#endregion
 		}
 
