@@ -155,8 +155,8 @@ namespace CityTrafficControl.Master.StreetMap {
 		public List<StreetConnector> FindNeighbours() {
 			List<StreetConnector> neighbours = new List<StreetConnector>();
 
-			neighbours.AddRange(ep1.FindNeighbours());
-			neighbours.AddRange(ep2.FindNeighbours());
+			if (ep1 != null) neighbours.AddRange(ep1.FindNeighbours());
+			if (ep2 != null) neighbours.AddRange(ep2.FindNeighbours());
 
 			return neighbours;
 		}
