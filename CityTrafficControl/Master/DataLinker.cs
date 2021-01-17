@@ -7,9 +7,28 @@ using CityTrafficControl.SS2.DataStructures;
 using CityTrafficControl.Master.DataStructures;
 using CityTrafficControl.SS1;
 using CityTrafficControl.SS4;
+using CityTrafficControl.Master.StreetMap;
 
 namespace CityTrafficControl.Master {
 	static class DataLinker {
+		public static class Master {
+			/// <summary>
+			/// Static constructor/init
+			/// </summary>
+			static Master() {
+
+			}
+
+			#region Receive
+
+			#endregion
+
+			#region Request/Send
+			public static void SendNaturalDesasterInfo(List<StreetConnector> e) {
+				SS1.CallDetectNaturalDisaster(e);
+			}
+			#endregion
+		}
 		public static class SS1 {
 			/// <summary>
 			/// Static constructor/init
@@ -19,10 +38,13 @@ namespace CityTrafficControl.Master {
 			}
 
 			#region Receive
-
+			public static event EventHandler<List<StreetConnector>> DetectNaturalDisaster;
+			internal static void CallDetectNaturalDisaster(List<StreetConnector> e) {
+				DetectNaturalDisaster?.Invoke(null, e);
+			}
 			#endregion
 
-			#region Request
+			#region Request/Send
 
 			#endregion
 		}
@@ -39,19 +61,19 @@ namespace CityTrafficControl.Master {
 			/// <summary>
 			/// Takes a list of <code>BaseRouteUpdate</code>s and performs the update.
 			/// </summary>
-			public static event EventHandler<List<BaseRouteUpdate>> updateBaseRoutes;
-			internal static void callUpdateBaseRoutes(List<BaseRouteUpdate> e) {
-				updateBaseRoutes?.Invoke(null, e);
+			public static event EventHandler<List<BaseRouteUpdate>> UpdateBaseRoutes;
+			internal static void CallUpdateBaseRoutes(List<BaseRouteUpdate> e) {
+				UpdateBaseRoutes?.Invoke(null, e);
 			}
 			#endregion
 
-			#region Request
+			#region Request/Send
 			/// <summary>
 			/// Sends a request to SS3 that it should itself make a base route update for SS2.
 			/// If there were no updates, an empty list should be sent.
 			/// </summary>
-			public static void requestBaseRoutes() {
-				SS3.callGetBaseRoutes(new EventArgs());
+			public static void RequestBaseRoutes() {
+				SS3.CallGetBaseRoutes(new EventArgs());
 			}
 			#endregion
 		}
@@ -65,14 +87,21 @@ namespace CityTrafficControl.Master {
 			}
 
 			#region Receive
-			public static event EventHandler getBaseRoutes;
-			internal static void callGetBaseRoutes(EventArgs e) {
-				getBaseRoutes?.Invoke(null, e);
+			public static event EventHandler GetBaseRoutes;
+			internal static void CallGetBaseRoutes(EventArgs e) {
+				GetBaseRoutes?.Invoke(null, e);
+			}
+
+			public static event EventHandler<List<Schedule>> ReceiveMaintenanceSchedules;
+			internal static void CallReceiveMaintenanceSchedules(List<Schedule> e) {
+				ReceiveMaintenanceSchedules?.Invoke(null, e);
 			}
 			#endregion
 
-			#region Request
-			
+			#region Request/Send
+			public static void SendBaseRouteUpdates(List<BaseRouteUpdate> e) {
+				SS2.CallUpdateBaseRoutes(e);
+			}
 			#endregion
 		}
 
@@ -85,20 +114,19 @@ namespace CityTrafficControl.Master {
 			}
 
 			#region Receive
-			public static void SendSchedules(List<Schedule> schedules) {
-				// TODO
-				throw new NotImplementedException();
-			}
-
-			public static void SendCurrentOperations(List<Schedule> currentOps) {
-				// TODO
+			public static List<Incident> RequestIncidents() {
+				// return SS1.CallGetIncidents(new EventArgs()); maybe
 				throw new NotImplementedException();
 			}
 			#endregion
 
-			#region Request
-			public static List<Incident> requestIncidents() {
-				// return SS1.CallGetIncidents(new EventArgs()); maybe
+			#region Request/Send
+			public static void SendSchedules(List<Schedule> e) {
+				SS3.CallReceiveMaintenanceSchedules(e);
+			}
+
+			public static void SendCurrentOperations(List<Schedule> e) {
+				// TODO
 				throw new NotImplementedException();
 			}
 			#endregion

@@ -60,6 +60,7 @@ namespace CityTrafficControl.SS1
         //calculates the priority, which later informs SS4 about the importance of the incident
         private static double CalculateIncidentPriority(IncidentType type, int involvedObjects, bool roadDamage)
         {
+
             throw new NotImplementedException();
         }
 

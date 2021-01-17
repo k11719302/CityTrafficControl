@@ -24,7 +24,7 @@ namespace CityTrafficControl.SS2 {
 			baseRoutes = new SortedDictionary<int, BaseRouteInfo>();
 			pendingBaseRouteUpdates = new List<BaseRouteUpdate>();
 
-			DataLinker.SS2.updateBaseRoutes += DataLinker_UpdateBaseRoutes;
+			DataLinker.SS2.UpdateBaseRoutes += DataLinker_UpdateBaseRoutes;
 		}
 
 
@@ -98,7 +98,7 @@ namespace CityTrafficControl.SS2 {
 
 
 		private static void RequestBaseRoutes() {
-			DataLinker.SS2.requestBaseRoutes();
+			DataLinker.SS2.RequestBaseRoutes();
 		}
 
 		private static bool RouteInUse(int routeID) {
