@@ -10,6 +10,7 @@ namespace CityTrafficControl.Master.StreetMap {
 
 		private int id;
 		private List<StreetEndpoint> connections;
+		private SortedList<int, bool> isGreenList;
 		private double speedLimit;
 		private double space;
 
@@ -22,6 +23,7 @@ namespace CityTrafficControl.Master.StreetMap {
 		public StreetHub() {
 			id = NextID;
 			connections = new List<StreetEndpoint>();
+			isGreenList = new SortedList<int, bool>();
 			speedLimit = DEFAULT_SPEED_LIMIT;
 			UpdateSpace();
 		}
@@ -32,6 +34,7 @@ namespace CityTrafficControl.Master.StreetMap {
 
 		public override int ID { get { return id; } }
 		public List<StreetEndpoint> Connections { get { return connections; } }
+		public SortedList<int, bool> IsGreenList { get { return isGreenList; } }
 		/// <summary>
 		/// Gets the speed limit in units/s.
 		/// </summary>
@@ -63,6 +66,7 @@ namespace CityTrafficControl.Master.StreetMap {
 				throw new StreetMapException("Could not connect this StreetHub to the StreetConnector");
 			}
 			connections.Add(ep);
+			isGreenList.Add(connector.ID, true);
 			UpdateSpace();
 
 			return true;
@@ -78,6 +82,7 @@ namespace CityTrafficControl.Master.StreetMap {
 				throw new StreetMapException("Could not disconnect this StreetHub from the StreetConnector");
 			}
 			connections.Remove(ep);
+			isGreenList.Remove(connector.ID);
 
 			return true;
 		}
