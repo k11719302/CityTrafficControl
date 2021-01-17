@@ -25,10 +25,6 @@ namespace CityTrafficControl.SS4.Tasks {
             }
         }
 
-        public List<StreetConnector> GetStreetConnectors(){
-            return StreetConnectors;
-        }
-
         public void AssignTeam(Team team) {
             AssignedTeams.Add(team);
         }
