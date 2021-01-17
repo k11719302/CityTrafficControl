@@ -13,6 +13,7 @@ namespace CityTrafficControl.SS1
         private TrafficDetection()
 		{
 			Master.DataLinker.SS1.DetectNaturalDisaster += DataLinker_SS1_DetectNaturalDisaster;
+            Master.DataLinker.SS1.DetectAccident += DataLinker_SS1_DetectAccident;
 		}
 
 		public static TrafficDetection GetInstance //creates the first instance or always returns the singleton instance
@@ -34,25 +35,24 @@ namespace CityTrafficControl.SS1
         /// <param name="connector"></param>
         /// <param name="involvedObjects"></param>
         /// <param name="roadDamage"></param>
-        public static void IncidentHappened(IncidentType type, List<StreetConnector> connector, int involvedObjects, bool roadDamage)	//TODO: roadDamage is in StreetConnector (Health)
+        public static void IncidentHappened(IncidentType type, List<StreetConnector> connectors)
         {
-			//TODO: Priority
-			/*foreach (StreetConnector con in connector) {
-				if(con.Health>80) {
-					con.Priority = 1;
-				}else if(con.Health > 60) {
-					con.Priority = 2;
-				}
-			}*/
-            Incident incident = new Incident(type, connector, " ", -1, involvedObjects, roadDamage);
+            Incident incident = new Incident(type, connectors);
             TrafficControl.IncidentDetected(incident);
         }
 
 
 		#region DataLinker
 		private void DataLinker_SS1_DetectNaturalDisaster(object sender, List<StreetConnector> e) {
-			IncidentHappened(IncidentType.NATDISASTER, e, e.Count, true);
+			IncidentHappened(IncidentType.NATDISASTER, e);
 		}
-		#endregion
-	}
+        #endregion
+
+        #region DataLinker
+        private void DataLinker_SS1_DetectAccident(object sender, List<StreetConnector> e)
+        {
+            IncidentHappened(IncidentType.ACCIDENT, e);
+        }
+        #endregion
+    }
 }
