@@ -63,6 +63,7 @@ namespace CityTrafficControl.Master.StreetMap {
 				throw new StreetMapException("Could not connect this StreetHub to the StreetConnector");
 			}
 			connections.Add(ep);
+			UpdateSpace();
 
 			return true;
 		}
@@ -99,6 +100,10 @@ namespace CityTrafficControl.Master.StreetMap {
 			}
 
 			return neighbours;
+		}
+
+		public override string ToString() {
+			return string.Format("StreetHub({0})", id);
 		}
 
 

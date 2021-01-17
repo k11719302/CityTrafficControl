@@ -107,6 +107,10 @@ namespace CityTrafficControl.Master.StreetMap {
 			return neighbours;
 		}
 
+		public override string ToString() {
+			return string.Format("StreetSegment({0})", id);
+		}
+
 
 		private double CalcLength() {
 			return Coordinate.GetDistance(ep1.Connector.Coordinate, ep2.Connector.Coordinate);

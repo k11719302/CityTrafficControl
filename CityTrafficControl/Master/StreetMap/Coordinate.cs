@@ -46,5 +46,10 @@ namespace CityTrafficControl.Master.StreetMap {
 
 			return Math.Sqrt(diffX * diffX + diffY * diffY);
 		}
+
+
+		public override string ToString() {
+			return string.Format("Coordinate({0}, {1})", x, y);
+		}
 	}
 }
