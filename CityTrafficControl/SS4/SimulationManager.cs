@@ -6,15 +6,10 @@ using System.Threading.Tasks;
 
 namespace CityTrafficControl.SS4 {
 	static class SimulationManager {
-		private static RoadMaintenanceService rms;
-
 		public static void Init() {
-			rms = new RoadMaintenanceService();
 		}
 
 		public static void SimulateTick() {
-			rms.SendSchedules();
-			rms.ReceiveData();
 		}
 	}
 }

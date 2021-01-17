@@ -18,11 +18,19 @@ namespace CityTrafficControl.SS4 {
         }
 
         public void SendSchedules() {
-            // TODO DataLinker.sendMyData(Schedules);
+            // DataLinker.SS4.SendSchedules(GetSchedules());
+            throw new NotImplementedException();
         }
 
-        public void ReceiveData() { // TODO
+        public void SendCurrentOperations() {
+            // DataLinker.SS4.SendCurrentOperations(GetCurrentOperations());
             throw new NotImplementedException();
+        }
+
+        public void ProcessNewIncidentReports() {
+            // List<Incident> incidents = DataLinker.SS4.RequestIncidents();
+            throw new NotImplementedException();
+            // TODO Process each request
         }
 
         public void CreateAccidentTask(string taskName, string taskDescription, List<StreetConnector> streetConnectors, int priority, int numberOfVehicles, bool roadDamage, DateTime from, DateTime to) {
@@ -50,6 +58,10 @@ namespace CityTrafficControl.SS4 {
             Schedules.Add(schedule.GetScheduleID(), schedule);
         }
 
+        public List<Schedule> GetSchedules() {
+            return Schedules.Values.ToList<Schedule>();
+        }
+
         public List<Schedule> GetCurrentOperations() {
             if (Schedules.Count == 0) {
                 return null;
@@ -70,10 +82,6 @@ namespace CityTrafficControl.SS4 {
             } else {
                 return false;
             }
-        }
-
-        public List<Schedule> GetAllSchedules() {
-            return Schedules.Values.ToList<Schedule>();
         }
 
         public void OrderTeamReinforcement(int scheduledID, Team team) {

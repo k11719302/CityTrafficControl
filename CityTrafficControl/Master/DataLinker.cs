@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using CityTrafficControl.SS2.DataStructures;
 using CityTrafficControl.Master.DataStructures;
+using CityTrafficControl.SS1;
+using CityTrafficControl.SS4;
 
 namespace CityTrafficControl.Master {
 	static class DataLinker {
@@ -83,11 +85,22 @@ namespace CityTrafficControl.Master {
 			}
 
 			#region Receive
-			
+			public static void SendSchedules(List<Schedule> schedules) {
+				// TODO
+				throw new NotImplementedException();
+			}
+
+			public static void SendCurrentOperations(List<Schedule> currentOps) {
+				// TODO
+				throw new NotImplementedException();
+			}
 			#endregion
 
 			#region Request
-
+			public static List<Incident> requestIncidents() {
+				// return SS1.CallGetIncidents(new EventArgs()); maybe
+				throw new NotImplementedException();
+			}
 			#endregion
 		}
 	}
