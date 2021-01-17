@@ -12,7 +12,7 @@ namespace CityTrafficControl.SS2.Participants {
 	abstract class Participant : IIDSupport {
 		private static int nextID;
 
-		private int id;
+		protected int id;
 		protected Building currentBuilding;
 		protected StreetConnector currentConnector;
 		protected ParticipantPosition position;
@@ -29,6 +29,7 @@ namespace CityTrafficControl.SS2.Participants {
 		protected TimeSpan timeBonus;
 		protected int currentWaypointIndex;
 		protected bool claimedSpace;
+		protected bool isFirstClaim;
 
 
 		static Participant() {
@@ -52,6 +53,7 @@ namespace CityTrafficControl.SS2.Participants {
 			goalConnector = null;
 			timeBonus = TimeSpan.Zero;
 			claimedSpace = false;
+			isFirstClaim = true;
 		}
 		protected Participant(Building position, double maxSpeed, double accidentRisk, double size) : this(position.Connector, maxSpeed, accidentRisk, size) {
 			currentBuilding = position;
@@ -61,7 +63,7 @@ namespace CityTrafficControl.SS2.Participants {
 			id = NextID;
 			currentConnector = StreetMapManager.Data.StreetConnectors(0);
 			this.position = ParticipantPosition.FromCoordinate(currentConnector.Coordinate);
-			this.maxSpeed = 10;
+			this.maxSpeed = 50;
 			this.accidentRisk = 0;
 			this.size = 1;
 
@@ -73,6 +75,8 @@ namespace CityTrafficControl.SS2.Participants {
 			goalConnector = null;
 			timeBonus = TimeSpan.Zero;
 			claimedSpace = false;
+			isFirstClaim = true;
+
 			ReportManager.PrintError("Invalid Participant contructor called!");
 			//throw new Exception("Temporary constructor called");
 		}
@@ -209,11 +213,28 @@ namespace CityTrafficControl.SS2.Participants {
 							currentRoutingState = RoutingState.Finished;
 						}
 						break;
-					case RoutingState.Finished: return;
+					case RoutingState.Finished:
+						if (!isFirstClaim) {
+							StreetType typeLast;
+							if (currentConnector.EP1.FindNeighbours().Contains(lastConnector)) {
+								typeLast = currentConnector.EP1.Self;
+							}
+							else {
+								typeLast = currentConnector.EP2.Self;
+							}
+							FreeSpace(typeLast);
+						}
+						isFirstClaim = true;
+						return;
 					default: throw new Exception("Unknown RoutingState");
 				}
 			}
 		}
+
+		public override string ToString() {
+			return string.Format("Participant({0})", id);
+		}
+
 
 		protected bool AdvanceRoute() {
 			StreetType typeCur, typeLast;
@@ -230,14 +251,19 @@ namespace CityTrafficControl.SS2.Participants {
 
 			if (typeCur is StreetSegment) {
 				StreetSegment segment = (StreetSegment)typeCur;
-				int direction = segment.EP1.Connector == currentConnector ? 1 : 2;
 
 				if (!claimedSpace) {
+					int direction = segment.EP1.Connector == currentConnector ? 1 : 2;
 					if (!segment.ClaimSpace(direction, size)) {
 						timeBonus = TimeSpan.Zero;
 						return false;
 					}
-					FreeSpace(typeLast);
+					if (isFirstClaim) {
+						isFirstClaim = false;
+					}
+					else {
+						FreeSpace(typeLast);
+					}
 					claimedSpace = true;
 				}
 
@@ -251,6 +277,7 @@ namespace CityTrafficControl.SS2.Participants {
 				currentConnector = nextConnector;
 				nextConnector = null;
 				claimedSpace = false;
+				ReportManager.PrintDebug(this + " advanced to " + currentConnector + ".");
 				return true;
 			}
 			else if (typeCur is StreetHub) {
@@ -261,7 +288,12 @@ namespace CityTrafficControl.SS2.Participants {
 						timeBonus = TimeSpan.Zero;
 						return false;
 					}
-					FreeSpace(typeLast);
+					if (isFirstClaim) {
+						isFirstClaim = false;
+					}
+					else {
+						FreeSpace(typeLast);
+					}
 					claimedSpace = true;
 				}
 

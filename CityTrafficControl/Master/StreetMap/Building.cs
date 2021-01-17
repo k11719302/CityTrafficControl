@@ -70,5 +70,9 @@ namespace CityTrafficControl.Master.StreetMap {
 
 			return false;
 		}
+
+		public override string ToString() {
+			return string.Format("Building({0})", id);
+		}
 	}
 }

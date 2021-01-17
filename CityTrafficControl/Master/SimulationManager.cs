@@ -10,12 +10,14 @@ namespace CityTrafficControl.Master {
 
 		private static bool isInitialized;
 		private static bool isFirstTick;
-		
+
 		private static SimulationState state;
 
 		private static DateTime lastTickTime;
 		private static DateTime curTickTime;
 		private static TimeSpan tickDuration;
+
+		private static Random random;
 
 
 		static SimulationManager() {
@@ -23,6 +25,8 @@ namespace CityTrafficControl.Master {
 			isFirstTick = true;
 
 			state = SimulationState.Stopped;
+
+			random = new Random();
 		}
 
 
@@ -43,6 +47,8 @@ namespace CityTrafficControl.Master {
 		/// Gets the time span of the current tick.
 		/// </summary>
 		public static TimeSpan TickDuration { get { return tickDuration; } }
+
+		public static Random Random { get { return random; } }
 
 
 		/// <summary>
@@ -107,7 +113,7 @@ namespace CityTrafficControl.Master {
 			state = SimulationState.Running;
 			ReportManager.PrintOutput("Simulation started.");
 			while (state == SimulationState.Running) {
-				// simulate ticks
+				SimulateTick();
 			}
 
 			state = SimulationState.Stopped;

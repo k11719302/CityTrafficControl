@@ -73,5 +73,9 @@ namespace CityTrafficControl.Master.StreetMap {
 		public List<StreetConnector> FindNeighbours() {
 			return self.FindNeighbours(this);
 		}
+
+		public override string ToString() {
+			return string.Format("StreetEndpoint(c={0})", connector.ID);
+		}
 	}
 }

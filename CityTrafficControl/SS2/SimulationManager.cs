@@ -16,7 +16,12 @@ namespace CityTrafficControl.SS2 {
 		}
 
 		public static void SimulateTick() {
-			// TODO: do everything that should be done every tick
+			// Commented out to not force an update
+			//RouteManager.CheckUpdateTimeout();
+
+			foreach (Participant p in participants) {
+				p.SimulateTick();
+			}
 		}
 
 
@@ -26,7 +31,7 @@ namespace CityTrafficControl.SS2 {
 			for (int i = 0; i < count; i++) {
 				p = new Adult();
 				participants.Add(p);
-				Master.ReportManager.PrintDebug("DEBUG: Created Participant with ID (" + p.ID + ").");
+				Master.ReportManager.PrintDebug("Created " + p + ".");
 			}
 	}
 }

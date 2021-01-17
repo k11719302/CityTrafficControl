@@ -34,7 +34,7 @@ namespace CityTrafficControl {
 
 		public void PrintOutput(string str) {
 			Dispatcher.BeginInvoke(DispatcherPriority.Normal, (Invoker)delegate {
-				Output_Tbx.Text = "[" + DateTime.Now.ToString("hh:mm:ss") + "] " + str + "\n" + Output_Tbx.Text;
+				Output_Tbx.Text = "[" + DateTime.Now.ToString("hh:mm:ss.fff") + "] " + str + "\n" + Output_Tbx.Text;
 			});
 		}
 		public void PrintError(string str) {

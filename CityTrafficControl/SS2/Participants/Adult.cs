@@ -11,7 +11,27 @@ namespace CityTrafficControl.SS2.Participants {
 		}
 
 		public override void SimulateTick() {
-			throw new NotImplementedException();
+			timeBonus = timeBonus.Add(Master.SimulationManager.TickDuration);
+			switch (currentRoutingState) {
+				case RoutingState.Idle:
+					int newId = Master.SimulationManager.Random.Next(Master.StreetMap.StreetMapManager.Data.StreetConnectorsCount);
+					StartNewRoute(Master.StreetMap.StreetMapManager.Data.StreetConnectors(newId));
+					Master.ReportManager.PrintDebug(this + " starting new route from " + currentConnector + " to " + goalConnector + ".");
+					break;
+				case RoutingState.Finished:
+					Master.ReportManager.PrintDebug(this + " has reached the goal.");
+					currentRoutingState = RoutingState.Idle;
+					timeBonus = TimeSpan.Zero;
+					break;
+				default:
+					break;
+			}
+			ExecuteRouting();
+			//throw new NotImplementedException();
+		}
+
+		public override string ToString() {
+			return string.Format("Adult({0})", id);
 		}
 	}
 }

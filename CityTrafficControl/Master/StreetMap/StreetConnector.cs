@@ -161,6 +161,10 @@ namespace CityTrafficControl.Master.StreetMap {
 			return neighbours;
 		}
 
+		public override string ToString() {
+			return string.Format("StreetConnector({0})", id);
+		}
+
 
 		/// <summary>
 		/// The result of a connection try.

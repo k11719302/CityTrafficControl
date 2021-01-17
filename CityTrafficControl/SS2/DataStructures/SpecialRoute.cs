@@ -28,16 +28,21 @@ namespace CityTrafficControl.SS2.DataStructures {
 
 		// Using the A* algorithm
 		private void CalcRoute() {
-			SortedList<double, SearchNode> openList = new SortedList<double, SearchNode>();
+			List<SearchNode> openList = new List<SearchNode>();
+			//SortedList<double, SearchNode> openList = new SortedList<double, SearchNode>();
 			List<SearchNode> closedList = new List<SearchNode>();
 			SearchNode cur = new SearchNode(start, end);
 			SearchNode newNode;
 
-			openList.Add(cur.cost, cur);
+			openList.Add(cur);
+			//openList.Add(cur.cost, cur);
 
 			while (openList.Count > 0) {
-				cur = openList.First().Value;
-				openList.Remove(cur.cost);
+				double lowest = openList.Min(l => l.cost);
+				cur = openList.First(l => l.cost == lowest);
+				//cur = openList.First().Value;
+				openList.Remove(cur);
+				//openList.Remove(cur.cost);
 				if (closedList.Contains(cur)) {
 					continue;
 				}
@@ -48,7 +53,8 @@ namespace CityTrafficControl.SS2.DataStructures {
 				closedList.Add(cur);
 				foreach (StreetConnector successor in GetSuccessors(cur)) {
 					newNode = new SearchNode(cur, successor, end);
-					openList.Add(newNode.cost, newNode);
+					openList.Add(newNode);
+					//openList.Add(newNode.cost, newNode);
 				}
 			}
 
