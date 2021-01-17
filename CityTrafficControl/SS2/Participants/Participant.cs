@@ -24,6 +24,7 @@ namespace CityTrafficControl.SS2.Participants {
 		protected StreetConnector goalConnector;
 		protected TimeSpan timeBonus;
 		protected int currentWaypointIndex;
+		protected bool claimedSpace;
 
 
 		protected Participant(StreetConnector position, double maxSpeed, double accidentRisk, double size) {
@@ -40,6 +41,7 @@ namespace CityTrafficControl.SS2.Participants {
 			nextConnector = null;
 			goalConnector = null;
 			timeBonus = TimeSpan.Zero;
+			claimedSpace = false;
 		}
 		protected Participant(Building position, double maxSpeed, double accidentRisk, double size) : this(position.Connector, maxSpeed, accidentRisk, size) {
 			currentBuilding = position;
@@ -200,11 +202,14 @@ namespace CityTrafficControl.SS2.Participants {
 				StreetSegment segment = (StreetSegment)typeCur;
 				int direction = segment.EP1.Connector == currentConnector ? 1 : 2;
 
-				if (!segment.ClaimSpace(direction, size)) {
-					timeBonus = TimeSpan.Zero;
-					return false;
+				if (!claimedSpace) {
+					if (!segment.ClaimSpace(direction, size)) {
+						timeBonus = TimeSpan.Zero;
+						return false;
+					}
+					FreeSpace(typeLast);
+					claimedSpace = true;
 				}
-				FreeSpace(typeLast);
 
 				requiredTime = maxSpeed < segment.SpeedLimit ? TimeSpan.FromSeconds(segment.Length / maxSpeed) : segment.MinDriveTime;
 				if (requiredTime.CompareTo(timeBonus) > 0) {
@@ -212,18 +217,23 @@ namespace CityTrafficControl.SS2.Participants {
 				}
 
 				timeBonus = timeBonus.Subtract(requiredTime);
+				lastConnector = currentConnector;
 				currentConnector = nextConnector;
 				nextConnector = null;
+				claimedSpace = false;
 				return true;
 			}
 			else if (typeCur is StreetHub) {
 				StreetHub hub = (StreetHub)typeCur;
 
-				if (!hub.ClaimSpace(size)) {
-					timeBonus = TimeSpan.Zero;
-					return false;
+				if (!claimedSpace) {
+					if (!hub.ClaimSpace(size)) {
+						timeBonus = TimeSpan.Zero;
+						return false;
+					}
+					FreeSpace(typeLast);
+					claimedSpace = true;
 				}
-				FreeSpace(typeLast);
 
 				double speed = maxSpeed < hub.SpeedLimit ? maxSpeed : hub.SpeedLimit;
 				requiredTime = TimeSpan.FromSeconds(Coordinate.GetDistance(currentConnector.Coordinate, nextConnector.Coordinate) / speed);
@@ -232,8 +242,10 @@ namespace CityTrafficControl.SS2.Participants {
 				}
 
 				timeBonus = timeBonus.Subtract(requiredTime);
+				lastConnector = currentConnector;
 				currentConnector = nextConnector;
 				nextConnector = null;
+				claimedSpace = false;
 				return true;
 			}
 			else throw new StreetMapException("Unknown StreetType");
