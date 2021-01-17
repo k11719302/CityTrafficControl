@@ -42,23 +42,20 @@ namespace CityTrafficControl {
 		}
 
 		private void Init_Btn_Click(object sender, RoutedEventArgs e) {
-			/*switch(Master.Loader.Load()) {
-				case Master.Loader.LoadingError.NoError: PrintOutput("Loading complete!"); break;
-				case Master.Loader.LoadingError.AlreadyLoaded: PrintOutput("ERROR: Already loaded!"); break;
-			}*/
 			ReportManager.Init(this);
 			StreetMapManager.Init();
 			SimulationManager.Init();
+			Stopped_Grid.Visibility = Visibility.Visible;
 		}
 
 		private void Start_Btn_Click(object sender, RoutedEventArgs e) {
-			//SimulationManager.Start();
 			Task.Factory.StartNew(() => { SimulationManager.Start(); });
+			Running_Grid.Visibility = Visibility.Visible;
 		}
 
 		private void Stop_Btn_Click(object sender, RoutedEventArgs e) {
-			//SimulationManager.Stop();
 			Task.Factory.StartNew(() => { SimulationManager.Stop(); });
+			Running_Grid.Visibility = Visibility.Hidden;
 		}
 	}
 }
