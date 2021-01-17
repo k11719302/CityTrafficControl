@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 
 namespace CityTrafficControl.SS4.StaffManagement {
-    class Staff {
+    public class Staff {
         private Dictionary<int, Team> Teams;
         private Dictionary<int, Tool> Tools;
         private Dictionary<int, Vehicle> Vehicles;

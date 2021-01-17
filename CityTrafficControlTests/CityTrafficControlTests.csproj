@@ -62,6 +62,10 @@
     <Compile Include="SS1\TrafficLightManagerTests.cs" />
     <Compile Include="SS1\TrafficLightPlanTests.cs" />
     <Compile Include="SS3\SS3Test.cs" />
+	<Compile Include="SS4\ScheduleTest.cs" />
+	<Compile Include="SS4\StaffTest.cs" />
+	<Compile Include="SS4\VehicleTest.cs" />
+	<Compile Include="SS4\TeamTest.cs" />
     <Compile Include="UnitTestTemplate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

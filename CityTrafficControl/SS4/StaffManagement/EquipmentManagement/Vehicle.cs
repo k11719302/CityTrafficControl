@@ -1,7 +1,7 @@
 using System;
 
 namespace CityTrafficControl.SS4.StaffManagement.EquipmentManagement {
-    class Vehicle : Equipment {
+    public class Vehicle : Equipment {
         private Double FuelStatus;
 
         public Vehicle(int equipmentID, string equipmentType) : base(equipmentID, equipmentType) {

@@ -1,7 +1,7 @@
 using System;
 
 namespace CityTrafficControl.SS4.StaffManagement {
-    class Person {
+    public class Person {
         private readonly int PersonID;
         private readonly string Name;
         private string Specialisation;
