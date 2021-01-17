@@ -8,20 +8,20 @@ namespace CityTrafficControl.SS3
     {
         //A roadInstruction will be send to SS1 if either the speedlimit or a roadstatus needs to be changed
         private int id;
-        private int speedlimit;
-        private RoadStatus status;
+        private double speedlimit;
+        private bool usable;
        
 
-        public RoadInstruction(int id, int speedlimit, RoadStatus status)
+        public RoadInstruction(int id, double speedlimit, bool usable)
         {
             this.id = id;
             this.speedlimit = speedlimit;
-            this.status = status;
+            this.usable = usable;
         }
 
         public int Id { get { return id; } }
-        public int Speedlimit { get { return speedlimit; } }
-        public RoadStatus Status { get { return status; } }
+        public double Speedlimit { get { return speedlimit; } }
+        public bool Usable { get { return usable; } }
        
 
     }
