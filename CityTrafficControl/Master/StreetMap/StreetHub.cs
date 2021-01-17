@@ -110,6 +110,11 @@ namespace CityTrafficControl.Master.StreetMap {
 		}
 
 		private void UpdateSpace() {
+			if (connections.Count <= 1) {
+				space = 0;
+				return;
+			}
+
 			StreetEndpoint root = connections.First();
 
 			space = 0;

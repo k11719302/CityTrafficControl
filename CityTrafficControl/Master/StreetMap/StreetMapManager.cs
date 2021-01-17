@@ -52,7 +52,61 @@ namespace CityTrafficControl.Master.StreetMap {
 
 
 		private static void InitStaticMap() {
-			throw new NotImplementedException();
+			StreetConnector c1, c2, c3, c4;
+			StreetHub h1;
+
+			// # StreetConnector
+			// - StreetSegment
+			// ~ StreetHub
+			// ^ Building
+
+			/*   ^   ^         ^
+			 * 	 #---#~~~~~#---#
+			 * 	 -      ~      -
+			 * 	 -   ^  ~      -
+			 *	 #---#~~~~~#---#^
+			 */
+
+			Save(c1 = new StreetConnector(0, 0));
+			Save(c2 = new StreetConnector(400, 0));
+			Save(c3 = new StreetConnector(0, 300));
+			Save(c4 = new StreetConnector(400, 300));
+			Save(new Building(c1));
+			Save(new Building(c2));
+			Save(new Building(c4));
+			Save(new StreetSegment(c1, c2));
+			Save(new StreetSegment(c1, c3));
+			Save(new StreetSegment(c3, c4));
+			Save(c1 = new StreetConnector(1000, 0));
+			Save(c3 = new StreetConnector(1000, 300));
+			Save(h1 = new StreetHub());
+			h1.Connect(c1);
+			h1.Connect(c2);
+			h1.Connect(c3);
+			h1.Connect(c4);
+			Save(c2 = new StreetConnector(1400, 0));
+			Save(c4 = new StreetConnector(1400, 300));
+			Save(new Building(c2));
+			Save(new Building(c4));
+			Save(new StreetSegment(c1, c2));
+			Save(new StreetSegment(c2, c4));
+			Save(new StreetSegment(c3, c4));
+		}
+
+		private static void Save(StreetConnector connector) {
+			connectors.Add(connector.ID, connector);
+		}
+		private static void Save(StreetHub hub) {
+			hubs.Add(hub.ID, hub);
+		}
+		private static void Save(StreetSegment segment) {
+			segments.Add(segment.ID, segment);
+		}
+		private static void Save(Building building) {
+			buildings.Add(building.ID, building);
+		}
+		private static void Save(PublicTransportStation station) {
+			stations.Add(station.ID, station);
 		}
 
 

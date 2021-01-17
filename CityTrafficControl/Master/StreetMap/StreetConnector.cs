@@ -42,6 +42,7 @@ namespace CityTrafficControl.Master.StreetMap {
 			health = MAX_HEALTH;
 			priority = 0;
 		}
+		public StreetConnector(double x, double y) : this(new Coordinate(x, y)) { }
 
 
 		private static int NextID { get { return nextID++; } }
