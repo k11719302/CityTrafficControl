@@ -3,18 +3,19 @@ using CityTrafficControl.SS4;
 using CityTrafficControl.Master.StreetMap;
 using System.Collections.Generic;
 using System.Text;
+using CityTrafficControl.Master.DataStructures;
 
 namespace CityTrafficControl.SS3
 {
     static class ControlSystem
     {
-        private static List<Master.DataStructures.BaseRoute> paths;
+        private static List<BaseRoute> paths;
         private static List<Intersection> intersectionsPlans;
         private static List<Schedule> schedules;
 
         static ControlSystem()
         {
-            paths = new List<Master.DataStructures.BaseRoute>();
+            paths = new List<BaseRoute>();
             intersectionsPlans = new List<Intersection>();
             schedules = new List<Schedule>();
         }
@@ -131,16 +132,22 @@ namespace CityTrafficControl.SS3
         //Send to Datalinker
         public static void SendIntersectionPlan()
         {
-            //Datalinker.
+            //Todo: Datalinker.
         }
-        public static void SendBaseRoute()
+        public static void SendAllBaseRoute()
         {
-            //Datalinker.
+			List<BaseRouteUpdate> routes = new List<BaseRouteUpdate>();
+
+			foreach (BaseRoute path in paths) {
+				routes.Add(new BaseRouteUpdate(path.ID, BaseRouteUpdate.UpdateType.New, path, null));
+			}
+
+			Master.DataLinker.SS3.SendBaseRouteUpdates(routes);
         }
 
         public static void SendRoadInstruction(RoadInstruction r)
         {
-            //Datalinker.
+            //Todo: Datalinker.
         }
 
     }

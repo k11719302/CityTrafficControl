@@ -75,6 +75,7 @@ namespace CityTrafficControl.Master {
 		public static void Start() {
 			if (state == SimulationState.Stopped) {
 				ReportManager.PrintOutput("Simulation starting...");
+				UpdateTimestamps(true);
 				state = SimulationState.Starting;
 				SimulationCycle();
 			}
@@ -115,21 +116,22 @@ namespace CityTrafficControl.Master {
 			while (state == SimulationState.Running) {
 				SimulateTick();
 			}
+			UpdateTimestamps();
 
 			state = SimulationState.Stopped;
 			ReportManager.PrintOutput("Simulation stopped.");
 		}
 
 		private static void SimulateTick() {
-			UpdateTimestamps();
-
 			SS1.SimulationManager.SimulateTick();
 			SS2.SimulationManager.SimulateTick();
 			SS3.SimulationManager.SimulateTick();
 			SS4.SimulationManager.SimulateTick();
+
+			UpdateTimestamps();
 		}
 
-		private static void UpdateTimestamps() {
+		private static void UpdateTimestamps(bool fixStop = false) {
 			if (isFirstTick) {
 				isFirstTick = false;
 				lastTickTime = DateTime.Now;
@@ -137,9 +139,15 @@ namespace CityTrafficControl.Master {
 				tickDuration = TimeSpan.Zero;
 			}
 			else {
-				lastTickTime = curTickTime;
-				curTickTime = DateTime.Now;
-				tickDuration = curTickTime.Subtract(lastTickTime);
+				if (fixStop) {
+					curTickTime = DateTime.Now;
+					lastTickTime = curTickTime.Subtract(tickDuration);
+				}
+				else {
+					lastTickTime = curTickTime;
+					curTickTime = DateTime.Now;
+					tickDuration = curTickTime.Subtract(lastTickTime);
+				}
 			}
 		}
 

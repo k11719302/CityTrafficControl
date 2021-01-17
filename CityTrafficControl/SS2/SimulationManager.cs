@@ -33,6 +33,6 @@ namespace CityTrafficControl.SS2 {
 				participants.Add(p);
 				Master.ReportManager.PrintDebug("Created " + p + ".");
 			}
+		}
 	}
-}
 }

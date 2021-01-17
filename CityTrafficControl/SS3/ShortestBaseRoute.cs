@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using CityTrafficControl.Master.StreetMap;
 
 namespace CityTrafficControl.SS3 {
-	class ShortestBaseRoute : BaseRoute {
+	public class ShortestBaseRoute : BaseRoute {
 		public ShortestBaseRoute(StreetConnector start, StreetConnector end) : base(start, end) { }
 
 		protected override bool CalcRoute() {

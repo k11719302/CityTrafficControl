@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using CityTrafficControl.Master.StreetMap;
 using System.Linq;
+using CityTrafficControl.Master;
 
 namespace CityTrafficControl.SS4 {
     class RoadMaintenanceService {
@@ -18,19 +19,7 @@ namespace CityTrafficControl.SS4 {
         }
 
         public void SendSchedules() {
-            // DataLinker.SS4.SendSchedules(GetSchedules());
-            throw new NotImplementedException();
-        }
-
-        public void SendCurrentOperations() {
-            // DataLinker.SS4.SendCurrentOperations(GetCurrentOperations());
-            throw new NotImplementedException();
-        }
-
-        public void ProcessNewIncidentReports() {
-            // List<Incident> incidents = DataLinker.SS4.RequestIncidents();
-            throw new NotImplementedException();
-            // TODO Process each request
+            DataLinker.SS4.SendSchedules(GetSchedules());
         }
 
         public void CreateAccidentTask(string taskName, string taskDescription, List<StreetConnector> streetConnectors, int priority, int numberOfVehicles, bool roadDamage, DateTime from, DateTime to) {

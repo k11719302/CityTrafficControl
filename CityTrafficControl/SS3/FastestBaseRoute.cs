@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using CityTrafficControl.Master.StreetMap;
 
 namespace CityTrafficControl.SS3 {
-     class FastestBaseRoute : BaseRoute {
+     public class FastestBaseRoute : BaseRoute {
 
         public FastestBaseRoute(StreetConnector start, StreetConnector end) : base(start, end) { }
 

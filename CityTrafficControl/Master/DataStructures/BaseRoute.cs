@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace CityTrafficControl.Master.DataStructures {
-	abstract class BaseRoute : IIDSupport {
+	public abstract class BaseRoute : IIDSupport {
 		private static int nextID;
 
 		private int id;
