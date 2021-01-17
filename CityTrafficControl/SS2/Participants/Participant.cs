@@ -284,6 +284,13 @@ namespace CityTrafficControl.SS2.Participants {
 			}
 			else if (typeCur is StreetHub) {
 				StreetHub hub = (StreetHub)typeCur;
+				bool isGreen;
+
+				hub.IsGreenList.TryGetValue(currentConnector.ID, out isGreen);
+				if (!isGreen) {
+					timeBonus = TimeSpan.Zero;
+					return false;
+				}
 
 				if (!claimedSpace) {
 					if (!hub.ClaimSpace(size)) {
