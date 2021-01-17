@@ -114,20 +114,11 @@ namespace CityTrafficControl.Master {
 			}
 
 			#region Receive
-			public static List<Incident> RequestIncidents() {
-				// return SS1.CallGetIncidents(new EventArgs()); maybe
-				throw new NotImplementedException();
-			}
 			#endregion
 
 			#region Request/Send
 			public static void SendSchedules(List<Schedule> e) {
 				SS3.CallReceiveMaintenanceSchedules(e);
-			}
-
-			public static void SendCurrentOperations(List<Schedule> e) {
-				// TODO
-				throw new NotImplementedException();
 			}
 			#endregion
 		}
