@@ -96,14 +96,16 @@ namespace CityTrafficControl.SS2.Participants {
 		public bool IsInBuilding { get { return currentBuilding != null; } }
 
 
-		public abstract void SimulateTick();
+		public virtual void SimulateTick() {
+			timeBonus = timeBonus.Add(Master.SimulationManager.TickDuration);
+		}
 
 		public void StartNewRoute(StreetConnector goal) {
+			goalConnector = goal;
 			if (goal == currentConnector) {
 				currentRoutingState = RoutingState.Finished;
 				return;
 			}
-			goalConnector = goal;
 			baseRoute = RouteManager.GetBestBaseRoute(currentConnector, goal);
 			if (baseRoute == null) {
 				specialRoute = RouteManager.GetSpecialRoute(currentConnector, goal);
@@ -125,7 +127,7 @@ namespace CityTrafficControl.SS2.Participants {
 
 			while (executing) {
 				switch (currentRoutingState) {
-					case RoutingState.Idle: return;
+					case RoutingState.Idle: case RoutingState.Starting: return;
 					case RoutingState.SpecialStart1:
 						if (specialRoute.Waypoints.Count == 0) {
 							currentRoutingState = RoutingState.SpecialEnd1;
@@ -328,7 +330,7 @@ namespace CityTrafficControl.SS2.Participants {
 
 
 		public enum RoutingState {
-			Idle,
+			Idle, Starting,
 			SpecialStart1, SpecialWayspoints1, SpecialEnd1,
 			BaseStart, BaseWaypoints, BaseEnd,
 			SpecialStart2, SpecialWayspoints2, SpecialEnd2,

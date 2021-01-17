@@ -6,28 +6,41 @@ using System.Threading.Tasks;
 
 namespace CityTrafficControl.SS2.Participants {
 	class Adult : Pedestrian {
+		protected bool isWorking;
+		protected TimeSpan worktime;
+
+
+		public Adult() : base() {
+			isWorking = false;
+			worktime = TimeSpan.Zero;
+		}
+
+
 		public void DoWork() {
-			throw new NotImplementedException();
+			if (isWorking) {
+				worktime = worktime.Subtract(timeBonus);
+				if (worktime.CompareTo(TimeSpan.Zero) < 0) {
+					isWorking = false;
+					Master.ReportManager.PrintDebug(string.Format("{0} finished working.", this));
+				}
+				timeBonus = TimeSpan.Zero;
+			}
 		}
 
 		public override void SimulateTick() {
-			timeBonus = timeBonus.Add(Master.SimulationManager.TickDuration);
-			switch (currentRoutingState) {
-				case RoutingState.Idle:
-					int newId = Master.SimulationManager.Random.Next(Master.StreetMap.StreetMapManager.Data.StreetConnectorsCount);
-					StartNewRoute(Master.StreetMap.StreetMapManager.Data.StreetConnectors(newId));
-					Master.ReportManager.PrintDebug(this + " starting new route from " + currentConnector + " to " + goalConnector + ".");
-					break;
-				case RoutingState.Finished:
-					Master.ReportManager.PrintDebug(this + " has reached the goal.");
-					currentRoutingState = RoutingState.Idle;
-					timeBonus = TimeSpan.Zero;
-					break;
-				default:
-					break;
+			base.SimulateTick();
+
+			if (finishedRoute) {
+				finishedRoute = false;
+				isWorking = true;
+				worktime = TimeSpan.FromSeconds(Master.SimulationManager.Random.Next(5, 30));
+				Master.ReportManager.PrintDebug(string.Format("{0} started working for {1} seconds.", this, worktime.TotalSeconds));
 			}
-			ExecuteRouting();
-			//throw new NotImplementedException();
+			DoWork();
+
+			if (currentRoutingState == RoutingState.Idle && !isWorking) {
+				currentRoutingState = RoutingState.Starting;
+			}
 		}
 
 		public override string ToString() {
