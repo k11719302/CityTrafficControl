@@ -18,5 +18,10 @@ namespace CityTrafficControl.SS2.DataStructures {
 		/// Gets ors sets the horizontal position.
 		/// </summary>
 		public double PosY { get { return y; } set { y = value; } }
+
+
+		public static ParticipantPosition FromCoordinate(Coordinate coordinate) {
+			return new ParticipantPosition(coordinate.X, coordinate.Y);
+		}
 	}
 }

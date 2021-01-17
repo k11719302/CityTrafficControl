@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CityTrafficControl.SS2.Participants {
 	class MaintenanceCar : Car {
-		public void updatePriority() {
+		public void UpdatePriority() {
 			throw new NotImplementedException();
 		}
 	}

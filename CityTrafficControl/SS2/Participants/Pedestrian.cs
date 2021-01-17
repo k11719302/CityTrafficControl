@@ -8,8 +8,11 @@ using System.Threading.Tasks;
 
 namespace CityTrafficControl.SS2.Participants {
 	abstract class Pedestrian : Participant {
-		private PublicTransportStation nextStation;
-		private ParticipantSchedule schedule;
-		private bool isInjured;
+		protected PublicTransportStation nextStation;
+		protected bool isInjured;
+
+
+		public PublicTransportStation NextStation { get { return nextStation; } }
+		public bool IsInjured { get { return isInjured; } }
 	}
 }

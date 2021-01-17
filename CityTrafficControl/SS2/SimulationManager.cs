@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CityTrafficControl.SS2.Participants;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,14 +7,21 @@ using System.Threading.Tasks;
 
 namespace CityTrafficControl.SS2 {
 	static class SimulationManager {
-		// TODO: define static fields that may be useful for this subsystem
+		private static List<Participant> participants;
+
 
 		public static void Init() {
-			// TODO: initialize this subsystem
+			participants = new List<Participant>();
+			GenerateParticipants(100);
 		}
 
 		public static void SimulateTick() {
 			// TODO: do everything that should be done every tick
+		}
+
+
+		private static void GenerateParticipants(int count) {
+			throw new NotImplementedException();
 		}
 	}
 }

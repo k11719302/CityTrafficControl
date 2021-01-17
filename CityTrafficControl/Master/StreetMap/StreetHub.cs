@@ -10,6 +10,8 @@ namespace CityTrafficControl.Master.StreetMap {
 
 		private int id;
 		private List<StreetEndpoint> connections;
+		private double speedLimit;
+		private double space;
 
 
 		static StreetHub() {
@@ -20,6 +22,8 @@ namespace CityTrafficControl.Master.StreetMap {
 		public StreetHub() {
 			id = NextID;
 			connections = new List<StreetEndpoint>();
+			speedLimit = DEFAULT_SPEED_LIMIT;
+			UpdateSpace();
 		}
 
 
@@ -27,7 +31,27 @@ namespace CityTrafficControl.Master.StreetMap {
 
 
 		public override int ID { get { return id; } }
+		public List<StreetEndpoint> Connections { get { return connections; } }
+		/// <summary>
+		/// Gets the speed limit in units/s.
+		/// </summary>
+		public double SpeedLimit { get { return speedLimit; } set { speedLimit = value >= 0 ? value : 0; } }
+		public double Space { get { return space; } }
 
+
+		public bool ClaimSpace(double space) {
+			bool valid;
+
+			space = this.space - space;
+			if (valid = space >= 0) {
+				this.space = space;
+			}
+
+			return valid;
+		}
+		public void FreeSpace(double space) {
+			this.space += space;
+		}
 
 		public bool Connect(StreetConnector connector) {
 			if (FindEndpoint(connector) != null) {
@@ -70,7 +94,7 @@ namespace CityTrafficControl.Master.StreetMap {
 				}
 			}
 
-			if(!isConnected) {
+			if (!isConnected) {
 				throw new ArgumentException("The given StreetEndpoint isn't connected to this StreetHub");
 			}
 
@@ -83,6 +107,17 @@ namespace CityTrafficControl.Master.StreetMap {
 				if (ep.Connector == connector) return ep;
 			}
 			return null;
+		}
+
+		private void UpdateSpace() {
+			StreetEndpoint root = connections.First();
+
+			space = 0;
+			foreach (StreetEndpoint ep in connections) {
+				if (ep == root) continue;
+				space += Coordinate.GetDistance(root.Connector.Coordinate, ep.Connector.Coordinate);
+			}
+			space *= USABLE_SPACE;
 		}
 	}
 }

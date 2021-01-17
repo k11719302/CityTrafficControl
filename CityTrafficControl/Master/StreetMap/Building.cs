@@ -30,6 +30,7 @@ namespace CityTrafficControl.Master.StreetMap {
 
 
 		public int ID { get { return id; } }
+		public StreetConnector Connector { get { return connector; } }
 
 		/// <summary>
 		/// Gets whether this Building is connected to a StreetConnector.

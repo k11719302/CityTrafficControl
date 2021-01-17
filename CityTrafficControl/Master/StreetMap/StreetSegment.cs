@@ -9,9 +9,7 @@ namespace CityTrafficControl.Master.StreetMap {
 	/// Represents a single street between two StreetConnectors.
 	/// </summary>
 	public class StreetSegment : StreetType {
-		private const double DEFAULT_SPEED_LIMIT = 50;
 		private const int DEFAULT_LANES_COUNT = 1;
-		private const double USABLE_SPACE = 0.8;
 
 		private static int nextID;
 
@@ -49,7 +47,7 @@ namespace CityTrafficControl.Master.StreetMap {
 			speedLimit = DEFAULT_SPEED_LIMIT;
 			UpdateMinDriveTime();
 			lanes = DEFAULT_LANES_COUNT;
-
+			UpdateSpace();
 		}
 
 
@@ -57,6 +55,8 @@ namespace CityTrafficControl.Master.StreetMap {
 
 
 		public override int ID { get { return id; } }
+		public StreetEndpoint EP1 { get { return ep1; } }
+		public StreetEndpoint EP2 { get { return ep2; } }
 		/// <summary>
 		/// Gets the length in units.
 		/// </summary>
@@ -76,10 +76,12 @@ namespace CityTrafficControl.Master.StreetMap {
 		public bool IsUsable { get { return isUsable; } set { isUsable = value; } }
 
 
-		public void ClaimSpace(int direction, double space) {
+		public bool ClaimSpace(int direction, double space) {
+			bool valid;
+
 			switch (direction) {
-				case 1: space1 -= space; return;
-				case 2: space2 -= space; return;
+				case 1: space = space1 - space; if (valid = space >= 0) space1 = space; return valid;
+				case 2: space = space2 - space; if (valid = space >= 0) space2 = space; return valid;
 				default: throw new ArgumentOutOfRangeException("direction");
 			}
 		}

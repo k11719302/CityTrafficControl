@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace CityTrafficControl.SS2.Participants {
 	class Adult : Pedestrian {
-		public void doWork() {
+		public void DoWork() {
+			throw new NotImplementedException();
+		}
+
+		public override void SimulateTick() {
 			throw new NotImplementedException();
 		}
 	}
