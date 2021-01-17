@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace CityTrafficControl.SS2.Participants {
 	abstract class Vehicle : Participant {
-		private int seatCount;
-		private int priority;
+		protected int seatCount;
+		protected int priority;
+
+
+		public int SeatCount { get { return seatCount; } }
+		public int Priority { get { return priority; } }
 	}
 }

@@ -52,6 +52,8 @@ namespace CityTrafficControl.Master.StreetMap {
 		/// Gets the coordinate.
 		/// </summary>
 		public Coordinate Coordinate { get { return coordinate; } }
+		public StreetEndpoint EP1 { get { return ep1; } }
+		public StreetEndpoint EP2 { get { return ep2; } }
 
 		public double Health { get { return health; } set { health = value > MAX_HEALTH ? MAX_HEALTH : value < 0 ? 0 : value; } }
 		public double Priority { get { return priority; } set { priority = value < 0 ? 0 : value; } }

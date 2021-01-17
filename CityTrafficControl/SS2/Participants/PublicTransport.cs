@@ -7,10 +7,13 @@ using System.Threading.Tasks;
 
 namespace CityTrafficControl.SS2.Participants {
 	abstract class PublicTransport : Vehicle {
-		private List<Pedestrian> passengers;
+		protected List<Pedestrian> passengers;
 
 
-		protected abstract void dropPassengers(PublicTransportStation station);
-		protected abstract void takePassengers(List<Pedestrian> newPassengers);
+		public List<Pedestrian> Passengers { get { return passengers; } }
+
+
+		protected abstract void DropPassengers(PublicTransportStation station);
+		protected abstract void TakePassengers(List<Pedestrian> newPassengers);
 	}
 }

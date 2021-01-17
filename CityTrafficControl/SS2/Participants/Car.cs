@@ -6,11 +6,15 @@ using System.Threading.Tasks;
 
 namespace CityTrafficControl.SS2.Participants {
 	class Car : PrivateTransport {
-		protected override void dropPassengers() {
+		public override void SimulateTick() {
 			throw new NotImplementedException();
 		}
 
-		protected override void takePassengers(List<Pedestrian> newPassengers) {
+		protected override void DropPassengers() {
+			throw new NotImplementedException();
+		}
+
+		protected override void TakePassengers(List<Pedestrian> newPassengers) {
 			throw new NotImplementedException();
 		}
 	}

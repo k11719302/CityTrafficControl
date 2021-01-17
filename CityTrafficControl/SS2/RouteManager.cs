@@ -1,5 +1,6 @@
 ﻿using CityTrafficControl.Master;
 using CityTrafficControl.Master.DataStructures;
+using CityTrafficControl.Master.StreetMap;
 using CityTrafficControl.SS2.DataStructures;
 using System;
 using System.Collections.Generic;
@@ -72,6 +73,27 @@ namespace CityTrafficControl.SS2 {
 						throw new ArgumentException("BaseRouteUpdate-Type invalid");
 				}
 			}
+		}
+
+		public static BaseRoute GetBestBaseRoute(StreetConnector start, StreetConnector end) {
+			SortedList<double, BaseRoute> routes = new SortedList<double, BaseRoute>();
+			BaseRoute route;
+			double cost;
+
+			foreach (BaseRouteInfo routeInfo in baseRoutes.Values) {
+				route = routeInfo.BaseRoute;
+				cost = route.Length;
+				cost += Coordinate.GetDistance(start.Coordinate, route.Start.Coordinate);
+				cost += Coordinate.GetDistance(end.Coordinate, route.End.Coordinate);
+				routes.Add(cost, route);
+			}
+
+			if (routes.Count == 0) return null;
+
+			return routes.First().Value;
+		}
+		public static SpecialRoute GetSpecialRoute(StreetConnector start, StreetConnector end) {
+			return new SpecialRoute(start, end);
 		}
 
 

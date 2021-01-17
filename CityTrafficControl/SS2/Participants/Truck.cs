@@ -6,11 +6,15 @@ using System.Threading.Tasks;
 
 namespace CityTrafficControl.SS2.Participants {
 	class Truck : GoodsTransport {
-		protected override void loadGoods() {
+		public override void SimulateTick() {
 			throw new NotImplementedException();
 		}
 
-		protected override void unloadGoods() {
+		protected override void LoadGoods() {
+			throw new NotImplementedException();
+		}
+
+		protected override void UnloadGoods() {
 			throw new NotImplementedException();
 		}
 	}

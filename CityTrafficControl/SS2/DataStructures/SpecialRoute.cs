@@ -21,6 +21,11 @@ namespace CityTrafficControl.SS2.DataStructures {
 		}
 
 
+		public StreetConnector Start { get { return start; } }
+		public StreetConnector End { get { return end; } }
+		public List<StreetConnector> Waypoints { get { return waypoints; } }
+
+
 		// Using the A* algorithm
 		private void CalcRoute() {
 			SortedList<double, SearchNode> openList = new SortedList<double, SearchNode>();

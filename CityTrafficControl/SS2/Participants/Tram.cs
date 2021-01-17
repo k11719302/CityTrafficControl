@@ -7,11 +7,15 @@ using CityTrafficControl.Master.StreetMap;
 
 namespace CityTrafficControl.SS2.Participants {
 	class Tram : PublicTransport {
-		protected override void dropPassengers(PublicTransportStation station) {
+		public override void SimulateTick() {
 			throw new NotImplementedException();
 		}
 
-		protected override void takePassengers(List<Pedestrian> newPassengers) {
+		protected override void DropPassengers(PublicTransportStation station) {
+			throw new NotImplementedException();
+		}
+
+		protected override void TakePassengers(List<Pedestrian> newPassengers) {
 			throw new NotImplementedException();
 		}
 	}
