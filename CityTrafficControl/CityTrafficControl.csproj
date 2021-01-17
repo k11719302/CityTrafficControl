@@ -84,7 +84,6 @@
     <Compile Include="SS1\TrafficLightPlan.cs" />
     <Compile Include="SS2\DataStructures\BaseRouteInfo.cs" />
     <Compile Include="SS2\DataStructures\ParticipantPosition.cs" />
-    <Compile Include="SS2\DataStructures\ParticipantSchedule.cs" />
     <Compile Include="SS2\DataStructures\SpecialRoute.cs" />
     <Compile Include="SS2\DataStructures\TrackTypes.cs" />
     <Compile Include="SS2\ParticipantInfoManager.cs" />

@@ -11,10 +11,6 @@ namespace CityTrafficControl.SS2 {
 			throw new NotImplementedException();
 		}
 
-		public static List<ParticipantSchedule> getWorktimes() {
-			throw new NotImplementedException();
-		}
-
 		public static void sendMaintTeam() {
 			throw new NotImplementedException();
 		}
