@@ -26,7 +26,7 @@ namespace CityTrafficControl.SS2 {
 			for (int i = 0; i < count; i++) {
 				p = new Adult();
 				participants.Add(p);
-				if (Master.SimulationManager.DEBUG_MODE) Master.ReportManager.PrintOutput("DEBUG: Created Participant with ID (" + p.ID + ").");
+				Master.ReportManager.PrintDebug("DEBUG: Created Participant with ID (" + p.ID + ").");
 			}
 	}
 }
