@@ -2,6 +2,7 @@
 using CityTrafficControl.SS4;
 using CityTrafficControl.SS1;
 using CityTrafficControl.Master.StreetMap;
+using CityTrafficControl.Master;
 using System.Collections.Generic;
 using System.Text;
 using CityTrafficControl.Master.DataStructures;
@@ -19,8 +20,20 @@ namespace CityTrafficControl.SS3
             paths = new List<BaseRoute>();
             trafficlightPlans = new List<TrafficLightPlan>();
             schedules = new List<Schedule>();
+            Master.DataLinker.SS3.ReceiveMaintenanceSchedules += Datalinker_ss3_ReceiveMaintenanceSchedules;
         }
 
+
+        public static void ReceiveMaintenanceSchedules(List<Schedule> newSchedules)
+        {
+            foreach(Schedule s in newSchedules)
+            {
+                if(schedules.Find(x => x.GetScheduleID() == s.GetScheduleID()) == null)
+                {
+                    schedules.Add(s);
+                }
+            }
+        }
 
         /// <summary>
         /// Block Street segments if Maintenance work need to be done and unblock and delete from schedules 
@@ -123,14 +136,20 @@ namespace CityTrafficControl.SS3
             return trafficlightPlans.Find(x => x.LightId == id);
         }
 
-        //receive data from datalinker
-        public static void ReceiveMaintSchedules()
+        /// <summary>
+        /// Get List of Schedules from SS4 through the Datalinker
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public static void Datalinker_ss3_ReceiveMaintenanceSchedules(object sender, List<Schedule> e)
         {
-            throw new NotImplementedException();
+            ReceiveMaintenanceSchedules(e);
         }
 
 
-        //Send to Datalinker
+        /// <summary>
+        /// Send Data to other subsystems
+        /// </summary>
         public static void SendTrafficLichtPlans()
         {
             Master.DataLinker.SS3.SendTrafficLightPlans(trafficlightPlans);
