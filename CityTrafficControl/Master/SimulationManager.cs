@@ -63,10 +63,10 @@ namespace CityTrafficControl.Master {
 			isInitialized = true;
 			ReportManager.PrintOutput("SimulationManager(Master) initialized.");
 
-			SS1.SimulationManager.Init();
-			SS2.SimulationManager.Init();
-			SS3.SimulationManager.Init();
-			SS4.SimulationManager.Init();
+			SS1.SimulationManager.Init(); ReportManager.PrintOutput("SimulationManager(SS1) initialized.");
+			SS2.SimulationManager.Init(); ReportManager.PrintOutput("SimulationManager(SS2) initialized.");
+			SS3.SimulationManager.Init(); ReportManager.PrintOutput("SimulationManager(SS3) initialized.");
+			SS4.SimulationManager.Init(); ReportManager.PrintOutput("SimulationManager(SS4) initialized.");
 		}
 
 		/// <summary>

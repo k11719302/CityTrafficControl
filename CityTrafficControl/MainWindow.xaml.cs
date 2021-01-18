@@ -22,38 +22,60 @@ namespace CityTrafficControl {
 	/// </summary>
 	public partial class MainWindow : Window {
 		private Dispatcher dispatcher;
+		private VirtualConsole console;
+		private bool init;
 
 
 		public MainWindow() {
 			InitializeComponent();
 			dispatcher = Application.Current.Dispatcher;
+			console = new VirtualConsole(150);
+			init = false;
 		}
 
 		private delegate void Invoker();
 
 
 		public void PrintOutput(string str) {
-			Dispatcher.BeginInvoke(DispatcherPriority.Normal, (Invoker)delegate {
-				Output_Tbx.Text = "[" + DateTime.Now.ToString("hh:mm:ss.fff") + "] " + str + "\n" + Output_Tbx.Text;
+			Dispatcher.BeginInvoke(DispatcherPriority.Render, (Invoker)delegate {
+				console.Print(string.Format("[{0}] {1}", DateTime.Now.ToString("hh:mm:ss.fff"), str));
+				Output_Tbx.Text = console.ToString();
+				Output_Tbx.ScrollToEnd();
 			});
 		}
 		public void PrintError(string str) {
-			PrintOutput("ERROR: " + str);
+			Dispatcher.BeginInvoke(DispatcherPriority.Render, (Invoker)delegate {
+				console.Print(string.Format("[{0}] ERROR: {1}", DateTime.Now.ToString("hh:mm:ss.fff"), str));
+				Output_Tbx.Text = console.ToString();
+				Output_Tbx.ScrollToEnd();
+			});
+		}
+		public void PrintDebug(string str) {
+			Dispatcher.BeginInvoke(DispatcherPriority.Render, (Invoker)delegate {
+				console.Print(string.Format("[{0}] DEBUG: {1}", DateTime.Now.ToString("hh:mm:ss.fff"), str));
+				Output_Tbx.Text = console.ToString();
+				Output_Tbx.ScrollToEnd();
+			});
 		}
 
 		private void Init_Btn_Click(object sender, RoutedEventArgs e) {
-			ReportManager.Init(this);
-			StreetMapManager.Init();
-			SimulationManager.Init();
+			Task.Factory.StartNew(() => {
+				ReportManager.Init(this);
+				StreetMapManager.Init();
+				SimulationManager.Init();
+			});
 			Stopped_Grid.Visibility = Visibility.Visible;
+			init = true;
 		}
 
 		private void Start_Btn_Click(object sender, RoutedEventArgs e) {
+			if (!init) return;
 			Task.Factory.StartNew(() => { SimulationManager.Start(); });
 			Running_Grid.Visibility = Visibility.Visible;
 		}
 
 		private void Stop_Btn_Click(object sender, RoutedEventArgs e) {
+			if (!init) return;
 			Task.Factory.StartNew(() => { SimulationManager.Stop(); });
 			Running_Grid.Visibility = Visibility.Hidden;
 		}

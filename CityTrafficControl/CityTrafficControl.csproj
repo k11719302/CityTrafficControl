@@ -122,6 +122,7 @@
     <Compile Include="SS4\Tasks\Maintenance.cs" />
     <Compile Include="SS4\Tasks\NaturalDisaster.cs" />
     <Compile Include="SS4\Tasks\RoadMaintenanceTask.cs" />
+    <Compile Include="VirtualConsole.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

@@ -53,7 +53,7 @@ namespace CityTrafficControl.Master {
 		/// <param name="str">The debug string to print</param>
 		public static void PrintDebug(string str) {
 			if (SimulationManager.DEBUG_MODE) {
-				PrintOutput("DEBUG: " + str);
+				mainWindow.PrintDebug(str);
 			}
 		}
 	}
