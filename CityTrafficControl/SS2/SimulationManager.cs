@@ -1,4 +1,5 @@
-﻿using CityTrafficControl.SS2.Participants;
+﻿using CityTrafficControl.Master.StreetMap;
+using CityTrafficControl.SS2.Participants;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,11 +28,22 @@ namespace CityTrafficControl.SS2 {
 
 		private static void GenerateParticipants(int count) {
 			Participant p;
+			StreetConnector c;
 
 			for (int i = 0; i < count; i++) {
-				p = new Adult();
-				participants.Add(p);
-				Master.ReportManager.PrintDebug("Created " + p + ".");
+				c = StreetMapManager.Data.StreetConnectors(Master.SimulationManager.Random.Next(StreetMapManager.Data.StreetConnectorsCount));
+				switch (Master.SimulationManager.Random.Next(2)) {
+					case 0: p = new Adult(c, 10, 0, 1.5); break;
+					case 1: p = new Child(c, 5, 0, 1); break;
+					default: p = null; break;
+				}
+				if (p == null) {
+					Master.ReportManager.PrintError("One participant failed to be created!");
+				}
+				else {
+					participants.Add(p);
+					Master.ReportManager.PrintDebug(string.Format("Created {0} at {1}.", p, p.CurrentConnector));
+				}
 			}
 		}
 	}
