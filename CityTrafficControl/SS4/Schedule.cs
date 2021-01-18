@@ -2,7 +2,7 @@ using CityTrafficControl.SS4.Tasks;
 using System;
 
 namespace CityTrafficControl.SS4 {
-    class Schedule {
+    public class Schedule {
         private readonly int ScheduleID;
         private RoadMaintenanceTask RoadMaintenanceTask;
         private DateTime From;

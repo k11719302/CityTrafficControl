@@ -1,6 +1,6 @@
-using CityTrafficControl.SS4;
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using CityTrafficControl.SS4.StaffManagement.EquipmentManagement;
 
 
 namespace CityTrafficControlTests.SS4
@@ -23,33 +23,33 @@ namespace CityTrafficControlTests.SS4
 		[TestMethod]
 		public void Test_SendToMaintenance()
         {
-			Assert.Equals(false, vehicle1.GetInMaintenance());
+			Assert.AreEqual(false, vehicle1.GetInMaintenance());
 			vehicle1.SendToMaintenance();
-			Assert.Equals(false, vehicle1.SendToMaintenance());
-			Assert.Equals(true, vehicle1.GetInMaintenance());
+			Assert.AreEqual(false, vehicle1.SendToMaintenance());
+			Assert.AreEqual(true, vehicle1.GetInMaintenance());
 
 			vehicle2.SendToMaintenance();
-			Assert.Equals(true, vehicle2.GetInMaintenance());
+			Assert.AreEqual(true, vehicle2.GetInMaintenance());
 
-			Assert.Equals(false, vehicle3.GetInMaintenance());
+			Assert.AreEqual(false, vehicle3.GetInMaintenance());
 			vehicle3.SendToMaintenance();
-			Assert.Equals(true, vehicle3.GetInMaintenance());
+			Assert.AreEqual(true, vehicle3.GetInMaintenance());
         }
 
 		[TestMethod]
 		public void Test_GetFromMaintenance()
         {
 			vehicle1.SendToMaintenance();
-			Assert.Equals(true, vehicle1.GetInMaintenance());
+			Assert.AreEqual(true, vehicle1.GetInMaintenance());
 			vehicle1.GetFromMaintenance();
-			Assert.Equals(false, vehicle1.GetInMaintenance());
+			Assert.AreEqual(false, vehicle1.GetInMaintenance());
 
-			Assert.Equals(false, vehicle2.GetFromMaintenance());
+			Assert.AreEqual(false, vehicle2.GetFromMaintenance());
 			vehicle2.SendToMaintenance();
-			Assert.Equals(true, vehicle2.GetFromMaintenance());
+			Assert.AreEqual(true, vehicle2.GetFromMaintenance());
 
 			vehicle3.SendToMaintenance();
-			Assert.Equals(true, vehicle3.GetFromMaintenance());
+			Assert.AreEqual(true, vehicle3.GetFromMaintenance());
         }
 	}
 }

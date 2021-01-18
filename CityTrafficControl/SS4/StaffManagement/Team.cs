@@ -23,12 +23,14 @@ namespace CityTrafficControl.SS4.StaffManagement {
         }
 
         public void AddWorker(Person person) {
-            Workers.Add(person.GetPersonID(), person); 
+            Workers.Add(person.GetPersonID(), person);
+            Amount++;
         }
 
         public Boolean RemoveWorker(int personID) {
             if (Workers.ContainsKey(personID)) {
                 Workers.Remove(personID);
+                Amount--;
                 return true;
             } else {
                 return false;

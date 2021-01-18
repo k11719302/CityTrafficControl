@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using CityTrafficControl.Master.StreetMap;
 
 namespace CityTrafficControl.SS4.Tasks {
-    abstract class RoadMaintenanceTask {
+    public abstract class RoadMaintenanceTask {
         private List<Team> AssignedTeams;
         private List<Equipment> AssignedEquipment;
         private string TaskName;
