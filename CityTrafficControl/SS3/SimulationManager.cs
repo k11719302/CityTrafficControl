@@ -13,7 +13,7 @@ namespace CityTrafficControl.SS3 {
 		}
 
 		public static void SimulateTick() {
-			// TODO: do everything that should be done every tick
+			ControlSystem.CheckSchedules();
 		}
 	}
 }
