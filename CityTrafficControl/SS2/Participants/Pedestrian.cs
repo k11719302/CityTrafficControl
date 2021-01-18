@@ -13,6 +13,10 @@ namespace CityTrafficControl.SS2.Participants {
 		protected bool isInjured;
 
 
+		protected Pedestrian(StreetConnector position, double maxSpeed, double accidentRisk, double size) : base(position, maxSpeed, accidentRisk, size) { }
+		protected Pedestrian(Building position, double maxSpeed, double accidentRisk, double size) : base(position.Connector, maxSpeed, accidentRisk, size) { }
+
+
 		public PublicTransportStation NextStation { get { return nextStation; } }
 		public bool IsInjured { get { return isInjured; } }
 
@@ -31,11 +35,14 @@ namespace CityTrafficControl.SS2.Participants {
 				case RoutingState.Finished:
 					Master.ReportManager.PrintDebug(string.Format("{0} has reached the goal.", this));
 					currentRoutingState = RoutingState.Idle;
-					//timeBonus = TimeSpan.Zero;
 					finishedRoute = true;
 					break;
 				default: ExecuteRouting(); break;
 			}
+		}
+
+		public override string ToString() {
+			return string.Format("Pedestrian({0})", id);
 		}
 	}
 }

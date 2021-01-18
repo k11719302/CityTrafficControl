@@ -58,28 +58,6 @@ namespace CityTrafficControl.SS2.Participants {
 		protected Participant(Building position, double maxSpeed, double accidentRisk, double size) : this(position.Connector, maxSpeed, accidentRisk, size) {
 			currentBuilding = position;
 		}
-		// TODO: Delete empty constructor
-		protected Participant() {
-			id = NextID;
-			currentConnector = StreetMapManager.Data.StreetConnectors(0);
-			this.position = ParticipantPosition.FromCoordinate(currentConnector.Coordinate);
-			this.maxSpeed = 50;
-			this.accidentRisk = 0;
-			this.size = 1;
-
-			baseRoute = null;
-			specialRoute = null;
-			currentRoutingState = RoutingState.Idle;
-			lastConnector = null;
-			nextConnector = null;
-			goalConnector = null;
-			timeBonus = TimeSpan.Zero;
-			claimedSpace = false;
-			isFirstClaim = true;
-
-			ReportManager.PrintError("Invalid Participant contructor called!");
-			//throw new Exception("Temporary constructor called");
-		}
 
 
 		private static int NextID { get { return nextID++; } }

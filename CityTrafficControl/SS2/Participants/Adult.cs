@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CityTrafficControl.Master.StreetMap;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,8 +10,12 @@ namespace CityTrafficControl.SS2.Participants {
 		protected bool isWorking;
 		protected TimeSpan worktime;
 
-
-		public Adult() : base() {
+		
+		public Adult(StreetConnector position, double maxSpeed, double accidentRisk, double size) : base(position, maxSpeed, accidentRisk, size) {
+			isWorking = false;
+			worktime = TimeSpan.Zero;
+		}
+		public Adult(Building position, double maxSpeed, double accidentRisk, double size) : base(position.Connector, maxSpeed, accidentRisk, size) {
 			isWorking = false;
 			worktime = TimeSpan.Zero;
 		}
