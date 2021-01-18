@@ -11,31 +11,31 @@ namespace CityTrafficControl.SS3 {
 		public ShortestBaseRoute(StreetConnector start, StreetConnector end) : base(start, end) { }
 
 		protected override bool CalcRoute() {
-			SortedList<double, Node> pq = new SortedList<double, Node>();
+			List<Node> pq = new List<Node>();
 			List<StreetConnector> visited = new List<StreetConnector>();
 			Node cur = new Node(start, end);
-			visited.Add(cur.con);
-			pq.Add(cur.cost, cur);
+			
+			pq.Add(cur);
 			while(pq.Count > 0)
             {
-				cur = pq.Values[0];
+				double min = pq.Min(x => x.cost);
+				cur = pq.First(x => x.cost == min);
 				pq.RemoveAt(0);
-
-				if(cur.con == end)
-                {
-					CreatePath(cur);
+				if (cur.con == end)
+				{
+					CreatePath(cur.pre);
 					return true;
-                }
-				foreach(StreetConnector sc in cur.con.FindNeighbours())
+				}
+				visited.Add(cur.con);
+				foreach (StreetConnector sc in cur.con.FindNeighbours())
                 {
                     if (!visited.Contains(sc))
                     {
 						Node n = new Node(cur, sc, end);
-						pq.Add(n.cost, n);
-						visited.Add(sc);
+						pq.Add(n);	
                     }
                 }
-            }
+			}
 			return false;
 		}
 
@@ -67,7 +67,7 @@ namespace CityTrafficControl.SS3 {
 			{
 				this.pre = pre;
 				this.con = con;
-				cost = pre.cost + Coordinate.GetDistance(con.Coordinate, end.Coordinate);
+				cost = pre.cost + Coordinate.GetDistance(pre.con.Coordinate, con.Coordinate);
 			}
 		}
 	}

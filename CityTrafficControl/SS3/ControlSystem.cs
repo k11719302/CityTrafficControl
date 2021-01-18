@@ -1,5 +1,6 @@
 ﻿using System;
 using CityTrafficControl.SS4;
+using CityTrafficControl.SS1;
 using CityTrafficControl.Master.StreetMap;
 using System.Collections.Generic;
 using System.Text;
@@ -7,16 +8,16 @@ using CityTrafficControl.Master.DataStructures;
 
 namespace CityTrafficControl.SS3
 {
-    static class ControlSystem
+    static public class ControlSystem
     {
         private static List<BaseRoute> paths;
-        private static List<Intersection> intersectionsPlans;
+        private static List<TrafficLightPlan> trafficlightPlans;
         private static List<Schedule> schedules;
 
         static ControlSystem()
         {
             paths = new List<BaseRoute>();
-            intersectionsPlans = new List<Intersection>();
+            trafficlightPlans = new List<TrafficLightPlan>();
             schedules = new List<Schedule>();
         }
 
@@ -31,17 +32,17 @@ namespace CityTrafficControl.SS3
             {
                 if (Master.SimulationManager.CurTickTime.Subtract(s.GetFrom()).CompareTo(TimeSpan.Zero) > 0)
                 {
-                    //BlockRoads(s.GetRoadMaintenanceTask());
+                    BlockRoads(s.GetRoadMaintenanceTask().GetStreetConnectors());
                 }
                 if (Master.SimulationManager.CurTickTime.Subtract(s.GetTo()).CompareTo(TimeSpan.Zero) > 0)
                 {
-                    //Unblock
+                    UnblockRoads(s.GetRoadMaintenanceTask().GetStreetConnectors());
                     schedules.Remove(s);
                 }
             }
         }
 
-        private static List<StreetSegment> GetConnectingStreetSegments(List<StreetConnector> connectors)
+        public static List<StreetSegment> GetConnectingStreetSegments(List<StreetConnector> connectors)
         {
             StreetType t;
             List<StreetSegment> s = new List<StreetSegment>();
@@ -49,7 +50,7 @@ namespace CityTrafficControl.SS3
             {
                 foreach(StreetConnector sc2 in connectors)
                 {
-                    if(sc1 != sc2 && sc1.FindNeighbours().Contains(sc2))
+                    if(sc1 != sc2 && sc1.FindNeighbours() != null && sc1.FindNeighbours().Contains(sc2))
                     {
                         if(sc1.EP1.FindNeighbours().Contains(sc2))
                         {
@@ -108,18 +109,18 @@ namespace CityTrafficControl.SS3
             }
         }
 
-        public static void AddIntersectionPlans(Intersection plan)
+        public static void AddTrafficLightPlans(TrafficLightPlan plan)
         {
-            if(FindIntersectionPlan(plan.Id) != null)
+            if(FindIntersectionPlan(plan.LightId) != null)
             {
-                intersectionsPlans.Remove(FindIntersectionPlan(plan.Id));  
+                trafficlightPlans.Remove(FindIntersectionPlan(plan.LightId));  
             }
-            intersectionsPlans.Add(plan);
+            trafficlightPlans.Add(plan);
         }
 
-        private static Intersection FindIntersectionPlan(int id)
+        private static TrafficLightPlan FindIntersectionPlan(int id)
         {
-            return intersectionsPlans.Find(x => x.Id == id);
+            return trafficlightPlans.Find(x => x.LightId == id);
         }
 
         //receive data from datalinker
@@ -130,9 +131,9 @@ namespace CityTrafficControl.SS3
 
 
         //Send to Datalinker
-        public static void SendIntersectionPlan()
+        public static void SendTrafficLichtPlans()
         {
-            //Todo: Datalinker.
+            Master.DataLinker.SS3.SendTrafficLightPlans(trafficlightPlans);
         }
         public static void SendAllBaseRoute()
         {
@@ -147,7 +148,7 @@ namespace CityTrafficControl.SS3
 
         public static void SendRoadInstruction(RoadInstruction r)
         {
-            //Todo: Datalinker.
+            Master.DataLinker.SS3.SendRoadInstruction(r);
         }
 
     }

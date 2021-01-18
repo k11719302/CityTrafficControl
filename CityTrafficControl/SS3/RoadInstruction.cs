@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CityTrafficControl.SS3
 {
-    class RoadInstruction
+    public class RoadInstruction
     {
         //A roadInstruction will be send to SS1 if either the speedlimit or a roadstatus needs to be changed
         private int id;

@@ -5,7 +5,7 @@ using CityTrafficControl.Master;
 
 namespace CityTrafficControl.SS1
 {
-    class TrafficLightPlan
+    public class TrafficLightPlan
     {
         private int lightId;
         public int LightId { get { return lightId; } }

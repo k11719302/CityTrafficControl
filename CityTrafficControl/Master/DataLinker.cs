@@ -125,6 +125,16 @@ namespace CityTrafficControl.Master {
 			public static void SendBaseRouteUpdates(List<BaseRouteUpdate> e) {
 				SS2.CallUpdateBaseRoutes(e);
 			}
+
+			public static void SendRoadInstruction(RoadInstruction e)
+			{
+				SS1.CallReceiveRoadCommand(e);
+			}
+
+			public static void SendTrafficLightPlans(List<TrafficLightPlan> e)
+			{
+				SS1.CallReceiveTrafficLightPlans(e);
+			}
 			#endregion
 		}
 
