@@ -13,7 +13,7 @@ namespace CityTrafficControl.SS2 {
 
 		public static void Init() {
 			participants = new List<Participant>();
-			GenerateParticipants(4);
+			GenerateParticipants(10);
 		}
 
 		public static void SimulateTick() {

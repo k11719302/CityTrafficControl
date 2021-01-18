@@ -29,32 +29,27 @@ namespace CityTrafficControl.SS2.DataStructures {
 		// Using the A* algorithm
 		private void CalcRoute() {
 			List<SearchNode> openList = new List<SearchNode>();
-			//SortedList<double, SearchNode> openList = new SortedList<double, SearchNode>();
-			List<SearchNode> closedList = new List<SearchNode>();
+			List<StreetConnector> closedList = new List<StreetConnector>();
 			SearchNode cur = new SearchNode(start, end);
 			SearchNode newNode;
 
 			openList.Add(cur);
-			//openList.Add(cur.cost, cur);
 
 			while (openList.Count > 0) {
-				double lowest = openList.Min(l => l.cost);
-				cur = openList.First(l => l.cost == lowest);
-				//cur = openList.First().Value;
+				double lowest = openList.Min(l => l.total);
+				cur = openList.First(l => l.total == lowest);
 				openList.Remove(cur);
-				//openList.Remove(cur.cost);
-				if (closedList.Contains(cur)) {
+				if (closedList.Contains(cur.connector)) {
 					continue;
 				}
 				if (cur.connector == end) {
 					SaveWaypoints(cur.parent);
 					return;
 				}
-				closedList.Add(cur);
+				closedList.Add(cur.connector);
 				foreach (StreetConnector successor in GetSuccessors(cur)) {
 					newNode = new SearchNode(cur, successor, end);
 					openList.Add(newNode);
-					//openList.Add(newNode.cost, newNode);
 				}
 			}
 
@@ -96,6 +91,11 @@ namespace CityTrafficControl.SS2.DataStructures {
 				cost = 0;
 				estimate = Coordinate.GetDistance(connector.Coordinate, end.Coordinate);
 				total = cost + estimate;
+			}
+
+
+			public override string ToString() {
+				return string.Format("SearchNode({0}, cost={1:0.##}, estimate={2:0.##}, total{3:0.##})", connector, cost, estimate, total);
 			}
 		}
 	}

@@ -257,7 +257,7 @@ namespace CityTrafficControl.SS2.Participants {
 				currentConnector = nextConnector;
 				nextConnector = null;
 				claimedSpace = false;
-				ReportManager.PrintDebug(this + " advanced to " + currentConnector + ".");
+				ReportManager.PrintDebug(this + " advanced to " + currentConnector + " over " + segment + ".");
 				return true;
 			}
 			else if (typeCur is StreetHub) {
@@ -295,6 +295,7 @@ namespace CityTrafficControl.SS2.Participants {
 				currentConnector = nextConnector;
 				nextConnector = null;
 				claimedSpace = false;
+				ReportManager.PrintDebug(this + " advanced to " + currentConnector + " over " + hub + ".");
 				return true;
 			}
 			else throw new StreetMapException("Unknown StreetType");
