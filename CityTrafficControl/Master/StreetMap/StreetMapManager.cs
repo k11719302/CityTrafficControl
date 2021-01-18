@@ -52,6 +52,10 @@ namespace CityTrafficControl.Master.StreetMap {
 
 
 		private static void InitStaticMap() {
+			//InitSmallStaticMap();
+			InitStaticCityMap();
+		}
+		private static void InitSmallStaticMap() {
 			StreetConnector c1, c2, c3, c4;
 			StreetHub h1;
 
@@ -91,6 +95,269 @@ namespace CityTrafficControl.Master.StreetMap {
 			Save(new StreetSegment(c1, c2));
 			Save(new StreetSegment(c2, c4));
 			Save(new StreetSegment(c3, c4));
+		}
+		private static void InitStaticCityMap() {
+			// see excel file (table 1) for graphical representation
+
+			StreetConnector c1, c2, c3, c4, c5, c6, c7, c8;
+			StreetHub h1, h2, h3, h4;
+
+			// residential area 1 (left upper)
+			Save(c1 = new StreetConnector(20, 20));
+			Save(new Building(c1));
+			Save(h1 = new StreetHub());
+			h1.Connect(c1);
+			Save(c2 = new StreetConnector(60, 20));
+			Save(new Building(c2));
+			Save(new StreetSegment(c1, c2));
+			Save(c3 = new StreetConnector(100, 20));
+			Save(new Building(c3));
+			Save(new StreetSegment(c2, c3));
+			Save(c4 = new StreetConnector(140, 20));
+			Save(new Building(c4));
+			Save(new StreetSegment(c3, c4));
+			Save(c5 = new StreetConnector(180, 20));
+			Save(new Building(c5));
+			Save(new StreetSegment(c4, c5));
+			Save(h2 = new StreetHub());
+			h2.Connect(c5);
+
+			// residential area 2 (left upper)
+			Save(c1 = new StreetConnector(20, 60));
+			Save(new Building(c1));
+			h1.Connect(c1);
+			Save(c2 = new StreetConnector(60, 60));
+			Save(new Building(c2));
+			Save(new StreetSegment(c1, c2));
+			Save(c3 = new StreetConnector(100, 60));
+			Save(new Building(c3));
+			Save(new StreetSegment(c2, c3));
+			Save(c4 = new StreetConnector(140, 60));
+			Save(new Building(c4));
+			Save(new StreetSegment(c3, c4));
+			Save(c5 = new StreetConnector(180, 60));
+			Save(new Building(c5));
+			Save(new StreetSegment(c4, c5));
+			h2.Connect(c5);
+
+			// residential area 3 (left upper)
+			Save(c1 = new StreetConnector(20, 100));
+			Save(new Building(c1));
+			h1.Connect(c1);
+			Save(c2 = new StreetConnector(60, 100));
+			Save(new Building(c2));
+			Save(new StreetSegment(c1, c2));
+			Save(c3 = new StreetConnector(100, 100));
+			Save(new Building(c3));
+			Save(new StreetSegment(c2, c3));
+			Save(c4 = new StreetConnector(140, 100));
+			Save(new Building(c4));
+			Save(new StreetSegment(c3, c4));
+			Save(c5 = new StreetConnector(180, 100));
+			Save(new Building(c5));
+			Save(new StreetSegment(c4, c5));
+			h2.Connect(c5);
+
+			// point below residential area in mid
+			Save(c1 = new StreetConnector(200, 120));
+			h2.Connect(c1);
+			Save(h1 = new StreetHub());
+			h1.Connect(c1);
+
+			// long streets on top with triangle at right
+			Save(c1 = new StreetConnector(210, 20));
+			h2.Connect(c1);
+			Save(c2 = new StreetConnector(270, 20));
+			Save(new StreetSegment(c1, c2));
+			Save(c3 = new StreetConnector(330, 20));
+			Save(new Building(c3));
+			Save(new StreetSegment(c2, c3));
+			Save(h2 = new StreetHub());
+			h2.Connect(c3);
+			Save(c4 = new StreetConnector(370, 20));
+			h2.Connect(c4);
+			Save(c5 = new StreetConnector(420, 20));
+			Save(new Building(c5));
+			Save(new StreetSegment(c4, c5));
+			Save(h3 = new StreetHub());
+			h3.Connect(c5);
+			Save(c6 = new StreetConnector(400, 50));
+			Save(new Building(c6));
+			h3.Connect(c6);
+			Save(c7 = new StreetConnector(420, 50));
+			Save(new Building(c7));
+			Save(new StreetSegment(c6, c7));
+			h3.Connect(c7);
+
+			// street down left at upper right
+			Save(c1 = new StreetConnector(350, 30));
+			h2.Connect(c1);
+			Save(c2 = new StreetConnector(350, 80));
+			Save(new StreetSegment(c1, c2));
+			Save(c3 = new StreetConnector(350, 130));
+			Save(new StreetSegment(c2, c3));
+			Save(c4 = new StreetConnector(340, 150));
+			Save(new StreetSegment(c3, c4));
+			Save(c5 = new StreetConnector(310, 150));
+			Save(new StreetSegment(c4, c5));
+			Save(h2 = new StreetHub());
+			h2.Connect(c5);
+
+			// umbrella like construct upper right
+			Save(c1 = new StreetConnector(290, 140));
+			h2.Connect(c1);
+			Save(c2 = new StreetConnector(290, 100));
+			Save(new StreetSegment(c1, c2));
+			Save(h3 = new StreetHub());
+			h3.Connect(c2);
+			Save(c3 = new StreetConnector(270, 90));
+			Save(new Building(c3));
+			h3.Connect(c3);
+			Save(c4 = new StreetConnector(240, 90));
+			Save(new Building(c4));
+			Save(new StreetSegment(c3, c4));
+			Save(c5 = new StreetConnector(260, 60));
+			Save(new StreetSegment(c4, c5));
+			Save(c6 = new StreetConnector(310, 60));
+			Save(new Building(c6));
+			Save(new StreetSegment(c5, c6));
+			Save(c7 = new StreetConnector(330, 90));
+			Save(new Building(c7));
+			Save(new StreetSegment(c6, c7));
+			Save(c8 = new StreetConnector(310, 90));
+			Save(new Building(c8));
+			Save(new StreetSegment(c7, c8));
+			h3.Connect(c8);
+
+			// long street mid left from mid hub
+			Save(c1 = new StreetConnector(170, 150));
+			h1.Connect(c1);
+			Save(c2 = new StreetConnector(120, 150));
+			Save(new Building(c2));
+			Save(new StreetSegment(c1, c2));
+			Save(c3 = new StreetConnector(50, 170));
+			Save(new Building(c3));
+			Save(new StreetSegment(c2, c3));
+			Save(c4 = new StreetConnector(20, 200));
+			Save(new Building(c4));
+			Save(new StreetSegment(c3, c4));
+			Save(c5 = new StreetConnector(20, 230));
+			Save(new StreetSegment(c4, c5));
+			Save(c6 = new StreetConnector(110, 230));
+			Save(new StreetSegment(c5, c6));
+			Save(h3 = new StreetHub());
+			h3.Connect(c6);
+
+			// circle bottom left
+			Save(c1 = new StreetConnector(50, 260));
+			Save(new Building(c1));
+			Save(h4 = new StreetHub());
+			h4.Connect(c1);
+			Save(c2 = new StreetConnector(10, 270));
+			Save(new Building(c2));
+			Save(new StreetSegment(c1, c2));
+			Save(c3 = new StreetConnector(50, 290));
+			Save(new Building(c3));
+			Save(new StreetSegment(c2, c3));
+			Save(c4 = new StreetConnector(60, 270));
+			Save(new StreetSegment(c3, c4));
+			h4.Connect(c4);
+
+			// short street from circle to next hub
+			Save(c1 = new StreetConnector(90, 260));
+			h4.Connect(c1);
+			Save(c2 = new StreetConnector(120, 270));
+			Save(new StreetSegment(c1, c2));
+			Save(c3 = new StreetConnector(130, 240));
+			Save(new StreetSegment(c2, c3));
+			h3.Connect(c3);
+
+			// continue street from above down at the bottom
+			Save(c1 = new StreetConnector(150, 230));
+			Save(new Building(c1));
+			h3.Connect(c1);
+			Save(c2 = new StreetConnector(190, 280));
+			Save(new StreetSegment(c1, c2));
+			Save(c3 = new StreetConnector(250, 280));
+			Save(new Building(c3));
+			Save(new StreetSegment(c2, c3));
+			Save(h3 = new StreetHub());
+			h3.Connect(c3);
+
+			// single segment to the lower left from the umbrella like construct
+			Save(c1 = new StreetConnector(230, 150));
+			h1.Connect(c1);
+			Save(c2 = new StreetConnector(270, 150));
+			Save(new StreetSegment(c1, c2));
+			h2.Connect(c2);
+
+			// two L-like segments at lower mid
+			Save(c1 = new StreetConnector(200, 180));
+			h1.Connect(c1);
+			Save(c2 = new StreetConnector(200, 250));
+			Save(new StreetSegment(c1, c2));
+			Save(c3 = new StreetConnector(240, 250));
+			Save(new StreetSegment(c2, c3));
+			h3.Connect(c3);
+
+			// hub connect below umbrella like construct
+			Save(c1 = new StreetConnector(290, 180));
+			h2.Connect(c1);
+			Save(h1 = new StreetHub());
+			h1.Connect(c1);
+
+			// lower left segment to above section
+			Save(c1 = new StreetConnector(270, 200));
+			Save(new Building(c1));
+			h1.Connect(c1);
+			Save(c2 = new StreetConnector(260, 240));
+			Save(new StreetSegment(c1, c2));
+			h3.Connect(c2);
+
+			// lower right segment to above section
+			Save(c1 = new StreetConnector(320, 200));
+			Save(new Building(c1));
+			h1.Connect(c1);
+			Save(c2 = new StreetConnector(330, 240));
+			Save(new StreetSegment(c1, c2));
+			Save(h1 = new StreetHub());
+			h1.Connect(c2);
+
+			// connection segment to both above sections
+			Save(c1 = new StreetConnector(280, 250));
+			h3.Connect(c1);
+			Save(c2 = new StreetConnector(310, 250));
+			Save(new StreetSegment(c1, c2));
+			h1.Connect(c2);
+
+			// segment below above section
+			Save(c1 = new StreetConnector(270, 280));
+			h3.Connect(c1);
+			Save(c2 = new StreetConnector(330, 270));
+			Save(new StreetSegment(c1, c2));
+			h1.Connect(c2);
+
+			// little segment between hub and bottom right circle
+			Save(c1 = new StreetConnector(350, 250));
+			h1.Connect(c1);
+			Save(c2 = new StreetConnector(370, 250));
+			Save(new StreetSegment(c1, c2));
+			Save(h1 = new StreetHub());
+			h1.Connect(c2);
+
+			// bottom right circle
+			Save(c1 = new StreetConnector(380, 240));
+			Save(new Building(c1));
+			h1.Connect(c1);
+			Save(c2 = new StreetConnector(420, 220));
+			Save(new Building(c2));
+			Save(new StreetSegment(c1, c2));
+			Save(c3 = new StreetConnector(420, 260));
+			Save(new Building(c3));
+			Save(new StreetSegment(c2, c3));
+			Save(c4 = new StreetConnector(380, 260));
+			Save(new StreetSegment(c3, c4));
+			h1.Connect(c4);
 		}
 
 		private static void Save(StreetConnector connector) {
