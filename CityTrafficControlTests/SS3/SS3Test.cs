@@ -122,22 +122,5 @@ namespace CityTrafficControlTests.SS3
             Assert.AreEqual(true, b.Waypoints[1] == c5);
         }
 
-       
-
-        [TestMethod()]
-        public void TestAddIntersectionPlan()
-        {
-            List<TrafficLightPlan> l = new List<TrafficLightPlan>();
-            TrafficLightPlan p1 = new TrafficLightPlan(1, 30, 40);
-            TrafficLightPlan p2 = new TrafficLightPlan(1, 40, 50);
-
-            l.Add(p1);
-            l.Add(p2);
-
-            Assert.AreEqual(1, l.Count);
-            Assert.AreEqual(true, l.Contains(p2));
-
-        }
-
     }
 }
