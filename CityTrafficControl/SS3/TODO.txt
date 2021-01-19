@@ -1,4 +1,0 @@
-﻿Import SS3 into here
-	- Copy-Paste
-	- Adapt changes (e.g. namespaces)
-
