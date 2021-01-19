@@ -16,7 +16,10 @@ namespace CityTrafficControl.SS1
             Master.DataLinker.SS1.DetectAccident += DataLinker_SS1_DetectAccident;
 		}
 
-		public static TrafficDetection GetInstance //creates the first instance or always returns the singleton instance
+        /// <summary>
+        /// Creates the first instance or always returns the singleton instance.
+        /// </summary>
+		public static TrafficDetection GetInstance 
         {
             get
             {

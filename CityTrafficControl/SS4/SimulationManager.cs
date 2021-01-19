@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace CityTrafficControl.SS4 {
+
 	static class SimulationManager {
 		public static void Init() {
 		}

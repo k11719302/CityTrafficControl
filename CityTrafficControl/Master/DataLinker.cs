@@ -40,29 +40,52 @@ namespace CityTrafficControl.Master {
 
 			#region Receive
 			public static event EventHandler<List<StreetConnector>> DetectNaturalDisaster;
+			/// <summary>
+			/// This method receives a list of StreetConnectors which are involved in a natural disaster.
+			/// The information gets forwarded to SS1.
+			/// </summary>
+			/// <param name="e">A list of involved StreetConnectors.</param>
 			internal static void CallDetectNaturalDisaster(List<StreetConnector> e) {
 				DetectNaturalDisaster?.Invoke(null, e);
 			}
-
+	
 			public static event EventHandler<List<StreetConnector>> DetectAccident;
+			/// <summary>
+			/// This method receives a list of StreetConnectors which are involved in an accident.
+			/// The information gets forwarded to SS1.
+			/// </summary>
+			/// <param name="e">A list of the involved StreetConnectors.</param>
 			internal static void CallDetectAccident(List<StreetConnector> e)
             {
 				DetectAccident?.Invoke(null, e);
             }
 
 			public static event EventHandler<List<TrafficLightPlan>> ReceiveTrafficLightPlans;
+			/// <summary>
+			/// This method receives a list of TrafficLightPlans from SS3 and forwards them to SS1.
+			/// </summary>
+			/// <param name="e">A list of new TrafficLightPlans.</param>
 			internal static void CallReceiveTrafficLightPlans(List<TrafficLightPlan> e)
             {
 				ReceiveTrafficLightPlans?.Invoke(null, e);
             }
 
 			public static event EventHandler<RoadInstruction> ReceiveRoadCommand;
+			/// <summary>
+			/// This method receives a RoadInstruction from SS3 and forwards it to SS1.
+			/// </summary>
+			/// <param name="e">The new RoadInstruction.</param>
 			internal static void CallReceiveRoadCommand (RoadInstruction e)
             {
 				ReceiveRoadCommand?.Invoke(null, e);
             }
 			#endregion
 
+			/// <summary>
+			/// This method gets called by SS1, when an incident has been detected.
+			/// It forwards the information to SS3 and SS4.
+			/// </summary>
+			/// <param name="e"></param>
 			#region Request/Send
 			public static void SendIncident(Incident e)
 			{

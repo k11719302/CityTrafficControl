@@ -23,7 +23,10 @@ namespace CityTrafficControl.SS1
             Master.DataLinker.SS1.ReceiveTrafficLightPlans += DataLinker_SS1_ReceiveTrafficLightPlans;
         }
 
-        public static TrafficControl GetInstance //creates the first instance or always returns the singleton instance
+        /// <summary>
+        /// Creates the first instance or always returns the singleton instance.
+        /// </summary>
+        public static TrafficControl GetInstance
         {
             get
             {
@@ -147,31 +150,60 @@ namespace CityTrafficControl.SS1
             }
             return false;
         }
+
+        /// <summary>
+        /// Adds a new light to the list lights.
+        /// </summary>
+        /// <param name="light">The light which needs to be added.</param>
         public static void AddLight(TrafficLight light)
         {
             lights.Add(light);
         }
 
+        /// <summary>
+        /// Removes a light from the list lights. Returns true in case of a success.
+        /// </summary>
+        /// <param name="light">The light which needs to be removed.</param>
+        /// <returns></returns>
         public static bool RemoveLight(TrafficLight light)
         {
             return lights.Remove(light);
         }
 
+        /// <summary>
+        /// Finds a light in the list lights. Returns the found light or false if not found.
+        /// </summary>
+        /// <param name="id">The ID of the light which needs to be found.</param>
+        /// <returns></returns>
         public static TrafficLight FindLight(int id)
         {
             return lights.Find(x => x.Id == id);
         }
 
+        /// <summary>
+        /// Adds a new StreetSegment to the list of roads.
+        /// </summary>
+        /// <param name="road">The StreetSegment which needs to be added.</param>
         public static void AddRoadSegment(StreetSegment road)
         {
             roads.Add(road);
         }
 
+        /// <summary>
+        /// Removes a StreetSegment from the list roads. Returns true in case of a success.
+        /// </summary>
+        /// <param name="road">The StreetSegment which needs to be removed.</param>
+        /// <returns></returns>
         public static bool RemoveRoadSegment(StreetSegment road)
         {
             return roads.Remove(road);
         }
 
+        /// <summary>
+        /// Finds a StreetSegment in the list roads. Returns the found object or false if not found.
+        /// </summary>
+        /// <param name="id">The StreetSegment which needs to be found.</param>
+        /// <returns></returns>
         public static StreetSegment FindRoadSegment(int id)
         {
             return roads.Find(x => x.ID == id);
