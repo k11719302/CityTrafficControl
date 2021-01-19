@@ -39,7 +39,9 @@ namespace CityTrafficControl.Master {
 		/// </summary>
 		/// <param name="str">The string to print</param>
 		public static void PrintOutput(string str) {
-			mainWindow.PrintOutput(str);
+			if (isInitialized) {
+				mainWindow.PrintOutput(str);
+			}
 		}
 
 		/// <summary>
@@ -47,7 +49,9 @@ namespace CityTrafficControl.Master {
 		/// </summary>
 		/// <param name="str">The error string to print</param>
 		public static void PrintError(string str) {
-			mainWindow.PrintError(str);
+			if (isInitialized) {
+				mainWindow.PrintError(str);
+			}
 		}
 
 		/// <summary>
@@ -55,7 +59,7 @@ namespace CityTrafficControl.Master {
 		/// </summary>
 		/// <param name="str">The debug string to print</param>
 		public static void PrintDebug(string str) {
-			if (SimulationManager.DEBUG_MODE) {
+			if (isInitialized && SimulationManager.DEBUG_MODE) {
 				mainWindow.PrintDebug(str);
 			}
 		}

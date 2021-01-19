@@ -9,7 +9,7 @@ namespace CityTrafficControl.SS2.DataStructures {
 	/// <summary>
 	/// Extends a normal Coordinate with setable properties.
 	/// </summary>
-	class ParticipantPosition : Coordinate {
+	public class ParticipantPosition : Coordinate {
 		/// <summary>
 		/// Creates a new ParticipantPosition.
 		/// </summary>

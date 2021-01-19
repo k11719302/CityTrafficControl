@@ -10,7 +10,7 @@ namespace CityTrafficControl.SS2.DataStructures {
 	/// A short route that leads a Participant from the current position to the start of a BaseRoute of from the end of a BaseRoute to the goal position.
 	/// In case no BaseRoute can be used this is a full route from the current position to the goal position.
 	/// </summary>
-	class SpecialRoute {
+	public class SpecialRoute {
 		protected StreetConnector start;
 		protected StreetConnector end;
 		protected List<StreetConnector> waypoints;
@@ -75,6 +75,7 @@ namespace CityTrafficControl.SS2.DataStructures {
 		}
 
 		private void SaveWaypoints(SearchNode cur) {
+			if (cur == null) return;
 			while (cur.parent != null) {
 				waypoints.Add(cur.connector);
 				cur = cur.parent;

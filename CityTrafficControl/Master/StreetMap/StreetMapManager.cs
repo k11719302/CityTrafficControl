@@ -8,7 +8,7 @@ namespace CityTrafficControl.Master.StreetMap {
 	/// <summary>
 	/// Manages all interactions with the StreetMap.
 	/// </summary>
-	static class StreetMapManager {
+	public static class StreetMapManager {
 		private static bool isInitialized;
 
 		private static SortedDictionary<int, StreetConnector> connectors;
