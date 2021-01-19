@@ -7,17 +7,39 @@ using System.Threading.Tasks;
 
 namespace CityTrafficControl.SS2.Participants {
 	class Truck : GoodsTransport {
+		/// <summary>
+		/// Creates a new Truck.
+		/// </summary>
+		/// <param name="position">The initial position of this participant</param>
+		/// <param name="maxSpeed">The max speed of this participant</param>
+		/// <param name="accidentRisk">The risk that this participant causes an accident</param>
+		/// <param name="size">The amount of space this participant uses up</param>
 		public Truck(StreetConnector position, double maxSpeed, double accidentRisk, double size) : base(position, maxSpeed, accidentRisk, size) { }
+		/// <summary>
+		/// Creates a new Truck.
+		/// </summary>
+		/// <param name="position">The initial position of this participant</param>
+		/// <param name="maxSpeed">The max speed of this participant</param>
+		/// <param name="accidentRisk">The risk that this participant causes an accident</param>
+		/// <param name="size">The amount of space this participant uses up</param>
 		public Truck(Building position, double maxSpeed, double accidentRisk, double size) : base(position.Connector, maxSpeed, accidentRisk, size) { }
 
 
+		/// <summary>
+		/// Simulates a single tick in the simulation.
+		/// </summary>
 		public override void SimulateTick() {
 			throw new NotImplementedException();
 		}
 
+		/// <summary>
+		/// Returns a string representing this Object.
+		/// </summary>
+		/// <returns>A string representation of this Object</returns>
 		public override string ToString() {
 			return string.Format("Truck({0})", id);
 		}
+
 
 		protected override void LoadGoods() {
 			throw new NotImplementedException();

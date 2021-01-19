@@ -9,6 +9,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace CityTrafficControl.SS2 {
+	/// <summary>
+	/// Manages and creates the routes for SS2.
+	/// </summary>
 	static class RouteManager {
 		private static readonly TimeSpan MAX_UPDATE_TIMEOUT = TimeSpan.FromSeconds(60);
 
@@ -28,12 +31,19 @@ namespace CityTrafficControl.SS2 {
 		}
 
 
+		/// <summary>
+		/// Checks if the update timeout wasn't exceeded or requests a new update from SS3 otherwise.
+		/// </summary>
 		public static void CheckUpdateTimeout() {
 			if ((Master.SimulationManager.CurTickTime.Subtract(lastUpdateTime).CompareTo(MAX_UPDATE_TIMEOUT)) > 0) {
 				RequestBaseRoutes();
 			}
 		}
 
+		/// <summary>
+		/// Updates the stored BaseRoutes according to the received BaseRouteUpdates.
+		/// </summary>
+		/// <param name="baseRoutesUpdates">The updates that need to be applied</param>
 		public static void UpdateBaseRoutes(List<BaseRouteUpdate> baseRoutesUpdates) {
 			lastUpdateTime = Master.SimulationManager.CurTickTime;
 
@@ -75,6 +85,12 @@ namespace CityTrafficControl.SS2 {
 			}
 		}
 
+		/// <summary>
+		/// Returns the best BaseRoute for routing between the start StreetConnector and the end StreetConnector.
+		/// </summary>
+		/// <param name="start">The start StreetConnector</param>
+		/// <param name="end">The end StreetConnector</param>
+		/// <returns>The best BaseRoute or null if no BaseRoute is available</returns>
 		public static BaseRoute GetBestBaseRoute(StreetConnector start, StreetConnector end) {
 			SortedList<double, BaseRoute> routes = new SortedList<double, BaseRoute>();
 			BaseRoute route;
@@ -92,6 +108,13 @@ namespace CityTrafficControl.SS2 {
 
 			return routes.First().Value;
 		}
+
+		/// <summary>
+		/// Returns a new SpecialRoute between the start StreetConnector and the end StreetConnector.
+		/// </summary>
+		/// <param name="start">The start StreetConnetor</param>
+		/// <param name="end">The end StreetConnector</param>
+		/// <returns>The new SpecialRoute</returns>
 		public static SpecialRoute GetSpecialRoute(StreetConnector start, StreetConnector end) {
 			return new SpecialRoute(start, end);
 		}

@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace CityTrafficControl.Master {
+	/// <summary>
+	/// Is used to report messages to the MainWindow.
+	/// </summary>
 	public static class ReportManager {
 		private static MainWindow mainWindow;
 

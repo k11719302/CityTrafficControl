@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace CityTrafficControl.Master.StreetMap {
+	/// <summary>
+	/// A public transport station, where Pedestrians can get on and off public transport vehicles.
+	/// </summary>
 	public abstract class PublicTransportStation {
 		private static int nextID;
 
@@ -17,6 +20,10 @@ namespace CityTrafficControl.Master.StreetMap {
 		}
 
 
+		/// <summary>
+		/// Creates a new PublicTransportStation and connects it to a specific StreetConnector.
+		/// </summary>
+		/// <param name="connector">The StreetConnector to where connect to</param>
 		protected PublicTransportStation(StreetConnector connector) {
 			id = NextID;
 
@@ -29,6 +36,9 @@ namespace CityTrafficControl.Master.StreetMap {
 		private static int NextID { get { return nextID++; } }
 
 
+		/// <summary>
+		/// Gets the id of this PublicTransportStation.
+		/// </summary>
 		public int ID { get { return id; } }
 
 		/// <summary>

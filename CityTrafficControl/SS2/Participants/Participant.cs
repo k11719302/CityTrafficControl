@@ -9,6 +9,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace CityTrafficControl.SS2.Participants {
+	/// <summary>
+	/// A basic Participant that can move in the world.
+	/// </summary>
 	abstract class Participant : IIDSupport {
 		private static int nextID;
 
@@ -37,6 +40,13 @@ namespace CityTrafficControl.SS2.Participants {
 		}
 
 
+		/// <summary>
+		/// Creates a new Participant.
+		/// </summary>
+		/// <param name="position">The initial position of this participant</param>
+		/// <param name="maxSpeed">The max speed of this participant</param>
+		/// <param name="accidentRisk">The risk that this participant causes an accident</param>
+		/// <param name="size">The amount of space this participant uses up</param>
 		protected Participant(StreetConnector position, double maxSpeed, double accidentRisk, double size) {
 			id = NextID;
 			currentConnector = position;
@@ -55,6 +65,13 @@ namespace CityTrafficControl.SS2.Participants {
 			claimedSpace = false;
 			isFirstClaim = true;
 		}
+		/// <summary>
+		/// Creates a new Participant.
+		/// </summary>
+		/// <param name="position">The initial position of this participant</param>
+		/// <param name="maxSpeed">The max speed of this participant</param>
+		/// <param name="accidentRisk">The risk that this participant causes an accident</param>
+		/// <param name="size">The amount of space this participant uses up</param>
 		protected Participant(Building position, double maxSpeed, double accidentRisk, double size) : this(position.Connector, maxSpeed, accidentRisk, size) {
 			currentBuilding = position;
 		}
@@ -63,21 +80,52 @@ namespace CityTrafficControl.SS2.Participants {
 		private static int NextID { get { return nextID++; } }
 
 
+		/// <summary>
+		/// Gets the id of this Participant.
+		/// </summary>
 		public int ID { get { return id; } }
+		/// <summary>
+		/// Gets the Building the Participant is currently in.
+		/// </summary>
 		public Building CurrentBuilding { get { return currentBuilding; } }
+		/// <summary>
+		/// Gets the StreetConnector where this Participant currently is.
+		/// </summary>
 		public StreetConnector CurrentConnector { get { return currentConnector; } }
+		/// <summary>
+		/// Gets the position of this Participant.
+		/// </summary>
 		public ParticipantPosition Position { get { return position; } }
+		/// <summary>
+		/// Gets the max speed of this Participant.
+		/// </summary>
 		public double MaxSpeed { get { return maxSpeed; } }
+		/// <summary>
+		/// Gets the risk of this Participant causing an accident.
+		/// </summary>
 		public double AccidentRisk { get { return accidentRisk; } }
+		/// <summary>
+		/// Gets the size of this Participant.
+		/// </summary>
 		public double Size { get { return size; } }
 
+		/// <summary>
+		/// Gets whether this Participant is currently in a Building.
+		/// </summary>
 		public bool IsInBuilding { get { return currentBuilding != null; } }
 
 
+		/// <summary>
+		/// Simulates a single tick in the simulation.
+		/// </summary>
 		public virtual void SimulateTick() {
 			timeBonus = timeBonus.Add(Master.SimulationManager.TickDuration);
 		}
 
+		/// <summary>
+		/// Starts a new route to a given goal StreetConnector.
+		/// </summary>
+		/// <param name="goal">The goal StreetConnector</param>
 		public void StartNewRoute(StreetConnector goal) {
 			goalConnector = goal;
 			if (goal == currentConnector) {
@@ -100,6 +148,9 @@ namespace CityTrafficControl.SS2.Participants {
 			}
 		}
 
+		/// <summary>
+		/// Follows the current route as long as the time suffice.
+		/// </summary>
 		public void ExecuteRouting() {
 			bool executing = true;
 
@@ -211,6 +262,10 @@ namespace CityTrafficControl.SS2.Participants {
 			}
 		}
 
+		/// <summary>
+		/// Returns a string representing this Object.
+		/// </summary>
+		/// <returns>A string representation of this Object</returns>
 		public override string ToString() {
 			return string.Format("Participant({0})", id);
 		}
@@ -315,6 +370,9 @@ namespace CityTrafficControl.SS2.Participants {
 		}
 
 
+		/// <summary>
+		/// All routing states a Participant can be in.
+		/// </summary>
 		public enum RoutingState {
 			Idle, Starting,
 			SpecialStart1, SpecialWayspoints1, SpecialEnd1,

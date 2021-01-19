@@ -6,9 +6,12 @@ using System.Threading.Tasks;
 
 namespace CityTrafficControl.Master.StreetMap {
 	/// <summary>
-	/// A point on the street map where two StreetTypes are connected with the use of StreetEndpoints.
+	/// A point on the street map where two StreetTypes are connected to with the use of StreetEndpoints.
 	/// </summary>
 	public class StreetConnector {
+		/// <summary>
+		/// The max health a StreetConnector can have.
+		/// </summary>
 		public const double MAX_HEALTH = 100;
 
 
@@ -42,21 +45,41 @@ namespace CityTrafficControl.Master.StreetMap {
 			health = MAX_HEALTH;
 			priority = 0;
 		}
+		/// <summary>
+		/// Creates a new StreetConnector at the given horizontal and vertical position.
+		/// </summary>
+		/// <param name="x">The horizontal position</param>
+		/// <param name="y">The vertical position</param>
 		public StreetConnector(double x, double y) : this(new Coordinate(x, y)) { }
 
 
 		private static int NextID { get { return nextID++; } }
 
 
+		/// <summary>
+		/// Gets the id of this StreetConnector.
+		/// </summary>
 		public int ID { get { return id; } }
 		/// <summary>
-		/// Gets the coordinate.
+		/// Gets the coordinate of this StreetConnector.
 		/// </summary>
 		public Coordinate Coordinate { get { return coordinate; } }
+		/// <summary>
+		/// Gets the first StreetEndpoint of this StreetConnector.
+		/// </summary>
 		public StreetEndpoint EP1 { get { return ep1; } }
+		/// <summary>
+		/// Gets the second StreetEndpoint of this StreetConnector.
+		/// </summary>
 		public StreetEndpoint EP2 { get { return ep2; } }
 
+		/// <summary>
+		/// Gets or sets the health of this StreetConnector.
+		/// </summary>
 		public double Health { get { return health; } set { health = value > MAX_HEALTH ? MAX_HEALTH : value < 0 ? 0 : value; } }
+		/// <summary>
+		/// Gets or sets the priority of this StreetConnector to be repaired.
+		/// </summary>
 		public double Priority { get { return priority; } set { priority = value < 0 ? 0 : value; } }
 
 
@@ -152,6 +175,10 @@ namespace CityTrafficControl.Master.StreetMap {
 			return DisconnectResult.Disconnected;
 		}
 
+		/// <summary>
+		/// Returns all StreetConnectors that are connected to this one over a StreetType.
+		/// </summary>
+		/// <returns>A list of all connected StreetConnectors</returns>
 		public List<StreetConnector> FindNeighbours() {
 			List<StreetConnector> neighbours = new List<StreetConnector>();
 
@@ -161,6 +188,10 @@ namespace CityTrafficControl.Master.StreetMap {
 			return neighbours;
 		}
 
+		/// <summary>
+		/// Returns a string representing this Object.
+		/// </summary>
+		/// <returns>A string representation of this Object</returns>
 		public override string ToString() {
 			return string.Format("StreetConnector({0})", id);
 		}

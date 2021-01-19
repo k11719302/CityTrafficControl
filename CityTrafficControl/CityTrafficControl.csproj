@@ -84,7 +84,6 @@
     <Compile Include="SS2\DataStructures\BaseRouteInfo.cs" />
     <Compile Include="SS2\DataStructures\ParticipantPosition.cs" />
     <Compile Include="SS2\DataStructures\SpecialRoute.cs" />
-    <Compile Include="SS2\DataStructures\TrackTypes.cs" />
     <Compile Include="SS2\ParticipantInfoManager.cs" />
     <Compile Include="SS2\Participants\Adult.cs" />
     <Compile Include="SS2\Participants\Bus.cs" />
@@ -165,16 +164,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Master\DataStructures\TODO.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="SS2\TODO.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="SS1\TODO.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Master\TODO.txt" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="SS3\TODO.txt" />

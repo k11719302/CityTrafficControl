@@ -70,10 +70,18 @@ namespace CityTrafficControl.Master.StreetMap {
 			return false;
 		}
 
+		/// <summary>
+		/// Returns all StreetConnectors that are connected to the assiziated StreetType, except the one connected to this StreetEndpoint.
+		/// </summary>
+		/// <returns>A list of all connected StreetConnectors</returns>
 		public List<StreetConnector> FindNeighbours() {
 			return self.FindNeighbours(this);
 		}
 
+		/// <summary>
+		/// Returns a string representing this Object.
+		/// </summary>
+		/// <returns>A string representation of this Object</returns>
 		public override string ToString() {
 			return string.Format("StreetEndpoint(c={0})", connector.ID);
 		}

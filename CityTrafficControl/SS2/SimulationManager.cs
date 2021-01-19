@@ -7,15 +7,24 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace CityTrafficControl.SS2 {
+	/// <summary>
+	/// Manages the simulation of SS2.
+	/// </summary>
 	static class SimulationManager {
 		private static List<Participant> participants;
 
 
+		/// <summary>
+		/// Initializes the SimulationManager.
+		/// </summary>
 		public static void Init() {
 			participants = new List<Participant>();
 			GenerateParticipants(100);
 		}
 
+		/// <summary>
+		/// Advances a tick in the simulation.
+		/// </summary>
 		public static void SimulateTick() {
 			// Commented out to not force an update
 			//RouteManager.CheckUpdateTimeout();

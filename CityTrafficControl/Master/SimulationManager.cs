@@ -5,7 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace CityTrafficControl.Master {
+	/// <summary>
+	/// Manages the simulation of the whole system.
+	/// </summary>
 	static class SimulationManager {
+		/// <summary>
+		/// Defines whether the system is in debug mode.
+		/// </summary>
 		public const bool DEBUG_MODE = true;
 
 		private static bool isInitialized;
@@ -48,6 +54,9 @@ namespace CityTrafficControl.Master {
 		/// </summary>
 		public static TimeSpan TickDuration { get { return tickDuration; } }
 
+		/// <summary>
+		/// Gets a Random instance that can be used for randomization.
+		/// </summary>
 		public static Random Random { get { return random; } }
 
 
@@ -152,6 +161,9 @@ namespace CityTrafficControl.Master {
 		}
 
 
+		/// <summary>
+		/// The current state of the simulation.
+		/// </summary>
 		public enum SimulationState {
 			Stopped, Starting, Running, Stopping
 		}

@@ -39,7 +39,7 @@ namespace CityTrafficControl.Master.StreetMap {
 		/// </summary>
 		/// <param name="c1">The first Coordinate</param>
 		/// <param name="c2">The second Coordinate</param>
-		/// <returns>The distance between two Coordinates</returns>
+		/// <returns>The distance between the two Coordinates</returns>
 		public static double GetDistance(Coordinate c1, Coordinate c2) {
 			double diffX = c1.X - c2.X;
 			double diffY = c1.Y - c2.Y;
@@ -48,6 +48,10 @@ namespace CityTrafficControl.Master.StreetMap {
 		}
 
 
+		/// <summary>
+		/// Returns a string representing this Object.
+		/// </summary>
+		/// <returns>A string representation of this Object</returns>
 		public override string ToString() {
 			return string.Format("Coordinate({0}, {1})", x, y);
 		}

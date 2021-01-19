@@ -1,7 +1,0 @@
-﻿RouteManager
-	updateRoutes
-	generateSpecialRoute
-
-ParticipantInfoManager
-	
-

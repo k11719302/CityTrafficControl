@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace CityTrafficControl.Master.StreetMap {
+	/// <summary>
+	/// Manages all interactions with the StreetMap.
+	/// </summary>
 	static class StreetMapManager {
 		private static bool isInitialized;
 
@@ -25,6 +28,9 @@ namespace CityTrafficControl.Master.StreetMap {
 		}
 
 
+		/// <summary>
+		/// Initializes the StreetMapManager.
+		/// </summary>
 		public static void Init() {
 			if (isInitialized) {
 				ReportManager.PrintError("StreetMapManager already initialized!");
@@ -36,6 +42,13 @@ namespace CityTrafficControl.Master.StreetMap {
 			ReportManager.PrintOutput("StreetMapManager initialized.");
 		}
 
+		/// <summary>
+		/// Generates a natural disaster, damages the affected StreetConnectors and returns them.
+		/// </summary>
+		/// <param name="center">The center of the natural disaster where the max damage is dealt</param>
+		/// <param name="radius">The radius of effect of this natural disaster</param>
+		/// <param name="strength">The amount of damage that this natural disaster deals in the center</param>
+		/// <returns>A list of all affected StreetConnectors</returns>
 		public static List<StreetConnector> CreateNaturalDisaster(Coordinate center, double radius, double strength) {
 			List<StreetConnector> affected = new List<StreetConnector>();
 			double distance;
@@ -377,37 +390,70 @@ namespace CityTrafficControl.Master.StreetMap {
 		}
 
 
+		/// <summary>
+		/// Creates new StreetMap-Element instances.
+		/// </summary>
 		public static class Factory {
+			/// <summary>
+			/// Creates a new StreetConnector and returns it.
+			/// </summary>
+			/// <param name="coordinate">The coordinate of the StreetConnector</param>
+			/// <returns>A new instance of a StreetConnector</returns>
 			public static StreetConnector NewStreetConnector(Coordinate coordinate) {
 				StreetConnector connector = new StreetConnector(coordinate);
 				connectors.Add(connector.ID, connector);
 				return connector;
 			}
 
+			/// <summary>
+			/// Creates a new StreetHub and returns it.
+			/// </summary>
+			/// <returns>A new instance of a StreetHub</returns>
 			public static StreetHub NewStreetHub() {
 				StreetHub hub = new StreetHub();
 				hubs.Add(hub.ID, hub);
 				return hub;
 			}
 
+			/// <summary>
+			/// Creates a new StreetSegment and returns it.
+			/// </summary>
+			/// <param name="c1">The first StreetConnector</param>
+			/// <param name="c2">The second StreetConnector</param>
+			/// <returns>A new instance of a StreetSegment</returns>
 			public static StreetSegment NewStreetSegment(StreetConnector c1, StreetConnector c2) {
 				StreetSegment segment = new StreetSegment(c1, c2);
 				segments.Add(segment.ID, segment);
 				return segment;
 			}
 
+			/// <summary>
+			/// Creates a new Building and returns it.
+			/// </summary>
+			/// <param name="connector">The assoziated StreetConnector</param>
+			/// <returns>A new instance of a Building</returns>
 			public static Building NewBuilding(StreetConnector connector) {
 				Building building = new Building(connector);
 				buildings.Add(building.ID, building);
 				return building;
 			}
 
+			/// <summary>
+			/// Creates a new TramStation and returns it.
+			/// </summary>
+			/// <param name="connector">The assoziated StreetConnector</param>
+			/// <returns>A new instance of a TramStation</returns>
 			public static TramStation NewTramStation(StreetConnector connector) {
 				TramStation station = new TramStation(connector);
 				stations.Add(station.ID, station);
 				return station;
 			}
 
+			/// <summary>
+			/// Creates a new BusStation and returns it.
+			/// </summary>
+			/// <param name="connector">The assoziated StreetConnector</param>
+			/// <returns>A new instance of a BusStation</returns>
 			public static BusStation NewBusStation(StreetConnector connector) {
 				BusStation station = new BusStation(connector);
 				stations.Add(station.ID, station);
@@ -415,14 +461,37 @@ namespace CityTrafficControl.Master.StreetMap {
 			}
 		}
 
+		/// <summary>
+		/// Allows access to the StreetMap data.
+		/// </summary>
 		public static class Data {
+			/// <summary>
+			/// Gets the total count of StreetConnectors.
+			/// </summary>
 			public static int StreetConnectorsCount { get { return connectors.Count; } }
+			/// <summary>
+			/// Gets the total count of StreetHubs.
+			/// </summary>
 			public static int StreetHubsCount { get { return hubs.Count; } }
+			/// <summary>
+			/// Gets the total count of StreetSegments.
+			/// </summary>
 			public static int StreetSegmentsCount { get { return segments.Count; } }
+			/// <summary>
+			/// Gets the total count of Buildings.
+			/// </summary>
 			public static int BuildingsCount { get { return buildings.Count; } }
+			/// <summary>
+			/// Gets the total count of PublicTransportStations.
+			/// </summary>
 			public static int PublicTransportStationsCount { get { return stations.Count; } }
 
 
+			/// <summary>
+			/// Returns the StreetConnector with the given id.
+			/// </summary>
+			/// <param name="id">The requested id</param>
+			/// <returns>The StreetConnector</returns>
 			public static StreetConnector StreetConnectors(int id) {
 				StreetConnector connector;
 				if (connectors.TryGetValue(id, out connector)) {
@@ -433,6 +502,11 @@ namespace CityTrafficControl.Master.StreetMap {
 				return null;
 			}
 
+			/// <summary>
+			/// Returns the StreetHub with the given id.
+			/// </summary>
+			/// <param name="id">The requested id</param>
+			/// <returns>The StreetHub</returns>
 			public static StreetHub StreetHubs(int id) {
 				StreetHub hub;
 				if (hubs.TryGetValue(id, out hub)) {
@@ -443,6 +517,11 @@ namespace CityTrafficControl.Master.StreetMap {
 				return null;
 			}
 
+			/// <summary>
+			/// Returns the StreetSegment with the given id.
+			/// </summary>
+			/// <param name="id">The requested id</param>
+			/// <returns>The StreetSegment</returns>
 			public static StreetSegment StreetSegments(int id) {
 				StreetSegment segment;
 				if (segments.TryGetValue(id, out segment)) {
@@ -453,6 +532,11 @@ namespace CityTrafficControl.Master.StreetMap {
 				return null;
 			}
 
+			/// <summary>
+			/// Returns the Building with the given id.
+			/// </summary>
+			/// <param name="id">The requested id</param>
+			/// <returns>The Building</returns>
 			public static Building Buildings(int id) {
 				Building building;
 				if (buildings.TryGetValue(id, out building)) {
@@ -463,6 +547,11 @@ namespace CityTrafficControl.Master.StreetMap {
 				return null;
 			}
 
+			/// <summary>
+			/// Returns the PublicTransportStation with the given id.
+			/// </summary>
+			/// <param name="id">The requested id</param>
+			/// <returns>The PublicTransportStation</returns>
 			public static PublicTransportStation PublicTransportStations(int id) {
 				PublicTransportStation station;
 				if (stations.TryGetValue(id, out station)) {

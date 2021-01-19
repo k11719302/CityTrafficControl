@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace CityTrafficControl.Master.StreetMap {
+	/// <summary>
+	/// A Building assoziated to a specific StreetConnector.
+	/// </summary>
 	public class Building {
 		private static int nextID;
 
@@ -17,6 +20,10 @@ namespace CityTrafficControl.Master.StreetMap {
 		}
 
 		
+		/// <summary>
+		/// Creates a new Building and connects it to a specific StreetConnector.
+		/// </summary>
+		/// <param name="connector">The StreetConnector to connects this Building to</param>
 		public Building(StreetConnector connector) {
 			id = NextID;
 
@@ -29,7 +36,13 @@ namespace CityTrafficControl.Master.StreetMap {
 		private static int NextID { get { return nextID++; } }
 
 
+		/// <summary>
+		/// Gets the id of this building.
+		/// </summary>
 		public int ID { get { return id; } }
+		/// <summary>
+		/// Gets the StreetConnector to which this Building is connected.
+		/// </summary>
 		public StreetConnector Connector { get { return connector; } }
 
 		/// <summary>
@@ -71,6 +84,10 @@ namespace CityTrafficControl.Master.StreetMap {
 			return false;
 		}
 
+		/// <summary>
+		/// Returns a string representing this Object.
+		/// </summary>
+		/// <returns>A string representation of this Object</returns>
 		public override string ToString() {
 			return string.Format("Building({0})", id);
 		}
