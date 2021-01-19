@@ -28,7 +28,10 @@ namespace CityTrafficControl.SS1
             timeStamp = Master.SimulationManager.CurTickTime;
         }
 
-        //this method updates the traffic lights state if needed
+
+        /// <summary>
+        /// This method updates the traffic lights state if needed.
+        /// </summary>
         public void Update()
         {
             TrafficLight light = TrafficControl.FindLight(lightId); //search for this light
